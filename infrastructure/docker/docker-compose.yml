@@ -1,0 +1,54 @@
+# CampusVoice Docker Compose
+# For production, use this with proper environment variables
+
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: infrastructure/docker/backend.Dockerfile
+    container_name: campusvoice-backend
+    restart: unless-stopped
+    env_file:
+      - ../backend/.env
+    ports:
+      - "3001:3001"
+    depends_on:
+      - redis
+    networks:
+      - campusvoice
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: infrastructure/docker/frontend.Dockerfile
+    container_name: campusvoice-frontend
+    restart: unless-stopped
+    env_file:
+      - ../frontend/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - campusvoice
+
+  redis:
+    image: redis:7-alpine
+    container_name: campusvoice-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - campusvoice
+
+volumes:
+  redis_data:
+
+networks:
+  campusvoice:
+    driver: bridge
