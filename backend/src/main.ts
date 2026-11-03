@@ -38,8 +38,29 @@ async function bootstrap() {
     next();
   });
 
+  // CORS: allow one or more front-end origins (comma-separated in CORS_ORIGIN).
+  // Optionally allow Vercel preview deployments (*.vercel.app) for CI previews.
+  const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+  const allowVercelPreviews =
+    process.env.CORS_ALLOW_VERCEL_PREVIEWS === 'true';
+
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    origin: (origin, callback) => {
+      // Non-browser clients (curl, server-to-server) send no Origin header.
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      try {
+        if (allowVercelPreviews && /\.vercel\.app$/.test(new URL(origin).hostname)) {
+          return callback(null, true);
+        }
+      } catch {
+        // malformed origin -> fall through to rejection
+      }
+      return callback(new Error(`Origin ${origin} is not allowed by CORS`));
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],

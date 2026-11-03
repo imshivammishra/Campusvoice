@@ -1,15 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@campusvoice/shared'],
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/:path*`,
-      },
-    ];
-  },
+  // The app talks to the backend directly via NEXT_PUBLIC_API_URL (absolute,
+  // including the /api/v1 suffix). No local package transpilation or rewrites
+  // are required, which keeps the Vercel build self-contained.
 };
 
 module.exports = nextConfig;

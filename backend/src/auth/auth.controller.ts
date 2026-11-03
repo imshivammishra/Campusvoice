@@ -22,19 +22,34 @@ import { CurrentUser } from '../common/decorators/current-user.decorator';
 // the refresh/logout endpoints.
 const REFRESH_COOKIE_PATH = '/api/v1/auth';
 
-const ACCESS_COOKIE_OPTIONS = {
+// When the frontend (e.g. Vercel) and backend are on different sites, browsers
+// only send cookies on cross-site requests if they are SameSite=None; Secure.
+// Enable this in production, or explicitly via COOKIE_CROSS_SITE=true.
+const CROSS_SITE =
+  process.env.COOKIE_CROSS_SITE === 'true' ||
+  process.env.NODE_ENV === 'production';
+
+const BASE_COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'lax' as const,
+  secure: CROSS_SITE, // Secure is required for SameSite=None
+  sameSite: (CROSS_SITE ? 'none' : 'lax') as 'none' | 'lax',
+};
+
+const ACCESS_COOKIE_OPTIONS = {
+  ...BASE_COOKIE_OPTIONS,
   maxAge: 8 * 60 * 60 * 1000,
   path: '/',
 };
 
 const REFRESH_COOKIE_OPTIONS = {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'lax' as const,
+  ...BASE_COOKIE_OPTIONS,
   maxAge: 7 * 24 * 60 * 60 * 1000,
+  path: REFRESH_COOKIE_PATH,
+};
+
+const CLEAR_ACCESS_OPTIONS = { ...BASE_COOKIE_OPTIONS, path: '/' };
+const CLEAR_REFRESH_OPTIONS = {
+  ...BASE_COOKIE_OPTIONS,
   path: REFRESH_COOKIE_PATH,
 };
 
@@ -88,8 +103,8 @@ export class AuthController {
   ) {
     const refreshToken = req.cookies?.['cv_refresh_token'];
     await this.authService.logout(userId, refreshToken);
-    res.clearCookie('cv_access_token', { path: '/' });
-    res.clearCookie('cv_refresh_token', { path: REFRESH_COOKIE_PATH });
+    res.clearCookie('cv_access_token', CLEAR_ACCESS_OPTIONS);
+    res.clearCookie('cv_refresh_token', CLEAR_REFRESH_OPTIONS);
     return { success: true };
   }
 
