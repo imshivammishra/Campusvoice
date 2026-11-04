@@ -240,8 +240,12 @@ async function startElectionsNow(classId?: string) {
 
 async function startElections(ctx: RouteContext) {
   const user = await requireAuth(ctx.req);
-  if (!canManage(user.role) && !hasPermission(user, PERMISSIONS.ELECTIONS_CREATE)) {
-    throw new ApiError('Only an administrator can start CR voting', 403);
+  if (
+    !canManage(user.role) &&
+    user.role !== ROLES.TEACHER &&
+    !hasPermission(user, PERMISSIONS.ELECTIONS_CREATE)
+  ) {
+    throw new ApiError('Only an administrator or teacher can start CR voting', 403);
   }
   const body = await ctx.body().catch(() => ({}));
   const opened = await startElectionsNow(body?.classId);

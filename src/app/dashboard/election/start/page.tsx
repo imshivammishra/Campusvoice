@@ -23,6 +23,7 @@ function canStartElections(user: AuthUser | null) {
   return (
     user.role === 'SUPER_ADMIN' ||
     user.role === 'REGISTRAR' ||
+    user.role === 'TEACHER' ||
     AUTHORITY_ROLES.includes(user.role as any) ||
     Boolean(user.permissions?.includes('elections:create'))
   );

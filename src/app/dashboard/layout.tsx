@@ -61,7 +61,7 @@ const WORKSPACE_NAV: NavItem[] = [
     name: 'CR Election',
     href: '/dashboard/election',
     icon: Vote,
-    roles: STUDENT_ROLES,
+    roles: [...STUDENT_ROLES, 'TEACHER', ...AUTHORITY],
   },
   {
     name: 'Concerns',
