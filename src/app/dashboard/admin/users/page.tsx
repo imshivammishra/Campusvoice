@@ -309,6 +309,7 @@ export default function AdminUsersPage() {
         onClose={() => setEditUser(null)}
         allPermissions={allPermissions}
         onChanged={load}
+        viewerCanDelete={canDeleteUsers}
       />
     </div>
   );
@@ -514,17 +515,20 @@ function ManageUserModal({
   onClose,
   allPermissions,
   onChanged,
+  viewerCanDelete,
 }: {
   user: User | null;
   onClose: () => void;
   allPermissions: string[];
   onChanged: () => void;
+  viewerCanDelete: boolean;
 }) {
   const [role, setRole] = useState('');
   const [permissions, setPermissions] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
   const [tempPassword, setTempPassword] = useState('');
   const [className, setClassName] = useState('');
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -532,6 +536,7 @@ function ManageUserModal({
       setPermissions(user.permissions || []);
       setTempPassword('');
       setClassName(user.className || '');
+      setUsername(user.username || '');
     }
   }, [user]);
 
@@ -546,6 +551,12 @@ function ManageUserModal({
   const saveRoleAndPerms = async () => {
     setBusy(true);
     try {
+      if (username.trim() && username.trim().toLowerCase() !== (user.username || '').toLowerCase()) {
+        await apiRequest(`/users/${user._id}`, {
+          method: 'PATCH',
+          body: JSON.stringify({ username: username.trim() }),
+        });
+      }
       if (role !== user.role) {
         await apiRequest(`/users/${user._id}/role`, {
           method: 'PATCH',
@@ -645,6 +656,13 @@ function ManageUserModal({
     >
       <div className="space-y-5">
         <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Username">
+            <Input
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="username"
+            />
+          </Field>
           <Field label="Role">
             <Select value={role} onChange={(e) => setRole(e.target.value)}>
               {ROLES.map((r) => (
@@ -711,7 +729,7 @@ function ManageUserModal({
           />
         </div>
 
-        {!canDeleteUsers && (
+        {viewerCanDelete && (
           <div className="rounded-[12px] border border-[#fecaca] bg-[#fef2f2] p-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">

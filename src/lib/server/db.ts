@@ -41,8 +41,7 @@ export async function connectDB(): Promise<typeof mongoose> {
   try {
     cached.conn = await cached.promise;
     await syncIndexes();
-    const { ensureSeedData, ensureBootstrapAdmin } = await import('./seed');
-    await ensureSeedData();
+    const { ensureBootstrapAdmin } = await import('./seed');
     await ensureBootstrapAdmin();
   } catch (error) {
     cached.promise = null;

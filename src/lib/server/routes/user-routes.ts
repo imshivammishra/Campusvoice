@@ -331,6 +331,20 @@ async function users(ctx: RouteContext, id?: string, action?: string) {
     ]) {
       if (body[key] !== undefined) update[key] = body[key];
     }
+    if (body.username !== undefined) {
+      const newUsername = String(body.username).trim().toLowerCase();
+      if (!/^[a-zA-Z0-9._-]{3,32}$/.test(newUsername)) {
+        throw new ApiError('Username must be 3-32 characters (letters, numbers, dot, dash, underscore)', 422);
+      }
+      const target = await User.findById(id);
+      if (!target) throw new ApiError('User not found', 404);
+      if (target.cannotChangeUsername && viewer.role !== ROLES.SUPER_ADMIN) {
+        throw new ApiError('Username changes are disabled for this account.', 403);
+      }
+      const conflict = await User.findOne({ username: newUsername, _id: { $ne: id } }).lean();
+      if (conflict) throw new ApiError('That username is already taken', 409);
+      update.username = newUsername;
+    }
     if (body.academicYear !== undefined) update.academicYear = Number(body.academicYear);
     if (body.semester !== undefined) update.semester = Number(body.semester);
     if (body.isActive !== undefined) update.isActive = body.isActive;
