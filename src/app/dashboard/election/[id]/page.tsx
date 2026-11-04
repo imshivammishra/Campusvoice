@@ -231,7 +231,7 @@ export default function ElectionDetailPage() {
             description="Nominations have not been approved for this election."
           />
         ) : (
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {candidates.map((candidate) => {
               const candidateId = String(candidate.studentId?._id || candidate.studentId);
               const isMe = candidateId === myId;
@@ -243,11 +243,11 @@ export default function ElectionDetailPage() {
                   key={candidate._id}
                   className={`overflow-hidden p-0 ${isWinner ? 'border-[#34c759]/40 bg-[#34c759]/[0.03]' : ''}`}
                 >
-                  <div className="flex items-start justify-between gap-3 border-b border-[#e4e4e7] px-5 py-4">
+                  <div className="flex items-start justify-between gap-3 border-b border-[#e4e4e7] px-4 py-3">
                     <div className="flex min-w-0 items-center gap-3">
                       <Avatar
                         name={candidate.studentName || 'Candidate'}
-                        className="h-9 w-9 shrink-0"
+                        className="h-10 w-10 shrink-0"
                       />
                       <div className="min-w-0">
                         <p className="truncate text-[13px] font-semibold text-[#09090b]">
@@ -265,7 +265,7 @@ export default function ElectionDetailPage() {
                     )}
                   </div>
 
-                  <div className="px-5 py-4">
+                  <div className="px-4 py-3">
                     {candidate.manifesto ? (
                       <p className="text-[12.5px] leading-relaxed text-[#71717a]">
                         {candidate.manifesto}

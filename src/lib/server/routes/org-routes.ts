@@ -1,6 +1,17 @@
 import { ApiError, audit, requireAuth, requirePermission } from '../auth';
 import { PERMISSIONS, ROLE_PERMISSIONS, ROLES } from '../constants';
-import { Class, Department, Institution } from '../models';
+import {
+  AnonymousBallot,
+  Class,
+  CRAssignment,
+  CRElection,
+  CRCandidate,
+  Department,
+  Institution,
+  Notification,
+  User,
+  VotingAuthorization,
+} from '../models';
 import type { RouteContext } from '../http';
 import { json, requireString } from '../http';
 
@@ -70,8 +81,27 @@ async function institutions(ctx: RouteContext, id?: string, sub?: string) {
 
   if (ctx.method === 'DELETE' && id) {
     await requirePermission(ctx.req, PERMISSIONS.INSTITUTION_CONFIGURE);
-    const institution = await Institution.findByIdAndDelete(id);
+    const institution = await Institution.findById(id);
     if (!institution) throw new ApiError('Institution not found', 404);
+    const departments = await Department.find({ institutionId: id }).select('_id').lean();
+    const departmentIds = departments.map((d: any) => d._id);
+    const classes = await Class.find({ institutionId: id }).select('_id').lean();
+    const classIds = classes.map((c: any) => c._id);
+    const elections = await CRElection.find({ classId: { $in: classIds } }).select('_id').lean();
+    const electionIds = elections.map((e: any) => e._id);
+    const userIds = await User.find({ institutionId: id }).distinct('_id');
+    await Promise.all([
+      Institution.deleteOne({ _id: id }),
+      Department.deleteMany({ institutionId: id }),
+      Class.deleteMany({ institutionId: id }),
+      User.deleteMany({ institutionId: id }),
+      CRElection.deleteMany({ classId: { $in: classIds } }),
+      CRCandidate.deleteMany({ electionId: { $in: electionIds } }),
+      AnonymousBallot.deleteMany({ electionId: { $in: electionIds }, scope: 'election' }),
+      VotingAuthorization.deleteMany({ electionId: { $in: electionIds } }),
+      CRAssignment.deleteMany({ classId: { $in: classIds } }),
+      Notification.deleteMany({ userId: { $in: userIds } }),
+    ]);
     return json({ success: true });
   }
 
@@ -128,8 +158,24 @@ async function departments(ctx: RouteContext, id?: string, _sub?: string) {
 
   if (ctx.method === 'DELETE' && id) {
     await requirePermission(ctx.req, PERMISSIONS.INSTITUTION_CONFIGURE);
-    const department = await Department.findByIdAndDelete(id);
+    const department = await Department.findById(id);
     if (!department) throw new ApiError('Department not found', 404);
+    const classes = await Class.find({ departmentId: id }).select('_id').lean();
+    const classIds = classes.map((c: any) => c._id);
+    const elections = await CRElection.find({ classId: { $in: classIds } }).select('_id').lean();
+    const electionIds = elections.map((e: any) => e._id);
+    const userIds = await User.find({ departmentId: id }).distinct('_id');
+    await Promise.all([
+      Department.deleteOne({ _id: id }),
+      Class.deleteMany({ departmentId: id }),
+      User.deleteMany({ departmentId: id }),
+      CRElection.deleteMany({ classId: { $in: classIds } }),
+      CRCandidate.deleteMany({ electionId: { $in: electionIds } }),
+      AnonymousBallot.deleteMany({ electionId: { $in: electionIds }, scope: 'election' }),
+      VotingAuthorization.deleteMany({ electionId: { $in: electionIds } }),
+      CRAssignment.deleteMany({ classId: { $in: classIds } }),
+      Notification.deleteMany({ userId: { $in: userIds } }),
+    ]);
     return json({ success: true });
   }
   return null;
@@ -194,8 +240,21 @@ async function classes(ctx: RouteContext, id?: string, _sub?: string) {
 
   if (ctx.method === 'DELETE' && id) {
     await requirePermission(ctx.req, PERMISSIONS.INSTITUTION_CONFIGURE);
-    const klass = await Class.findByIdAndDelete(id);
+    const klass = await Class.findById(id);
     if (!klass) throw new ApiError('Class not found', 404);
+    const elections = await CRElection.find({ classId: id }).select('_id').lean();
+    const electionIds = elections.map((e: any) => e._id);
+    const userIds = await User.find({ classId: id }).distinct('_id');
+    await Promise.all([
+      Class.deleteOne({ _id: id }),
+      User.deleteMany({ classId: id }),
+      CRElection.deleteMany({ classId: id }),
+      CRCandidate.deleteMany({ electionId: { $in: electionIds } }),
+      AnonymousBallot.deleteMany({ electionId: { $in: electionIds }, scope: 'election' }),
+      VotingAuthorization.deleteMany({ electionId: { $in: electionIds } }),
+      CRAssignment.deleteMany({ classId: id }),
+      Notification.deleteMany({ userId: { $in: userIds } }),
+    ]);
     return json({ success: true });
   }
   return null;

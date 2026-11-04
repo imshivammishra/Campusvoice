@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'sonner';
-import { ArrowUpRight, CalendarClock, Play, Vote } from 'lucide-react';
+import { ArrowUpRight, CalendarClock, Play, Trash2, Vote } from 'lucide-react';
 import { apiRequest } from '@/lib/api';
 import { getStoredUser, type AuthUser } from '@/lib/auth';
 import { AUTHORITY_ROLES } from '@/lib/rbac';
@@ -44,6 +44,36 @@ export default function ElectionPage() {
     load();
   }, [load]);
 
+  const [deleting, setDeleting] = useState(false);
+
+  const deleteElection = async (id: string) => {
+    if (!window.confirm('Delete this election and its voting history? This cannot be undone.')) return;
+    setDeleting(true);
+    try {
+      await apiRequest(`/elections/${id}`, { method: 'DELETE' });
+      toast.success('Election deleted.');
+      load();
+    } catch (e: any) {
+      toast.error(e?.message || 'Delete failed');
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const deleteFinished = async () => {
+    if (!window.confirm('Delete all closed/certified/cancelled election history? This cannot be undone.')) return;
+    setDeleting(true);
+    try {
+      const res: any = await apiRequest('/elections/bulk', { method: 'DELETE' });
+      toast.success(`${res?.deleted ?? 0} election(s) deleted.`);
+      load();
+    } catch (e: any) {
+      toast.error(e?.message || 'Bulk delete failed');
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   const isAdmin = canStartElections(user);
 
   return (
@@ -53,12 +83,18 @@ export default function ElectionPage() {
         description="Class Representative elections. A 24-hour vote opens automatically every Sunday, and a super admin can also start one manually."
       >
         {isAdmin && (
-          <Link href="/dashboard/election/start">
-            <Button>
-              <Play className="h-4 w-4" />
-              Start CR voting
+          <>
+            <Button variant="outline" onClick={deleteFinished} loading={deleting}>
+              <Trash2 className="h-4 w-4" />
+              Delete finished
             </Button>
-          </Link>
+            <Link href="/dashboard/election/start">
+              <Button>
+                <Play className="h-4 w-4" />
+                Start CR voting
+              </Button>
+            </Link>
+          </>
         )}
       </PageHeader>
 
@@ -125,10 +161,28 @@ export default function ElectionPage() {
                 </div>
                 <div className="flex items-center justify-between border-t border-[#e5e5ea] px-5 py-3 text-[11.5px]">
                   <span className="text-[#86868b]">Anonymous ballot</span>
-                  <span className="inline-flex items-center gap-1 font-medium text-[#0071e3]">
-                    View candidates
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </span>
+                  <div className="flex items-center gap-3">
+                    {isAdmin &&
+                      ['closed', 'certified', 'cancelled'].includes(String(election.status)) && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            deleteElection(election._id || election.electionId);
+                          }}
+                          className="inline-flex items-center gap-1 font-medium text-destructive hover:underline"
+                          disabled={deleting}
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                          Delete
+                        </button>
+                      )}
+                    <span className="inline-flex items-center gap-1 font-medium text-[#0071e3]">
+                      View candidates
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
                 </div>
               </Card>
             </Link>

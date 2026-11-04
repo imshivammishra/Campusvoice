@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { Copy, Download, UsersRound } from 'lucide-react';
 import { apiRequest } from '@/lib/api';
@@ -12,6 +12,7 @@ import {
   Input,
   Label,
   PageHeader,
+  Select,
   Table,
   TD,
   TH,
@@ -54,6 +55,8 @@ function parseRows(text: string): Parsed[] {
 export default function AdminStudentsPage() {
   const [text, setText] = useState('');
   const [className, setClassName] = useState('');
+  const [classId, setClassId] = useState('');
+  const [classes, setClasses] = useState<any[]>([]);
   const [section, setSection] = useState('');
   const [course, setCourse] = useState('');
   const [password, setPassword] = useState('');
@@ -61,6 +64,12 @@ export default function AdminStudentsPage() {
   const [results, setResults] = useState<Result[] | null>(null);
 
   const parsed = useMemo(() => parseRows(text), [text]);
+
+  useEffect(() => {
+    apiRequest('/classes')
+      .then((data: any) => setClasses(Array.isArray(data) ? data : data?.data || []))
+      .catch(() => setClasses([]));
+  }, []);
 
   const submit = async () => {
     if (parsed.length === 0) {
@@ -78,6 +87,7 @@ export default function AdminStudentsPage() {
         method: 'POST',
         body: JSON.stringify({
           defaults: {
+            classId: classId || undefined,
             className: className || undefined,
             section: section || undefined,
             course: course || undefined,
@@ -145,11 +155,31 @@ export default function AdminStudentsPage() {
       <Card className="p-6">
         <div className="grid gap-4 sm:grid-cols-3">
           <Field label="Class (applied to all)">
-            <Input
-              value={className}
-              onChange={(e) => setClassName(e.target.value)}
-              placeholder="e.g. CSE-3A"
-            />
+            <Select
+              value={classId}
+              onChange={(e) => {
+                const id = e.target.value;
+                setClassId(id);
+                const klass = classes.find((c) => c._id === id);
+                if (klass) setClassName(klass.name || '');
+              }}
+            >
+              <option value="">Custom class name</option>
+              {classes.map((klass) => (
+                <option key={klass._id} value={klass._id}>
+                  {klass.name}
+                  {klass.code ? ` (${klass.code})` : ''}
+                </option>
+              ))}
+            </Select>
+            {classId === '' && (
+              <Input
+                className="mt-2"
+                value={className}
+                onChange={(e) => setClassName(e.target.value)}
+                placeholder="e.g. CSE-3A"
+              />
+            )}
           </Field>
           <Field label="Section">
             <Input

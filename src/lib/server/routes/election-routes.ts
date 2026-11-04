@@ -27,6 +27,8 @@ export async function handleElections(ctx: RouteContext): Promise<Response | nul
     if ((ctx.method === 'GET' || ctx.method === 'POST') && id === 'cron') return runElectionCron(ctx);
     if (ctx.method === 'POST' && id === 'start') return startElections(ctx);
     if (ctx.method === 'POST' && !id) return createElection(ctx);
+    if (ctx.method === 'DELETE' && id === 'bulk') return deleteElectionsBulk(ctx);
+    if (ctx.method === 'DELETE' && id && !action) return deleteElection(ctx, id);
     if (ctx.method === 'GET' && id && !action) return getElection(ctx, id);
     if (ctx.method === 'POST' && id && action === 'nominate') return nominate(ctx, id);
     if (ctx.method === 'POST' && id && action === 'vote') return castVote(ctx, id);
@@ -252,6 +254,56 @@ async function startElections(ctx: RouteContext) {
         ? `CR voting started for ${opened} class${opened === 1 ? '' : 'es'}.`
         : 'Every class already has an active CR election.',
   });
+}
+
+async function deleteElection(ctx: RouteContext, id: string) {
+  const user = await requireAuth(ctx.req);
+  if (!canManage(user.role) && !hasPermission(user, PERMISSIONS.ELECTIONS_CREATE)) {
+    throw new ApiError('Only an administrator can delete elections', 403);
+  }
+  const election = await CRElection.findById(id);
+  if (!election) throw new ApiError('Election not found', 404);
+  await Promise.all([
+    CRElection.deleteOne({ _id: id }),
+    CRCandidate.deleteMany({ electionId: id }),
+    AnonymousBallot.deleteMany({ electionId: id, scope: 'election' }),
+    VotingAuthorization.deleteMany({ electionId: id }),
+  ]);
+  await audit('election_deleted', { user, entityType: 'CRElection', entityId: id });
+  return json({ success: true });
+}
+
+async function deleteElectionsBulk(ctx: RouteContext) {
+  const user = await requireAuth(ctx.req);
+  if (!canManage(user.role) && !hasPermission(user, PERMISSIONS.ELECTIONS_CREATE)) {
+    throw new ApiError('Only an administrator can delete elections', 403);
+  }
+  const body = await ctx.body().catch(() => ({}));
+  const ids: string[] = Array.isArray(body.ids) ? body.ids.filter((v: any) => typeof v === 'string') : [];
+  const status = typeof body.status === 'string' ? body.status : '';
+
+  let elections: any[] = [];
+  if (ids.length > 0) {
+    elections = await CRElection.find({ _id: { $in: ids } }).select('_id').lean();
+  } else if (status) {
+    elections = await CRElection.find({ status }).select('_id').lean();
+  } else {
+    elections = await CRElection.find({ status: { $in: ['closed', 'certified', 'cancelled'] } }).select('_id').lean();
+  }
+
+  const deleteIds = elections.map((e: any) => e._id.toString());
+  if (deleteIds.length === 0) {
+    return json({ success: true, deleted: 0 });
+  }
+
+  await Promise.all([
+    CRElection.deleteMany({ _id: { $in: deleteIds } }),
+    CRCandidate.deleteMany({ electionId: { $in: deleteIds } }),
+    AnonymousBallot.deleteMany({ electionId: { $in: deleteIds }, scope: 'election' }),
+    VotingAuthorization.deleteMany({ electionId: { $in: deleteIds } }),
+  ]);
+  await audit('elections_bulk_deleted', { user, entityType: 'CRElection', metadata: { count: deleteIds.length, status } });
+  return json({ success: true, deleted: deleteIds.length });
 }
 
 async function runElectionCron(ctx: RouteContext) {

@@ -171,6 +171,41 @@ async function users(ctx: RouteContext, id?: string, action?: string) {
     const body = await ctx.body();
     const students = Array.isArray(body.students) ? body.students : [];
     const defaults = body.defaults || {};
+    let klass: any = null;
+    if (defaults.classId) {
+      klass = await Class.findById(defaults.classId).lean();
+    } else if (defaults.className) {
+      klass = await Class.findOne({
+        name: new RegExp(`^${escapeRegex(String(defaults.className).trim())}$`, 'i'),
+        ...(viewer.institutionId ? { institutionId: viewer.institutionId } : {}),
+      }).lean();
+      if (!klass) {
+        const institutionId =
+          viewer.institutionId || (await Institution.findOne().lean())?._id;
+        let department = institutionId
+          ? await Department.findOne({ institutionId }).lean()
+          : null;
+        if (!department && institutionId) {
+          department = await Department.create({
+            name: 'General',
+            code: 'GEN',
+            institutionId: institutionId,
+            isActive: true,
+          });
+          department = department.toObject();
+        }
+        if (department) {
+          klass = await Class.create({
+            name: String(defaults.className).trim(),
+            code: String(defaults.className).trim(),
+            departmentId: department._id,
+            institutionId: department.institutionId || institutionId,
+            isActive: true,
+          });
+          klass = klass.toObject();
+        }
+      }
+    }
     const sharedPassword =
       typeof defaults.password === 'string' ? defaults.password.trim() : '';
     if (sharedPassword && sharedPassword.length < 8) {
@@ -228,10 +263,12 @@ async function users(ctx: RouteContext, id?: string, action?: string) {
             role: ROLES.STUDENT,
             permissions: ROLE_PERMISSIONS.STUDENT,
             studentId: studentId || undefined,
-            className: defaults.className || undefined,
+            className: klass?.name || defaults.className || undefined,
+            classId: klass?._id || undefined,
+            departmentId: klass?.departmentId || undefined,
             section: defaults.section || undefined,
             course: defaults.course || undefined,
-            institutionId: viewer.institutionId || undefined,
+            institutionId: klass?.institutionId || viewer.institutionId || undefined,
             isActive: true,
             isEmailVerified: true,
           });
