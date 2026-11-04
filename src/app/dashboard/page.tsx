@@ -10,7 +10,6 @@ import {
   FileText,
   LifeBuoy,
   Megaphone,
-  ShieldCheck,
   Vote,
 } from 'lucide-react';
 import { apiRequest } from '@/lib/api';
@@ -296,27 +295,13 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11.5px] text-[#71717a]">
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarDays className="h-3.5 w-3.5" />
-              {dateLabel}
-            </span>
-            <span className="text-[#d4d4d8]">•</span>
-            <span className="inline-flex items-center gap-1.5 font-medium text-[#248a3d]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#248a3d]" />
-              Live record
-            </span>
-            <span className="hidden text-[#d4d4d8] sm:inline">•</span>
-            <span className="hidden capitalize sm:inline">
-              {user?.role?.replace(/_/g, ' ').toLowerCase() || 'member'} workspace
-            </span>
-          </div>
-          <h1 className="mt-3 text-[30px] font-semibold leading-tight tracking-[-0.035em] text-[#09090b] sm:text-[34px]">
+          <p className="inline-flex items-center gap-1.5 text-[11.5px] font-medium uppercase tracking-[0.08em] text-[#86868b]">
+            <CalendarDays className="h-3.5 w-3.5" />
+            {dateLabel}
+          </p>
+          <h1 className="mt-2 text-[30px] font-semibold leading-tight tracking-[-0.035em] text-[#1d1d1f] sm:text-[34px]">
             {greeting()}, {firstName}
           </h1>
-          <p className="mt-1.5 text-[13.5px] leading-relaxed text-[#52525b]">
-            Here&apos;s what needs your attention across campus today.
-          </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -490,21 +475,7 @@ export default function DashboardPage() {
                   )}
 
                   <div className="mt-auto pt-6">
-                    <div className="rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] p-4">
-                      <div className="flex items-start gap-2.5">
-                        <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#248a3d]" />
-                        <div>
-                          <p className="text-[11.5px] font-medium text-[#3f3f46]">
-                            Your ballot is anonymous
-                          </p>
-                          <p className="mt-1 text-[11px] leading-relaxed text-[#71717a]">
-                            Your vote is counted once and cannot be linked back
-                            to your account.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-3 grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-3">
                       <div className="rounded-[12px] border border-[#e4e4e7] bg-white p-3">
                         <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
                           Opened
@@ -587,14 +558,6 @@ export default function DashboardPage() {
                   </Link>
                 </aside>
               </div>
-
-              <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[#e4e4e7] px-5 py-3 text-[11px] text-[#a1a1aa] sm:px-6">
-                <span className="inline-flex items-center gap-1.5">
-                  <ShieldCheck className="h-3.5 w-3.5 text-[#248a3d]" />
-                  Anonymous ballot · one vote per student
-                </span>
-                <span>Verified by the registrar</span>
-              </div>
             </>
           ) : (
             <div className="px-6 py-12 text-center">
@@ -602,11 +565,11 @@ export default function DashboardPage() {
                 <Vote className="h-4 w-4 text-[#a1a1aa]" />
               </span>
               <p className="mt-3 text-[15px] font-semibold text-[#09090b]">
-                No election on the desk
+                No active election
               </p>
               <p className="mx-auto mt-1.5 max-w-sm text-[12.5px] leading-relaxed text-[#71717a]">
-                When your class poll opens, candidates and your anonymous ballot
-                will appear here.
+                When your class poll opens, candidates and results will appear
+                here.
               </p>
               <Link
                 href="/dashboard/election"

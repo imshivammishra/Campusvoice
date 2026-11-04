@@ -1,5 +1,5 @@
 import { ApiError, audit, hashPassword, hasPermission, requireAuth, sanitizeUser } from '../auth';
-import { PERMISSIONS, ROLES, ROLE_PERMISSIONS } from '../constants';
+import { AUTHORITY_ROLES, PERMISSIONS, ROLES, ROLE_PERMISSIONS } from '../constants';
 import {
   AnonymousBallot,
   AuditEvent,
@@ -26,9 +26,44 @@ import type { RouteContext } from '../http';
 export async function handleUsers(ctx: RouteContext): Promise<Response | null> {
   const [root, id, action] = ctx.segments;
   if (root === 'users') return users(ctx, id, action);
+  if (root === 'students' && ctx.method === 'GET') return listStudents(ctx);
   if (root === 'registrations') return registrations(ctx, id, action);
   if (root === 'admin') return admin(ctx, id);
   return null;
+}
+
+// Student directory readable by teachers and higher authorities (and admins).
+async function listStudents(ctx: RouteContext) {
+  const viewer = await requireAuth(ctx.req);
+  const allowed =
+    viewer.role === ROLES.TEACHER ||
+    viewer.role === ROLES.SUPER_ADMIN ||
+    AUTHORITY_ROLES.includes(viewer.role as any);
+  if (!allowed) {
+    throw new ApiError('You do not have permission to view the student directory', 403);
+  }
+  const { page, limit, skip } = pageParams(ctx.searchParams, 200);
+  const filter: Record<string, unknown> = {
+    role: { $in: [ROLES.STUDENT, ROLES.CLASS_REPRESENTATIVE] },
+  };
+  const search = ctx.searchParams.get('search');
+  if (search) {
+    const rx = new RegExp(escapeRegex(search), 'i');
+    filter.$or = [
+      { fullName: rx },
+      { username: rx },
+      { email: rx },
+      { studentId: rx },
+      { className: rx },
+    ];
+  }
+  const classId = ctx.searchParams.get('classId');
+  if (classId) filter.classId = classId;
+  const [data, total] = await Promise.all([
+    User.find(filter).sort({ fullName: 1 }).skip(skip).limit(limit).lean(),
+    User.countDocuments(filter),
+  ]);
+  return json(paginated(data.map(sanitizeUser), total, page, limit));
 }
 
 async function users(ctx: RouteContext, id?: string, action?: string) {

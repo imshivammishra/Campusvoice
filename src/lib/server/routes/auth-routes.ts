@@ -77,6 +77,10 @@ async function login(ctx: RouteContext) {
   }
 
   const valid = await verifyPassword(user.passwordHash, password);
+  if (valid && typeof user.passwordHash === 'string' && user.passwordHash.startsWith('$argon2')) {
+    // Migrate legacy argon2 hashes to the built-in scrypt format.
+    await User.updateOne({ _id: user._id }, { $set: { passwordHash: await hashPassword(password) } });
+  }
   if (!valid) {
     const attempts = (user.failedLoginAttempts || 0) + 1;
     const update: Record<string, unknown> = { failedLoginAttempts: attempts };

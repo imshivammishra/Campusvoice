@@ -241,7 +241,7 @@ export default function ElectionDetailPage() {
               return (
                 <Card
                   key={candidate._id}
-                  className={`overflow-hidden p-0 ${isWinner ? 'border-[#bbf7d0]' : ''}`}
+                  className={`overflow-hidden p-0 ${isWinner ? 'border-[#34c759]/40 bg-[#34c759]/[0.03]' : ''}`}
                 >
                   <div className="flex items-start justify-between gap-3 border-b border-[#e4e4e7] px-5 py-4">
                     <div className="flex min-w-0 items-center gap-3">
@@ -266,9 +266,13 @@ export default function ElectionDetailPage() {
                   </div>
 
                   <div className="px-5 py-4">
-                    {candidate.manifesto && (
+                    {candidate.manifesto ? (
                       <p className="text-[12.5px] leading-relaxed text-[#71717a]">
                         {candidate.manifesto}
+                      </p>
+                    ) : (
+                      <p className="text-[12.5px] leading-relaxed text-[#86868b]">
+                        Standing for Class Representative.
                       </p>
                     )}
 
@@ -283,9 +287,9 @@ export default function ElectionDetailPage() {
                               : ''}
                           </span>
                         </div>
-                        <div className="mt-2 h-1.5 overflow-hidden rounded-[1px] bg-[#f4f4f5]">
+                        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[#e8e8ed]">
                           <div
-                            className="h-full rounded-[1px] bg-[#0071e3]"
+                            className="h-full rounded-full bg-[#0071e3]"
                             style={{
                               width: `${
                                 totalVotes > 0

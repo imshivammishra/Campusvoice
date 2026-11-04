@@ -3,19 +3,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowRight, Eye, EyeOff, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { AuthBrandPanel, AuthFormFrame } from '@/components/auth-layout';
 import { Button, Field, Input, Label } from '@/components/ui';
 import { login, getStoredUser, fetchCurrentUser } from '@/lib/auth';
-
-const DEMO_ACCOUNTS = [
-  { label: 'Student · Himanshu', username: 'himanshu', password: '12345678' },
-  { label: 'Student · Ayushi', username: 'ayushi', password: '12345678' },
-  { label: 'Student · Shivam', username: 'shivam', password: '12345678' },
-  { label: 'Class Representative · Harsh', username: 'harsh', password: '12345678' },
-  { label: 'Teacher · Annapurna Tiwari', username: 'annapurna', password: '12345678' },
-  { label: 'Super Admin', username: 'superadmin', password: '12345678' },
-];
 
 export default function LoginPage() {
   const router = useRouter();
@@ -25,14 +16,8 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showDemo, setShowDemo] = useState(false);
 
   useEffect(() => {
-    const isLocal =
-      window.location.hostname === 'localhost' ||
-      window.location.hostname === '127.0.0.1';
-    setShowDemo(isLocal);
-
     // If a valid cookie session already exists, skip the login form.
     if (!getStoredUser()) {
       setChecking(false);
@@ -156,47 +141,6 @@ export default function LoginPage() {
         <p className="mt-5 text-[12.5px] text-[#52525b]">
           Accounts are created by your institution&apos;s administrator. Contact
           them if you need access.
-        </p>
-
-        {showDemo && (
-          <details className="group mt-6 rounded-[16px] border border-[#e4e4e7] bg-white">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-[12px] font-medium text-[#3f3f46]">
-              <span className="inline-flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
-                Demo accounts
-              </span>
-              <span className="text-[11px] font-normal text-[#a1a1aa]">
-                {DEMO_ACCOUNTS.length} accounts · local only
-              </span>
-            </summary>
-            <div className="border-t border-[#e4e4e7]">
-              {DEMO_ACCOUNTS.map((account) => (
-                <button
-                  key={account.username}
-                  type="button"
-                  onClick={() => {
-                    setUsernameOrEmail(account.username);
-                    setPassword(account.password);
-                    setError('');
-                  }}
-                  className="group/row flex w-full items-center gap-3 border-b border-[#f4f4f5] px-4 py-2.5 text-left transition-colors last:border-0 hover:bg-[#fafafa]"
-                >
-                  <span className="flex-1 text-[12px] font-medium text-[#09090b]">
-                    {account.label}
-                  </span>
-                  <span className="font-mono text-[11px] text-[#71717a]">
-                    {account.username}
-                  </span>
-                  <ArrowRight className="h-3.5 w-3.5 text-[#a1a1aa] transition-all group-hover/row:translate-x-0.5 group-hover/row:text-[#0071e3]" />
-                </button>
-              ))}
-            </div>
-          </details>
-        )}
-
-        <p className="mt-6 flex items-center gap-1.5 text-[11px] text-[#a1a1aa]">
-          <ShieldCheck className="h-3.5 w-3.5" />
-          Anonymous ballots · One vote per person · Audit-ready
         </p>
       </AuthFormFrame>
     </div>

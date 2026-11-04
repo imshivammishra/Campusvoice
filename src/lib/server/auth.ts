@@ -1,6 +1,15 @@
 import crypto from 'node:crypto';
-import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
+
+// argon2 is a native module that may not be available in every runtime (for
+// example some Vercel serverless images). Load it lazily so the rest of the
+// module can still be imported when it is missing.
+let argon2Module: any = null;
+try {
+  argon2Module = require('argon2');
+} catch {
+  argon2Module = null;
+}
 import { NextResponse, type NextRequest } from 'next/server';
 import { AuditEvent, User } from './models';
 import { COOKIE_NAMES, ROLE_PERMISSIONS, type Permission, type Role } from './constants';
@@ -47,13 +56,33 @@ export function hasPermission(user: SessionUser | null | undefined, permission: 
   return granted.has(permission as Permission);
 }
 
+const SCRYPT_PREFIX = 'scrypt';
+
 export async function hashPassword(password: string): Promise<string> {
-  return argon2.hash(password);
+  const salt = crypto.randomBytes(16);
+  const derived = crypto.scryptSync(password, salt, 64);
+  return `${SCRYPT_PREFIX}$${salt.toString('hex')}$${derived.toString('hex')}`;
 }
 
 export async function verifyPassword(hash: string, password: string): Promise<boolean> {
+  if (!hash) return false;
   try {
-    return await argon2.verify(hash, password);
+    if (hash.startsWith(`${SCRYPT_PREFIX}$`)) {
+      const parts = hash.split('$');
+      if (parts.length !== 3) return false;
+      const salt = Buffer.from(parts[1], 'hex');
+      const expected = Buffer.from(parts[2], 'hex');
+      const actual = crypto.scryptSync(password, salt, expected.length);
+      if (actual.length !== expected.length) return false;
+      return crypto.timingSafeEqual(actual, expected);
+    }
+
+    // Legacy argon2 hashes (created before the switch to scrypt).
+    if (hash.startsWith('$argon2') && argon2Module) {
+      return await argon2Module.verify(hash, password);
+    }
+
+    return false;
   } catch {
     return false;
   }

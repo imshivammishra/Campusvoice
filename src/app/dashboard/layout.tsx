@@ -81,6 +81,12 @@ const WORKSPACE_NAV: NavItem[] = [
     icon: Megaphone,
     roles: ['TEACHER', ...AUTHORITY],
   },
+  {
+    name: 'Students',
+    href: '/dashboard/students',
+    icon: UsersRound,
+    roles: ['TEACHER', ...AUTHORITY],
+  },
   { name: 'Voting', href: '/dashboard/voting', icon: Vote },
 ];
 
@@ -361,18 +367,8 @@ export default function DashboardLayout({
         </nav>
 
         <div className="border-t border-[#f4f4f5] p-3">
-          <div className="rounded-[16px] border border-[#e4e4e7] bg-[#fafafa] p-3">
-            <p className="flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.08em] text-[#52525b]">
-              <ShieldCheck className="h-3 w-3 text-[#0071e3]" />
-              Ballot privacy
-            </p>
-            <p className="mt-1.5 text-[10.5px] leading-relaxed text-[#71717a]">
-              Votes are separated from identities. Every administrative action
-              is written to the audit log.
-            </p>
-          </div>
-          <div className="mt-2 flex items-center justify-between px-1 py-1.5">
-            <span className="text-[10px] text-[#a1a1aa]">HUConnect v1.0</span>
+          <div className="flex items-center justify-between px-1 py-1.5">
+            <span className="text-[10px] text-[#a1a1aa]">HUConnect</span>
             <button
               onClick={handleLogout}
               className="inline-flex items-center gap-1.5 rounded-[10px] px-2 py-1 text-[11px] font-medium text-[#71717a] transition-colors hover:bg-[#fef2f2] hover:text-[#d70015]"

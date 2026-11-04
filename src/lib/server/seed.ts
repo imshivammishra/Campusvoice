@@ -28,7 +28,14 @@ const DEMO_PASSWORD = '12345678';
  */
 async function ensureUser(data: Record<string, any>, password: string) {
   const existing = await User.findOne({ username: data.username });
-  if (existing) return existing;
+  if (existing) {
+    // Migrate legacy argon2 hashes created by older builds to scrypt.
+    if (typeof existing.passwordHash === 'string' && existing.passwordHash.startsWith('$argon2')) {
+      existing.passwordHash = await hashPassword(password);
+      await existing.save();
+    }
+    return existing;
+  }
   return User.create({ ...data, passwordHash: await hashPassword(password) });
 }
 
@@ -172,7 +179,6 @@ async function runSeed() {
     },
     DEMO_PASSWORD,
   );
-
   // --- Link the CR to the class ------------------------------------------
   if (!klass.crId || klass.crId.toString() !== cr._id.toString()) {
     klass.crId = cr._id;
@@ -191,4 +197,38 @@ async function runSeed() {
       isActive: true,
     });
   }
+}
+
+export async function ensureBootstrapAdmin() {
+  const username = (process.env.ADMIN_USERNAME || 'super_admin').toLowerCase().trim();
+  const email = (process.env.ADMIN_EMAIL || 'admin@campusvoice.local').toLowerCase().trim();
+  const password = process.env.ADMIN_PASSWORD || 'SuperAdmin123!';
+  if (!username || !password) return;
+
+  const existing = await User.findOne({ $or: [{ username }, { email }] });
+  if (existing) {
+    if (typeof existing.passwordHash === 'string' && existing.passwordHash.startsWith('$argon2')) {
+      existing.passwordHash = await hashPassword(password);
+      existing.username = username;
+      existing.email = email;
+      existing.fullName = existing.fullName || 'Super Administrator';
+      existing.role = ROLES.SUPER_ADMIN;
+      existing.permissions = ROLE_PERMISSIONS.SUPER_ADMIN;
+      existing.isActive = true;
+      existing.isEmailVerified = true;
+      await existing.save();
+    }
+    return existing;
+  }
+
+  return User.create({
+    username,
+    email,
+    fullName: 'Super Administrator',
+    passwordHash: await hashPassword(password),
+    role: ROLES.SUPER_ADMIN,
+    permissions: ROLE_PERMISSIONS.SUPER_ADMIN,
+    isActive: true,
+    isEmailVerified: true,
+  });
 }
