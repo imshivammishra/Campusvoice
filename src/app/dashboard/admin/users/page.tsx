@@ -589,10 +589,10 @@ function ManageUserModal({
           </Field>
         )}
 
-        <div className="rounded-[4px] border border-[#e4e4e7] p-4">
+        <div className="rounded-[12px] border border-[#e4e4e7] p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <KeyRound className="h-4 w-4 text-[#0f4c81]" />
+              <KeyRound className="h-4 w-4 text-[#0071e3]" />
               <span className="text-[13px] font-medium">Credential reset</span>
             </div>
             <Button variant="secondary" size="sm" onClick={resetPassword} disabled={busy}>
@@ -600,7 +600,7 @@ function ManageUserModal({
             </Button>
           </div>
           {tempPassword && (
-            <div className="mt-3 rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] px-3 py-2 font-mono text-[13px]">
+            <div className="mt-3 rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] px-3 py-2 font-mono text-[13px]">
               {tempPassword}
               <p className="mt-1 font-sans text-[11px] leading-relaxed text-[#71717a]">
                 Share securely — shown once. The user must change it after signing in.
@@ -611,7 +611,7 @@ function ManageUserModal({
 
         <div>
           <div className="mb-2 flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4 text-[#0f4c81]" />
+            <ShieldCheck className="h-4 w-4 text-[#0071e3]" />
             <Label>Permissions</Label>
           </div>
           <PermissionGrid
@@ -622,7 +622,7 @@ function ManageUserModal({
         </div>
 
         {!isSuperAdmin && (
-          <div className="rounded-[4px] border border-[#fecaca] bg-[#fef2f2] p-4">
+          <div className="rounded-[12px] border border-[#fecaca] bg-[#fef2f2] p-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <Trash2 className="h-4 w-4 text-destructive" />
@@ -662,19 +662,19 @@ function PermissionGrid({
 }) {
   const list = all.length ? all : selected;
   return (
-    <div className="grid max-h-56 grid-cols-1 gap-1.5 overflow-y-auto rounded-[4px] border border-[#e4e4e7] p-3 sm:grid-cols-2">
+    <div className="grid max-h-56 grid-cols-1 gap-1.5 overflow-y-auto rounded-[12px] border border-[#e4e4e7] p-3 sm:grid-cols-2">
       {list.map((perm) => {
         const checked = selected.includes(perm);
         return (
           <label
             key={perm}
-            className="flex cursor-pointer items-center gap-2 rounded-[3px] px-2 py-1.5 text-[12px] hover:bg-[#f4f4f5]"
+            className="flex cursor-pointer items-center gap-2 rounded-[10px] px-2 py-1.5 text-[12px] hover:bg-[#f4f4f5]"
           >
             <input
               type="checkbox"
               checked={checked}
               onChange={() => onToggle(perm)}
-              className="h-4 w-4 rounded-[3px] border-[#d4d4d8] text-[#09090b] focus:ring-[#09090b]/20"
+              className="h-4 w-4 rounded-[10px] border-[#d4d4d8] text-[#09090b] focus:ring-[#09090b]/20"
             />
             <span className="font-mono text-xs">{perm}</span>
           </label>

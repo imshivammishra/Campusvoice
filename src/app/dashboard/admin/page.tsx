@@ -114,7 +114,7 @@ export default function AdminOverviewPage() {
       />
 
       {error && (
-        <Card className="border-[#fecaca] bg-[#fef2f2] p-4 text-[12px] text-[#b91c1c]">
+        <Card className="border-[#fecaca] bg-[#fef2f2] p-4 text-[12px] text-[#d70015]">
           {error}
         </Card>
       )}
@@ -170,7 +170,7 @@ export default function AdminOverviewPage() {
           {MANAGE_LINKS.map((link) => (
             <Link key={link.href} href={link.href} className="group">
               <Card hover className="flex items-center gap-3.5 p-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] text-[#71717a] transition-colors group-hover:border-[#09090b] group-hover:bg-[#09090b] group-hover:text-white">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] text-[#71717a] transition-colors group-hover:border-[#09090b] group-hover:bg-[#0071e3] group-hover:text-white">
                   <link.icon className="h-4 w-4" />
                 </span>
                 <div className="min-w-0 flex-1">
@@ -179,7 +179,7 @@ export default function AdminOverviewPage() {
                     {link.description}
                   </p>
                 </div>
-                <ArrowRight className="h-4 w-4 shrink-0 text-[#d4d4d8] transition-transform group-hover:translate-x-0.5 group-hover:text-[#0f4c81]" />
+                <ArrowRight className="h-4 w-4 shrink-0 text-[#d4d4d8] transition-transform group-hover:translate-x-0.5 group-hover:text-[#0071e3]" />
               </Card>
             </Link>
           ))}
@@ -187,12 +187,12 @@ export default function AdminOverviewPage() {
       </section>
 
       <section>
-        <h2 className="mb-4 text-[14px] font-semibold text-[#b91c1c]">
+        <h2 className="mb-4 text-[14px] font-semibold text-[#d70015]">
           Danger Zone
         </h2>
         <Card className="flex flex-col gap-4 border-[#fecaca] p-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] border border-[#fecaca] bg-[#fef2f2] text-[#b91c1c]">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] border border-[#fecaca] bg-[#fef2f2] text-[#d70015]">
               <TriangleAlert className="h-4 w-4" />
             </span>
             <div>

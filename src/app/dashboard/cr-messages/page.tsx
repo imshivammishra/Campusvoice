@@ -90,7 +90,7 @@ function StudentThread({ me }: { me: AuthUser | null }) {
           Private channel with your CR
         </p>
         <span className="inline-flex items-center gap-1.5 text-[10.5px] text-[#a1a1aa]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#15803d]" />
+          <span className="h-1.5 w-1.5 rounded-full bg-[#248a3d]" />
           Confidential
         </span>
       </div>
@@ -101,7 +101,7 @@ function StudentThread({ me }: { me: AuthUser | null }) {
           </div>
         ) : messages.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center px-6 text-center">
-            <span className="flex h-12 w-12 items-center justify-center rounded-[6px] border border-[#e4e4e7] bg-[#fafafa] text-[#71717a]">
+            <span className="flex h-12 w-12 items-center justify-center rounded-[16px] border border-[#e4e4e7] bg-[#fafafa] text-[#71717a]">
               <MessagesSquare className="h-5 w-5" />
             </span>
             <p className="mt-4 text-[15px] font-semibold text-[#09090b]">
@@ -211,7 +211,7 @@ function CrInbox({ me }: { me: AuthUser | null }) {
             key={c.studentId}
             onClick={() => setActive(c)}
             className={cn(
-              'flex w-full items-center gap-3 rounded-[4px] p-3 text-left transition-colors',
+              'flex w-full items-center gap-3 rounded-[12px] p-3 text-left transition-colors',
               active?.studentId === c.studentId
                 ? 'bg-[#f4f4f5]'
                 : 'hover:bg-[#fafafa]',
@@ -271,8 +271,8 @@ function Bubble({ m, myId }: { m: any; myId: string }) {
       <Avatar name={m.senderName} className="h-7 w-7 shrink-0" />
       <div
         className={cn(
-          'max-w-[75%] rounded-[6px] px-3 py-2 text-[12.5px] leading-relaxed',
-          mine ? 'bg-[#09090b] text-white' : 'bg-[#f4f4f5] text-[#18181b]',
+          'max-w-[75%] rounded-[16px] px-3 py-2 text-[12.5px] leading-relaxed',
+          mine ? 'bg-[#0071e3] text-white' : 'bg-[#f4f4f5] text-[#18181b]',
         )}
       >
         <p className="whitespace-pre-wrap">{m.content}</p>

@@ -14,9 +14,9 @@ export function LogoMark({
     <span
       className={cn(
         'inline-flex shrink-0 items-center justify-center',
-        hard ? 'rounded-[6px]' : 'rounded-[11px]',
+        hard ? 'rounded-[16px]' : 'rounded-[11px]',
         hard
-          ? 'bg-[#09090b] text-white'
+          ? 'bg-[#0071e3] text-white'
           : inverted
             ? 'bg-white text-[#0071e3]'
             : 'bg-[#0071e3] text-white',

@@ -46,7 +46,7 @@ export default function ProfilePage() {
         <div className="flex flex-col gap-4 px-6 pb-6 sm:flex-row sm:items-end">
           <Avatar
             name={user?.fullName || user?.username}
-            className="-mt-11 h-20 w-20 rounded-[6px] border-4 border-white bg-[#09090b] text-2xl text-white"
+            className="-mt-11 h-20 w-20 rounded-[16px] border-4 border-white bg-[#0071e3] text-2xl text-white"
           />
           <div className="min-w-0 flex-1 sm:pb-0.5">
             {loading && !user ? (
@@ -63,8 +63,8 @@ export default function ProfilePage() {
             )}
           </div>
           <div className="flex items-center gap-2 sm:pb-0.5">
-            <span className="inline-flex items-center gap-1.5 rounded-[3px] border border-[#e4e4e7] bg-[#fafafa] px-2 py-1 text-[10.5px] font-medium text-[#52525b]">
-              <span className="h-1.5 w-1.5 rounded-[1px] bg-[#15803d]" />
+            <span className="inline-flex items-center gap-1.5 rounded-[10px] border border-[#e4e4e7] bg-[#fafafa] px-2 py-1 text-[10.5px] font-medium text-[#52525b]">
+              <span className="h-1.5 w-1.5 rounded-[1px] bg-[#248a3d]" />
               {user?.isActive === false ? 'Deactivated' : 'Active'}
             </span>
             <Badge variant="default">{roleLabel(user?.role)}</Badge>
@@ -151,7 +151,7 @@ function InfoCard({
   return (
     <Card className="p-5">
       <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[4px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]">
           <Icon className="h-5 w-5" />
         </span>
         <div>

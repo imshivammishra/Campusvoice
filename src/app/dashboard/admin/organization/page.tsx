@@ -83,15 +83,15 @@ export default function AdminOrganizationPage() {
         </Button>
       </PageHeader>
 
-      <div className="flex gap-1 rounded-[6px] border border-[#e4e4e7] bg-white p-1">
+      <div className="flex gap-1 rounded-[16px] border border-[#e4e4e7] bg-white p-1">
         {TABS.map((t) => (
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
             className={cn(
-              'flex flex-1 items-center justify-center gap-2 rounded-[4px] px-3 py-2 text-[12px] font-medium transition-colors',
+              'flex flex-1 items-center justify-center gap-2 rounded-[12px] px-3 py-2 text-[12px] font-medium transition-colors',
               tab === t.id
-                ? 'bg-[#09090b] text-white'
+                ? 'bg-[#0071e3] text-white'
                 : 'text-[#71717a] hover:bg-[#f4f4f5] hover:text-[#09090b]',
             )}
           >

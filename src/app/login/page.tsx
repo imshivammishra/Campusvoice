@@ -74,7 +74,7 @@ export default function LoginPage() {
         </div>
 
         {checking && (
-          <div className="mb-5 flex items-center gap-2.5 rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] px-3 py-2.5 text-[11.5px] text-[#71717a]">
+          <div className="mb-5 flex items-center gap-2.5 rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] px-3 py-2.5 text-[11.5px] text-[#71717a]">
             <span className="h-3 w-3 animate-spin rounded-full border border-[#09090b] border-t-transparent" />
             Checking for an existing session…
           </div>
@@ -82,7 +82,7 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="rounded-[4px] border border-[#fecaca] bg-[#fef2f2] px-3.5 py-2.5 text-[12.5px] leading-relaxed text-[#b91c1c]">
+            <div className="rounded-[12px] border border-[#fecaca] bg-[#fef2f2] px-3.5 py-2.5 text-[12.5px] leading-relaxed text-[#d70015]">
               {error}
             </div>
           )}
@@ -103,11 +103,11 @@ export default function LoginPage() {
           <div className="space-y-1.5">
             <div className="flex items-center justify-between gap-3">
               <Label>
-                Password <span className="ml-0.5 text-[#b91c1c]">*</span>
+                Password <span className="ml-0.5 text-[#d70015]">*</span>
               </Label>
               <Link
                 href="/forgot-password"
-                className="text-[12px] font-medium text-[#0f4c81] transition-colors hover:text-[#0b3a63] hover:underline"
+                className="text-[12px] font-medium text-[#0071e3] transition-colors hover:text-[#0b3a63] hover:underline"
               >
                 Forgot password?
               </Link>
@@ -126,7 +126,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword((v) => !v)}
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-[3px] p-1.5 text-[#a1a1aa] transition-colors hover:bg-[#f4f4f5] hover:text-[#3f3f46]"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-[10px] p-1.5 text-[#a1a1aa] transition-colors hover:bg-[#f4f4f5] hover:text-[#3f3f46]"
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? (
@@ -155,17 +155,17 @@ export default function LoginPage() {
           New to HUConnect?{' '}
           <Link
             href="/register"
-            className="font-medium text-[#0f4c81] transition-colors hover:text-[#0b3a63] hover:underline"
+            className="font-medium text-[#0071e3] transition-colors hover:text-[#0b3a63] hover:underline"
           >
             Create an account
           </Link>
         </p>
 
         {showDemo && (
-          <details className="group mt-6 rounded-[6px] border border-[#e4e4e7] bg-white">
+          <details className="group mt-6 rounded-[16px] border border-[#e4e4e7] bg-white">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-[12px] font-medium text-[#3f3f46]">
               <span className="inline-flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#0f4c81]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
                 Demo accounts
               </span>
               <span className="text-[11px] font-normal text-[#a1a1aa]">
@@ -190,7 +190,7 @@ export default function LoginPage() {
                   <span className="font-mono text-[11px] text-[#71717a]">
                     {account.username}
                   </span>
-                  <ArrowRight className="h-3.5 w-3.5 text-[#a1a1aa] transition-all group-hover/row:translate-x-0.5 group-hover/row:text-[#0f4c81]" />
+                  <ArrowRight className="h-3.5 w-3.5 text-[#a1a1aa] transition-all group-hover/row:translate-x-0.5 group-hover/row:text-[#0071e3]" />
                 </button>
               ))}
             </div>

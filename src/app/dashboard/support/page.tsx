@@ -115,7 +115,7 @@ export default function SupportPage() {
                   {t.confidentiality === 'confidential' && (
                     <Badge variant="warning">Confidential</Badge>
                   )}
-                  <span className="ml-auto inline-flex items-center gap-1 font-medium text-[#0f4c81]">
+                  <span className="ml-auto inline-flex items-center gap-1 font-medium text-[#0071e3]">
                     Open thread
                     <ArrowUpRight className="h-3 w-3" />
                   </span>
@@ -327,7 +327,7 @@ function ThreadModal({
     >
       <div className="flex max-h-[55vh] flex-col">
         <div className="flex-1 space-y-3 overflow-y-auto pr-1">
-          <div className="rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] p-3 text-[12px]">
+          <div className="rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] p-3 text-[12px]">
             <p className="font-medium text-[#09090b]">Original request</p>
             <p className="mt-1 leading-relaxed text-[#71717a]">{ticket.message}</p>
           </div>
@@ -348,8 +348,8 @@ function ThreadModal({
                   <Avatar name={mine ? 'You' : 'Officer'} className="h-7 w-7 shrink-0" />
                   <div
                     className={cn(
-                      'max-w-[75%] rounded-[6px] px-3 py-2 text-[12.5px] leading-relaxed',
-                      mine ? 'bg-[#09090b] text-white' : 'bg-[#f4f4f5] text-[#18181b]',
+                      'max-w-[75%] rounded-[16px] px-3 py-2 text-[12.5px] leading-relaxed',
+                      mine ? 'bg-[#0071e3] text-white' : 'bg-[#f4f4f5] text-[#18181b]',
                     )}
                   >
                     <p className="whitespace-pre-wrap">{m.content}</p>

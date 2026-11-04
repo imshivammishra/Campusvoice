@@ -140,7 +140,7 @@ export default function ProposalsPage() {
                           </span>
                         </span>
                       )}
-                      <span className="ml-auto inline-flex items-center gap-1 font-medium text-[#0f4c81]">
+                      <span className="ml-auto inline-flex items-center gap-1 font-medium text-[#0071e3]">
                         Open record
                         <ArrowUpRight className="h-3 w-3" />
                       </span>

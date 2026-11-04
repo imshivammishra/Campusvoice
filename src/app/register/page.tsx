@@ -175,15 +175,15 @@ export default function RegisterPage() {
         wide
         panel="register"
       >
-        <div className="rounded-[6px] border border-[#e4e4e7] bg-white p-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-[#bbf7d0] bg-[#f0fdf4] text-[#15803d]">
+        <div className="rounded-[16px] border border-[#e4e4e7] bg-white p-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-[#bbf7d0] bg-[#f0fdf4] text-[#248a3d]">
             <CheckCircle2 className="h-5 w-5" />
           </div>
           <p className="mt-4 text-[12.5px] leading-relaxed text-[#52525b]">
             {success.message}
           </p>
           {success.reference && (
-            <p className="mt-4 rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] px-3.5 py-2.5 text-[11px] text-[#71717a]">
+            <p className="mt-4 rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] px-3.5 py-2.5 text-[11px] text-[#71717a]">
               Reference{' '}
               <span className="ml-1.5 font-mono text-[11px] text-[#09090b]">
                 {success.reference}
@@ -307,13 +307,13 @@ export default function RegisterPage() {
                 key={option.value}
                 type="button"
                 onClick={() => update('role', option.value)}
-                className={`flex items-center gap-3 rounded-[4px] border p-3.5 text-left transition-colors ${
+                className={`flex items-center gap-3 rounded-[12px] border p-3.5 text-left transition-colors ${
                   form.role === option.value
                     ? 'border-[#09090b] bg-[#fafafa]'
                     : 'border-[#d4d4d8] bg-white hover:border-[#a1a1aa]'
                 }`}
               >
-                <option.icon className="h-4 w-4 text-[#0f4c81]" />
+                <option.icon className="h-4 w-4 text-[#0071e3]" />
                 <span className="text-[12.5px] font-medium">{option.label}</span>
               </button>
             ))}
@@ -375,9 +375,9 @@ export default function RegisterPage() {
           )}
         </div>
 
-        <div className="rounded-[6px] border border-[#e4e4e7] bg-[#fafafa] p-4">
+        <div className="rounded-[16px] border border-[#e4e4e7] bg-[#fafafa] p-4">
           <div className="mb-4 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.08em] text-[#71717a]">
-            <UserRound className="h-3.5 w-3.5 text-[#0f4c81]" />
+            <UserRound className="h-3.5 w-3.5 text-[#0071e3]" />
             Institutional details
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -445,7 +445,7 @@ export default function RegisterPage() {
           Already have an account?{' '}
           <Link
             href="/login"
-            className="font-medium text-[#0f4c81] transition-colors hover:text-[#0b3a63] hover:underline"
+            className="font-medium text-[#0071e3] transition-colors hover:text-[#0b3a63] hover:underline"
           >
             Sign in
           </Link>

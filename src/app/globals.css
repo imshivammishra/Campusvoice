@@ -30,7 +30,7 @@
     --ink: #09090b;
     --ink-soft: #71717a;
     --line: #e4e4e7;
-    --civic: #0f4c81;
+    --civic: #0071e3;
     /* Apple system accents */
     --apple-blue: #0071e3;
     --apple-blue-hover: #0077ed;
@@ -58,7 +58,7 @@
   }
 
   ::selection {
-    background: rgba(15, 76, 129, 0.16);
+    background: rgba(0, 113, 227, 0.16);
     color: var(--ink);
   }
 

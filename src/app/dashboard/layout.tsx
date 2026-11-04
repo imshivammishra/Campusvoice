@@ -251,7 +251,7 @@ export default function DashboardLayout({
         href={item.href}
         onClick={() => setSidebarOpen(false)}
         className={cn(
-          'group relative flex items-center gap-2.5 rounded-[4px] px-2.5 py-2 text-[12.5px] font-medium transition-colors duration-150',
+          'group relative flex items-center gap-2.5 rounded-[12px] px-2.5 py-2 text-[12.5px] font-medium transition-colors duration-150',
           isActive
             ? 'bg-[#f4f4f5] text-[#09090b]'
             : 'text-[#52525b] hover:bg-[#fafafa] hover:text-[#09090b]',
@@ -259,9 +259,9 @@ export default function DashboardLayout({
       >
         <span
           className={cn(
-            'flex h-6 w-6 shrink-0 items-center justify-center rounded-[3px] transition-colors',
+            'flex h-6 w-6 shrink-0 items-center justify-center rounded-[10px] transition-colors',
             isActive
-              ? 'bg-[#09090b] text-white'
+              ? 'bg-[#0071e3] text-white'
               : 'text-[#a1a1aa] group-hover:text-[#09090b]',
           )}
         >
@@ -269,7 +269,7 @@ export default function DashboardLayout({
         </span>
         <span className="flex-1">{item.name}</span>
         {item.name === 'Notifications' && unread > 0 && (
-          <span className="flex h-[17px] min-w-[17px] items-center justify-center rounded-[3px] bg-[#b91c1c] px-1 text-[9.5px] font-semibold text-white">
+          <span className="flex h-[17px] min-w-[17px] items-center justify-center rounded-[10px] bg-[#d70015] px-1 text-[9.5px] font-semibold text-white">
             {unread > 9 ? '9+' : unread}
           </span>
         )}
@@ -309,7 +309,7 @@ export default function DashboardLayout({
         <div className="flex h-16 shrink-0 items-center justify-between border-b border-[#f4f4f5] px-5">
           <Logo href="/dashboard" hard />
           <button
-            className="flex h-8 w-8 items-center justify-center rounded-[3px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b] lg:hidden"
+            className="flex h-8 w-8 items-center justify-center rounded-[10px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b] lg:hidden"
             onClick={() => setSidebarOpen(false)}
             aria-label="Close sidebar"
           >
@@ -321,7 +321,7 @@ export default function DashboardLayout({
           <Link
             href="/dashboard/profile"
             onClick={() => setSidebarOpen(false)}
-            className="flex items-center gap-2.5 rounded-[6px] border border-[#e4e4e7] bg-white p-2.5 transition-colors hover:border-[#a1a1aa] hover:bg-[#fafafa]"
+            className="flex items-center gap-2.5 rounded-[16px] border border-[#e4e4e7] bg-white p-2.5 transition-colors hover:border-[#a1a1aa] hover:bg-[#fafafa]"
           >
             <Avatar
               name={user?.fullName || user?.username}
@@ -361,9 +361,9 @@ export default function DashboardLayout({
         </nav>
 
         <div className="border-t border-[#f4f4f5] p-3">
-          <div className="rounded-[6px] border border-[#e4e4e7] bg-[#fafafa] p-3">
+          <div className="rounded-[16px] border border-[#e4e4e7] bg-[#fafafa] p-3">
             <p className="flex items-center gap-1.5 text-[9.5px] font-semibold uppercase tracking-[0.08em] text-[#52525b]">
-              <ShieldCheck className="h-3 w-3 text-[#0f4c81]" />
+              <ShieldCheck className="h-3 w-3 text-[#0071e3]" />
               Ballot privacy
             </p>
             <p className="mt-1.5 text-[10.5px] leading-relaxed text-[#71717a]">
@@ -375,7 +375,7 @@ export default function DashboardLayout({
             <span className="text-[10px] text-[#a1a1aa]">HUConnect v1.0</span>
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 rounded-[3px] px-2 py-1 text-[11px] font-medium text-[#71717a] transition-colors hover:bg-[#fef2f2] hover:text-[#b91c1c]"
+              className="inline-flex items-center gap-1.5 rounded-[10px] px-2 py-1 text-[11px] font-medium text-[#71717a] transition-colors hover:bg-[#fef2f2] hover:text-[#d70015]"
             >
               <LogOut className="h-3.5 w-3.5" />
               Sign out
@@ -389,7 +389,7 @@ export default function DashboardLayout({
           <div className="flex min-w-0 items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded-[3px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b] lg:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-[10px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b] lg:hidden"
               aria-label="Open sidebar"
             >
               <Menu className="h-5 w-5" />
@@ -416,7 +416,7 @@ export default function DashboardLayout({
           <div className="flex items-center gap-1.5 sm:gap-2.5">
             <button
               onClick={() => setCommandOpen(true)}
-              className="hidden h-9 w-[236px] items-center gap-2 rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] px-3.5 text-[12px] text-[#a1a1aa] transition-colors hover:border-[#d4d4d8] hover:bg-white md:flex"
+              className="hidden h-9 w-[236px] items-center gap-2 rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] px-3.5 text-[12px] text-[#a1a1aa] transition-colors hover:border-[#d4d4d8] hover:bg-white md:flex"
             >
               <Search className="h-3.5 w-3.5" />
               <span className="flex-1 text-left">Search the record</span>
@@ -428,7 +428,7 @@ export default function DashboardLayout({
 
             <button
               onClick={() => setCommandOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded-[3px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b] md:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-[10px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b] md:hidden"
               aria-label="Open command palette"
             >
               <Search className="h-[18px] w-[18px]" />
@@ -436,12 +436,12 @@ export default function DashboardLayout({
 
             <Link
               href="/dashboard/notifications"
-              className="relative flex h-9 w-9 items-center justify-center rounded-[3px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b]"
+              className="relative flex h-9 w-9 items-center justify-center rounded-[10px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b]"
               aria-label="Notifications"
             >
               <Bell className="h-[18px] w-[18px]" />
               {unread > 0 && (
-                <span className="absolute right-0.5 top-0.5 flex h-3.5 min-w-[14px] items-center justify-center rounded-[3px] bg-[#b91c1c] px-0.5 text-[9px] font-semibold text-white ring-2 ring-white">
+                <span className="absolute right-0.5 top-0.5 flex h-3.5 min-w-[14px] items-center justify-center rounded-[10px] bg-[#d70015] px-0.5 text-[9px] font-semibold text-white ring-2 ring-white">
                   {unread > 9 ? '9+' : unread}
                 </span>
               )}
@@ -451,7 +451,7 @@ export default function DashboardLayout({
 
             <Link
               href="/dashboard/profile"
-              className="flex items-center gap-2 rounded-[4px] p-0.5 pr-2 transition-colors hover:bg-[#f4f4f5]"
+              className="flex items-center gap-2 rounded-[12px] p-0.5 pr-2 transition-colors hover:bg-[#f4f4f5]"
             >
               <Avatar
                 name={user?.fullName || user?.username}

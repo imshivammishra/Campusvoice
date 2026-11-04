@@ -173,14 +173,14 @@ export default function ElectionDetailPage() {
 
       {election.hasVoted && (
         <Card className="flex items-start gap-3.5 border-[#bbf7d0] bg-[#f0fdf4] p-4">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] border border-[#bbf7d0] bg-white/60 text-[#15803d]">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] border border-[#bbf7d0] bg-white/60 text-[#248a3d]">
             <CheckCircle2 className="h-4 w-4" />
           </span>
           <div>
             <p className="text-[12.5px] font-medium text-[#14532d]">
               Your anonymous vote is recorded
             </p>
-            <p className="mt-1 text-[11.5px] leading-relaxed text-[#15803d]">
+            <p className="mt-1 text-[11.5px] leading-relaxed text-[#248a3d]">
               Your choice cannot be linked back to your account. Results are
               shown below.
             </p>
@@ -190,10 +190,10 @@ export default function ElectionDetailPage() {
 
       {!election.isEligible && (
         <Card className="flex items-start gap-3.5 border-[#fde68a] bg-[#fffbeb] p-4">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] border border-[#fde68a] bg-white/60 text-[#b45309]">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] border border-[#fde68a] bg-white/60 text-[#b25000]">
             <ShieldCheck className="h-4 w-4" />
           </span>
-          <p className="text-[11.5px] leading-relaxed text-[#b45309]">
+          <p className="text-[11.5px] leading-relaxed text-[#b25000]">
             You can view this election, but only students in the election class
             are eligible to vote.
           </p>
@@ -202,7 +202,7 @@ export default function ElectionDetailPage() {
 
       {election.status === 'certified' && election.winnerName && (
         <Card className="flex items-start gap-3.5 p-4">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]">
             <Award className="h-4 w-4" />
           </span>
           <div>
@@ -285,7 +285,7 @@ export default function ElectionDetailPage() {
                         </div>
                         <div className="mt-2 h-1.5 overflow-hidden rounded-[1px] bg-[#f4f4f5]">
                           <div
-                            className="h-full rounded-[1px] bg-[#0f4c81]"
+                            className="h-full rounded-[1px] bg-[#0071e3]"
                             style={{
                               width: `${
                                 totalVotes > 0

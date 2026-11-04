@@ -91,7 +91,7 @@ export function CommandPalette({
         role="dialog"
         aria-modal="true"
         aria-label="Command palette"
-        className="relative w-full max-w-lg overflow-hidden rounded-[6px] border border-[#e4e4e7] bg-white shadow-[0_4px_16px_rgba(9,9,11,0.08),0_32px_64px_-24px_rgba(9,9,11,0.28)]"
+        className="relative w-full max-w-lg overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white shadow-[0_4px_16px_rgba(9,9,11,0.08),0_32px_64px_-24px_rgba(9,9,11,0.28)]"
       >
         <div className="flex items-center gap-3 border-b border-[#e4e4e7] px-4">
           <Search className="h-4 w-4 shrink-0 text-[#a1a1aa]" />
@@ -124,15 +124,15 @@ export function CommandPalette({
                     onClose();
                   }}
                   className={cn(
-                    'flex w-full items-center gap-3 rounded-[4px] px-2.5 py-2 text-left transition-colors',
+                    'flex w-full items-center gap-3 rounded-[12px] px-2.5 py-2 text-left transition-colors',
                     isActive ? 'bg-[#f4f4f5]' : 'hover:bg-[#fafafa]',
                   )}
                 >
                   <span
                     className={cn(
-                      'flex h-8 w-8 shrink-0 items-center justify-center rounded-[3px] transition-colors',
+                      'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] transition-colors',
                       isActive
-                        ? 'bg-[#09090b] text-white'
+                        ? 'bg-[#0071e3] text-white'
                         : 'border border-[#e4e4e7] bg-white text-[#71717a]',
                     )}
                   >
@@ -147,7 +147,7 @@ export function CommandPalette({
                     </span>
                   </span>
                   {isActive ? (
-                    <ArrowUpRight className="h-4 w-4 text-[#0f4c81]" />
+                    <ArrowUpRight className="h-4 w-4 text-[#0071e3]" />
                   ) : (
                     <span className="font-mono text-[10px] text-[#a1a1aa]">
                       {item.href}

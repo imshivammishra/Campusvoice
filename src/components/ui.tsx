@@ -16,7 +16,7 @@ type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
 
 const buttonVariants: Record<ButtonVariant, string> = {
   primary:
-    'bg-[#09090b] text-white shadow-[0_1px_2px_rgba(0,0,0,0.16)] hover:bg-[#27272a] active:bg-black focus-visible:ring-[#09090b]/20',
+    'bg-[#0071e3] text-white shadow-[0_1px_2px_rgba(0,0,0,0.12)] hover:bg-[#0077ed] active:bg-[#0064cc] focus-visible:ring-[#0071e3]/30',
   secondary:
     'border-[#d4d4d8] bg-white text-[#09090b] hover:border-[#a1a1aa] hover:bg-[#fafafa] active:bg-[#f4f4f5] focus-visible:ring-[#09090b]/15',
   outline:
@@ -24,7 +24,7 @@ const buttonVariants: Record<ButtonVariant, string> = {
   ghost:
     'text-[#52525b] hover:bg-[#f4f4f5] hover:text-[#09090b] active:bg-[#e4e4e7] focus-visible:ring-[#09090b]/10',
   destructive:
-    'bg-[#b91c1c] text-white shadow-[0_1px_2px_rgba(0,0,0,0.16)] hover:bg-[#991b1b] active:bg-[#7f1d1d] focus-visible:ring-[#b91c1c]/25',
+    'bg-[#d70015] text-white shadow-[0_1px_2px_rgba(0,0,0,0.16)] hover:bg-[#991b1b] active:bg-[#7f1d1d] focus-visible:ring-[#d70015]/25',
 };
 
 const buttonSizes: Record<ButtonSize, string> = {
@@ -58,7 +58,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       disabled={disabled || loading}
       className={cn(
-        'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[4px] border border-transparent font-medium tracking-[-0.005em] transition-[background-color,border-color,color,box-shadow] duration-150 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-offset-0 disabled:pointer-events-none disabled:opacity-40',
+        'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[12px] border border-transparent font-medium tracking-[-0.005em] transition-[background-color,border-color,color,box-shadow] duration-150 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-offset-0 disabled:pointer-events-none disabled:opacity-40',
         buttonVariants[variant],
         buttonSizes[size],
         className,
@@ -84,7 +84,7 @@ export function Card({
   return (
     <div
       className={cn(
-        'rounded-[6px] border border-[#e4e4e7] bg-white text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)]',
+        'rounded-[16px] border border-[#e4e4e7] bg-white text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)]',
         hover &&
           'transition-colors duration-150 hover:border-[#a1a1aa] hover:bg-[#fefefe]',
         className,
@@ -165,10 +165,10 @@ type BadgeVariant =
 const badgeVariants: Record<BadgeVariant, string> = {
   default: 'border-[#e4e4e7] bg-[#fafafa] text-[#52525b]',
   secondary: 'border-[#e4e4e7] bg-white text-[#71717a]',
-  success: 'border-[#bbf7d0] bg-[#f0fdf4] text-[#15803d]',
-  warning: 'border-[#fde68a] bg-[#fffbeb] text-[#b45309]',
-  danger: 'border-[#fecaca] bg-[#fef2f2] text-[#b91c1c]',
-  info: 'border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]',
+  success: 'border-[#bbf7d0] bg-[#f0fdf4] text-[#248a3d]',
+  warning: 'border-[#fde68a] bg-[#fffbeb] text-[#b25000]',
+  danger: 'border-[#fecaca] bg-[#fef2f2] text-[#d70015]',
+  info: 'border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]',
   outline: 'border-[#d4d4d8] bg-transparent text-[#3f3f46]',
 };
 
@@ -180,7 +180,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1 rounded-[3px] border px-2 py-0.5 text-[10.5px] font-medium capitalize leading-4',
+        'inline-flex items-center gap-1 rounded-[10px] border px-2 py-0.5 text-[10.5px] font-medium capitalize leading-4',
         badgeVariants[variant],
         className,
       )}
@@ -240,7 +240,7 @@ export function PageHeader({
     <div className="flex flex-col gap-4 border-b border-[#e4e4e7] pb-5 sm:flex-row sm:items-end sm:justify-between">
       <div>
         {eyebrow && (
-          <p className="mb-2 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-[#0f4c81]">
+          <p className="mb-2 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-[#0071e3]">
             {eyebrow}
           </p>
         )}
@@ -277,11 +277,11 @@ export function StatCard({
   tone?: 'indigo' | 'emerald' | 'amber' | 'sky';
 }) {
   return (
-    <div className="rounded-[6px] border border-[#e4e4e7] bg-white p-5 transition-colors duration-150 hover:border-[#a1a1aa]">
+    <div className="rounded-[16px] border border-[#e4e4e7] bg-white p-5 transition-colors duration-150 hover:border-[#a1a1aa]">
       <div className="flex items-start justify-between gap-3">
         <p className="text-[11.5px] font-medium text-[#71717a]">{label}</p>
         {Icon && (
-          <span className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] text-[#0f4c81]">
+          <span className="flex h-8 w-8 items-center justify-center rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] text-[#0071e3]">
             <Icon className="h-4 w-4" />
           </span>
         )}
@@ -291,7 +291,7 @@ export function StatCard({
       </p>
       <div className="mt-2 flex items-center gap-2">
         {delta && (
-          <span className="text-[11px] font-medium text-[#15803d]">
+          <span className="text-[11px] font-medium text-[#248a3d]">
             {delta}
           </span>
         )}
@@ -321,7 +321,7 @@ export function EmptyState({
   return (
     <Card className="flex flex-col items-center justify-center gap-3 border-dashed border-[#d4d4d8] bg-[#fafafa] p-10 text-center shadow-none">
       {Icon && (
-        <span className="flex h-12 w-12 items-center justify-center rounded-[4px] border border-[#e4e4e7] bg-white text-[#0f4c81]">
+        <span className="flex h-12 w-12 items-center justify-center rounded-[12px] border border-[#e4e4e7] bg-white text-[#0071e3]">
           <Icon className="h-5 w-5" />
         </span>
       )}
@@ -349,7 +349,7 @@ export function Spinner({ className }: { className?: string }) {
 export function Skeleton({ className }: { className?: string }) {
   return (
     <div
-      className={cn('animate-pulse rounded-[4px] bg-[#f4f4f5]', className)}
+      className={cn('animate-pulse rounded-[12px] bg-[#f4f4f5]', className)}
     />
   );
 }
@@ -401,7 +401,7 @@ export function Avatar({
   return (
     <span
       className={cn(
-        'inline-flex items-center justify-center rounded-[4px] bg-[#09090b] text-[12px] font-semibold uppercase text-white',
+        'inline-flex items-center justify-center rounded-[12px] bg-[#0071e3] text-[12px] font-semibold uppercase text-white',
         className,
       )}
     >
@@ -421,7 +421,7 @@ export const Input = React.forwardRef<
   <input
     ref={ref}
     className={cn(
-      'h-10 w-full rounded-[4px] border border-[#d4d4d8] bg-white px-3 text-[13.5px] text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)] outline-none transition-[border-color,box-shadow] placeholder:text-[#a1a1aa] focus:border-[#09090b] focus:ring-[3px] focus:ring-[#09090b]/[0.08] disabled:cursor-not-allowed disabled:bg-[#fafafa] disabled:opacity-60',
+      'h-10 w-full rounded-[12px] border border-[#d4d4d8] bg-white px-3 text-[13.5px] text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)] outline-none transition-[border-color,box-shadow] placeholder:text-[#a1a1aa] focus:border-[#09090b] focus:ring-[3px] focus:ring-[#09090b]/[0.08] disabled:cursor-not-allowed disabled:bg-[#fafafa] disabled:opacity-60',
       className,
     )}
     {...props}
@@ -436,7 +436,7 @@ export const Textarea = React.forwardRef<
   <textarea
     ref={ref}
     className={cn(
-      'min-h-[96px] w-full rounded-[4px] border border-[#d4d4d8] bg-white px-3 py-2.5 text-[13.5px] leading-relaxed text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)] outline-none transition-[border-color,box-shadow] placeholder:text-[#a1a1aa] focus:border-[#09090b] focus:ring-[3px] focus:ring-[#09090b]/[0.08] disabled:bg-[#fafafa] disabled:opacity-60',
+      'min-h-[96px] w-full rounded-[12px] border border-[#d4d4d8] bg-white px-3 py-2.5 text-[13.5px] leading-relaxed text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)] outline-none transition-[border-color,box-shadow] placeholder:text-[#a1a1aa] focus:border-[#09090b] focus:ring-[3px] focus:ring-[#09090b]/[0.08] disabled:bg-[#fafafa] disabled:opacity-60',
       className,
     )}
     {...props}
@@ -451,7 +451,7 @@ export const Select = React.forwardRef<
   <select
     ref={ref}
     className={cn(
-      'h-10 w-full rounded-[4px] border border-[#d4d4d8] bg-white px-3 text-[13.5px] text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)] outline-none transition-[border-color,box-shadow] focus:border-[#09090b] focus:ring-[3px] focus:ring-[#09090b]/[0.08] disabled:bg-[#fafafa] disabled:opacity-60',
+      'h-10 w-full rounded-[12px] border border-[#d4d4d8] bg-white px-3 text-[13.5px] text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)] outline-none transition-[border-color,box-shadow] focus:border-[#09090b] focus:ring-[3px] focus:ring-[#09090b]/[0.08] disabled:bg-[#fafafa] disabled:opacity-60',
       className,
     )}
     {...props}
@@ -491,14 +491,14 @@ export function Field({
       {label && (
         <Label>
           {label}
-          {required && <span className="ml-0.5 text-[#b91c1c]">*</span>}
+          {required && <span className="ml-0.5 text-[#d70015]">*</span>}
         </Label>
       )}
       {children}
       {hint && !error && (
         <p className="text-[11.5px] leading-relaxed text-[#a1a1aa]">{hint}</p>
       )}
-      {error && <p className="text-[11.5px] text-[#b91c1c]">{error}</p>}
+      {error && <p className="text-[11.5px] text-[#d70015]">{error}</p>}
     </div>
   );
 }
@@ -533,7 +533,7 @@ export function Modal({
       />
       <div
         className={cn(
-          'relative z-10 w-full overflow-hidden rounded-[6px] border border-[#e4e4e7] bg-white shadow-[0_4px_16px_rgba(9,9,11,0.08),0_32px_64px_-24px_rgba(9,9,11,0.28)]',
+          'relative z-10 w-full overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white shadow-[0_4px_16px_rgba(9,9,11,0.08),0_32px_64px_-24px_rgba(9,9,11,0.28)]',
           size === 'lg' ? 'max-w-2xl' : 'max-w-md',
         )}
       >
@@ -550,7 +550,7 @@ export function Modal({
           </div>
           <button
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-[3px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b]"
+            className="flex h-8 w-8 items-center justify-center rounded-[10px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b]"
             aria-label="Close"
           >
             <X className="h-[17px] w-[17px]" />
@@ -576,7 +576,7 @@ export function Table({
   ...props
 }: React.TableHTMLAttributes<HTMLTableElement>) {
   return (
-    <div className="overflow-x-auto rounded-[6px] border border-[#e4e4e7] bg-white">
+    <div className="overflow-x-auto rounded-[16px] border border-[#e4e4e7] bg-white">
       <table className={cn('w-full text-[12.5px]', className)} {...props} />
     </div>
   );
@@ -653,7 +653,7 @@ export function Progress({
     >
       <div
         className={cn(
-          'h-full rounded-full bg-[#0f4c81] transition-all duration-700',
+          'h-full rounded-full bg-[#0071e3] transition-all duration-700',
           indicatorClassName,
         )}
         style={{ width: `${clamped}%` }}
@@ -668,7 +668,7 @@ export function Progress({
 
 export function Kbd({ children }: { children: React.ReactNode }) {
   return (
-    <kbd className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-[3px] border border-[#e4e4e7] bg-[#fafafa] px-1 text-[10px] font-medium text-[#71717a]">
+    <kbd className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-[10px] border border-[#e4e4e7] bg-[#fafafa] px-1 text-[10px] font-medium text-[#71717a]">
       {children}
     </kbd>
   );

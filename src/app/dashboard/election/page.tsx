@@ -59,7 +59,7 @@ export default function ElectionPage() {
                   <StatusBadge status={election.status} />
                 </div>
                 <div className="grid grid-cols-2 gap-3 px-5 py-4">
-                  <div className="rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] px-3 py-2.5">
+                  <div className="rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] px-3 py-2.5">
                     <p className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
                       <CalendarClock className="h-3 w-3" />
                       Opens
@@ -68,7 +68,7 @@ export default function ElectionPage() {
                       {formatDate(election.opensAt)}
                     </p>
                   </div>
-                  <div className="rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] px-3 py-2.5">
+                  <div className="rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] px-3 py-2.5">
                     <p className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
                       <CalendarClock className="h-3 w-3" />
                       Closes
@@ -80,7 +80,7 @@ export default function ElectionPage() {
                 </div>
                 <div className="flex items-center justify-between border-t border-[#e4e4e7] px-5 py-3 text-[11.5px]">
                   <span className="text-[#a1a1aa]">Anonymous ballot</span>
-                  <span className="inline-flex items-center gap-1 font-medium text-[#0f4c81]">
+                  <span className="inline-flex items-center gap-1 font-medium text-[#0071e3]">
                     View candidates
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </span>

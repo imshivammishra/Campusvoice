@@ -44,9 +44,9 @@ export default function AdminRbacPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <span
-                      className={`flex h-9 w-9 items-center justify-center rounded-[4px] border ${
+                      className={`flex h-9 w-9 items-center justify-center rounded-[12px] border ${
                         isAuthority
-                          ? 'border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]'
+                          ? 'border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]'
                           : 'border-[#e4e4e7] bg-[#fafafa] text-[#71717a]'
                       }`}
                     >
@@ -70,7 +70,7 @@ export default function AdminRbacPage() {
                   {perms.map((p) => (
                     <span
                       key={p}
-                      className="rounded-[3px] border border-[#e4e4e7] bg-[#fafafa] px-2 py-0.5 font-mono text-[10.5px] text-[#52525b]"
+                      className="rounded-[10px] border border-[#e4e4e7] bg-[#fafafa] px-2 py-0.5 font-mono text-[10.5px] text-[#52525b]"
                     >
                       {p}
                     </span>

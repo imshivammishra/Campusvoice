@@ -129,7 +129,7 @@ export default function ForgotPasswordPage() {
             Remembered your password?{' '}
             <Link
               href="/login"
-              className="font-medium text-[#0f4c81] transition-colors hover:text-[#0b3a63] hover:underline"
+              className="font-medium text-[#0071e3] transition-colors hover:text-[#0b3a63] hover:underline"
             >
               Sign in
             </Link>
@@ -138,8 +138,8 @@ export default function ForgotPasswordPage() {
       )}
 
       {step === 'sent' && (
-        <div className="rounded-[6px] border border-[#e4e4e7] bg-white p-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]">
+        <div className="rounded-[16px] border border-[#e4e4e7] bg-white p-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]">
             <Mail className="h-5 w-5" />
           </div>
           <p className="mt-4 text-[12.5px] leading-relaxed text-[#52525b]">
@@ -165,7 +165,7 @@ export default function ForgotPasswordPage() {
       {step === 'reset' && (
         <form onSubmit={confirmReset} className="space-y-5">
           {notice && (
-            <div className="rounded-[4px] border border-[#bfdbfe] bg-[#eff6ff] px-3.5 py-2.5 text-[12px] leading-relaxed text-[#0f4c81]">
+            <div className="rounded-[12px] border border-[#bfdbfe] bg-[#eff6ff] px-3.5 py-2.5 text-[12px] leading-relaxed text-[#0071e3]">
               {notice}
             </div>
           )}
@@ -215,7 +215,7 @@ export default function ForgotPasswordPage() {
                 setStep('request');
                 setError('');
               }}
-              className="font-medium text-[#0f4c81] hover:underline"
+              className="font-medium text-[#0071e3] hover:underline"
             >
               Request a new token
             </button>
@@ -224,8 +224,8 @@ export default function ForgotPasswordPage() {
       )}
 
       {step === 'done' && (
-        <div className="rounded-[6px] border border-[#e4e4e7] bg-white p-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-[#bbf7d0] bg-[#f0fdf4] text-[#15803d]">
+        <div className="rounded-[16px] border border-[#e4e4e7] bg-white p-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-[#bbf7d0] bg-[#f0fdf4] text-[#248a3d]">
             <CheckCircle2 className="h-5 w-5" />
           </div>
           <p className="mt-4 text-[12.5px] leading-relaxed text-[#52525b]">
