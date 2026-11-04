@@ -211,11 +211,13 @@ async function crMessages(ctx: RouteContext, id?: string, action?: string) {
         if (!groups.has(studentId)) {
           groups.set(studentId, {
             studentId,
+            studentName: message.studentName || 'Student',
             lastMessage: message.body,
             messages: [],
           });
         }
         const group = groups.get(studentId);
+        group.studentName = message.studentName || group.studentName;
         group.lastMessage = message.body;
         group.messages.push(mapCrMessage(message));
       }
@@ -251,13 +253,14 @@ async function crMessages(ctx: RouteContext, id?: string, action?: string) {
       classId: classId || undefined,
       senderId: user.sub,
       senderRole: user.role,
+      senderName: user.fullName || user.username,
       body: content,
     });
     if (crId) {
       await Notification.create({
         userId: crId,
         type: NOTIFICATION_TYPE.NEW_PROPOSAL,
-        title: 'New message from a classmate',
+        title: `New message from ${user.fullName || user.username}`,
         message: content.slice(0, 120),
         data: { studentId: user.sub },
       });
@@ -280,6 +283,7 @@ async function crMessages(ctx: RouteContext, id?: string, action?: string) {
       classId: user.classId || student.classId,
       senderId: user.sub,
       senderRole: user.role,
+      senderName: user.fullName || user.username,
       body: content,
     });
     await Notification.create({

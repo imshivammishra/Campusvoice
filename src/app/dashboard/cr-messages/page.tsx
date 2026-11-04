@@ -200,6 +200,8 @@ function CrInbox({ me }: { me: AuthUser | null }) {
   }
 
   const studentName = (c: any) =>
+    c.studentName ||
+    c.messages?.find((m: any) => m.studentName)?.studentName ||
     c.messages?.find((m: any) => m.senderRole === 'STUDENT')?.senderName ||
     'Student';
 

@@ -9,10 +9,12 @@ import { Button, Field, Input, Label } from '@/components/ui';
 import { login, getStoredUser, fetchCurrentUser } from '@/lib/auth';
 
 const DEMO_ACCOUNTS = [
-  { label: 'Student', username: 'student1', password: 'CampusVoice123!' },
-  { label: 'Class Representative', username: 'cr1', password: 'CampusVoice123!' },
-  { label: 'Teacher', username: 'teacher1', password: 'CampusVoice123!' },
-  { label: 'Super Admin', username: 'super_admin', password: 'SuperAdmin123!' },
+  { label: 'Student · Himanshu', username: 'himanshu', password: '12345678' },
+  { label: 'Student · Ayushi', username: 'ayushi', password: '12345678' },
+  { label: 'Student · Shivam', username: 'shivam', password: '12345678' },
+  { label: 'Class Representative · Harsh', username: 'harsh', password: '12345678' },
+  { label: 'Teacher · Annapurna Tiwari', username: 'annapurna', password: '12345678' },
+  { label: 'Super Admin', username: 'superadmin', password: '12345678' },
 ];
 
 export default function LoginPage() {
@@ -169,7 +171,7 @@ export default function LoginPage() {
                 Demo accounts
               </span>
               <span className="text-[11px] font-normal text-[#a1a1aa]">
-                4 accounts · local only
+                {DEMO_ACCOUNTS.length} accounts · local only
               </span>
             </summary>
             <div className="border-t border-[#e4e4e7]">

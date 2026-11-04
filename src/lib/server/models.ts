@@ -493,6 +493,7 @@ const CrMessageSchema = new Schema(
     classId: ref('Class'),
     senderId: { ...ref('User'), required: true },
     senderRole: String,
+    senderName: String,
     body: { type: String, required: true },
     readAt: Date,
   },

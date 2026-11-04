@@ -25,6 +25,7 @@ export async function handleElections(ctx: RouteContext): Promise<Response | nul
   if (root === 'elections') {
     if (ctx.method === 'GET' && !id) return listElections(ctx);
     if ((ctx.method === 'GET' || ctx.method === 'POST') && id === 'cron') return runElectionCron(ctx);
+    if (ctx.method === 'POST' && id === 'start') return startElections(ctx);
     if (ctx.method === 'POST' && !id) return createElection(ctx);
     if (ctx.method === 'GET' && id && !action) return getElection(ctx, id);
     if (ctx.method === 'POST' && id && action === 'nominate') return nominate(ctx, id);
@@ -142,6 +143,117 @@ async function ensureWeeklyElections(classId?: string) {
   }
 }
 
+async function enrollClassCandidates(electionId: any, klass: any) {
+  const students = await User.find({
+    classId: klass._id,
+    role: { $in: [ROLES.STUDENT, ROLES.CLASS_REPRESENTATIVE] },
+    isActive: true,
+  })
+    .select('_id fullName username')
+    .lean();
+  if (students.length === 0) return 0;
+  try {
+    await CRCandidate.insertMany(
+      students.map((student: any) => ({
+        electionId,
+        studentId: student._id,
+        studentName: student.fullName || student.username,
+        className: klass.name,
+        manifesto: '',
+        status: 'approved',
+        votes: 0,
+      })),
+      { ordered: false },
+    );
+  } catch {
+    // Ignore duplicate-key races on candidate enrolment.
+  }
+  try {
+    await Notification.insertMany(
+      students.map((student: any) => ({
+        userId: student._id,
+        type: NOTIFICATION_TYPE.ELECTION_OPENED,
+        title: 'CR election is open',
+        message:
+          'Voting for your Class Representative is open for 24 hours. Cast your vote before it closes.',
+        data: { electionId: electionId.toString() },
+      })),
+    );
+  } catch {
+    // Notifications are best-effort.
+  }
+  return students.length;
+}
+
+/**
+ * Manually opens a 24-hour CR election immediately (triggered by a super admin
+ * or authority). Skips classes that already have an active election.
+ */
+async function startElectionsNow(classId?: string) {
+  const now = new Date();
+  const closesAt = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+
+  const classFilter: Record<string, unknown> = { isActive: true };
+  if (classId) classFilter._id = classId;
+  const classes = await Class.find(classFilter).limit(200).lean();
+
+  let opened = 0;
+  for (const klass of classes) {
+    const active = await CRElection.findOne({
+      classId: klass._id,
+      status: ELECTION_STATUS.ACTIVE,
+      closesAt: { $gt: now },
+    })
+      .select('_id')
+      .lean();
+    if (active) continue;
+
+    let election;
+    try {
+      election = await CRElection.create({
+        electionId: makeId('ELECTION'),
+        classId: klass._id,
+        className: klass.name,
+        title: 'Class Representative Election',
+        opensAt: now,
+        closesAt,
+        nominationOpensAt: now,
+        nominationClosesAt: now,
+        status: ELECTION_STATUS.ACTIVE,
+        totalEligibleVoters: await User.countDocuments({
+          classId: klass._id,
+          role: { $in: [ROLES.STUDENT, ROLES.CLASS_REPRESENTATIVE] },
+        }),
+        schedulingMode: 'manual',
+        nextElectionAt: new Date(closesAt.getTime() + 7 * 24 * 60 * 60 * 1000),
+      });
+    } catch {
+      continue;
+    }
+    await enrollClassCandidates(election._id, klass);
+    opened += 1;
+  }
+  return opened;
+}
+
+async function startElections(ctx: RouteContext) {
+  const user = await requireAuth(ctx.req);
+  if (!canManage(user.role) && !hasPermission(user, PERMISSIONS.ELECTIONS_CREATE)) {
+    throw new ApiError('Only an administrator can start CR voting', 403);
+  }
+  const body = await ctx.body().catch(() => ({}));
+  const opened = await startElectionsNow(body?.classId);
+  await audit('election_started', { user, entityType: 'CRElection', entityId: 'manual' });
+  return json({
+    success: true,
+    opened,
+    message:
+      opened > 0
+        ? `CR voting started for ${opened} class${opened === 1 ? '' : 'es'}.`
+        : 'Every class already has an active CR election.',
+  });
+}
+
 async function runElectionCron(ctx: RouteContext) {
   const secret = process.env.CRON_SECRET;
   if (secret) {
@@ -213,6 +325,9 @@ async function createElection(ctx: RouteContext) {
   });
 
   await audit('election_created', { user, entityType: 'CRElection', entityId: election._id.toString() });
+  if (election.status === ELECTION_STATUS.ACTIVE) {
+    await enrollClassCandidates(election._id, klass);
+  }
   return json(election.toObject(), 201);
 }
 

@@ -16,7 +16,7 @@ type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
 
 const buttonVariants: Record<ButtonVariant, string> = {
   primary:
-    'bg-[#0071e3] text-white shadow-[0_1px_2px_rgba(0,0,0,0.12)] hover:bg-[#0077ed] active:bg-[#0064cc] focus-visible:ring-[#0071e3]/30',
+    'bg-[#0071e3] text-white shadow-[0_1px_2px_rgba(0,0,0,0.16)] hover:bg-[#0077ed] active:bg-black focus-visible:ring-[#09090b]/20',
   secondary:
     'border-[#d4d4d8] bg-white text-[#09090b] hover:border-[#a1a1aa] hover:bg-[#fafafa] active:bg-[#f4f4f5] focus-visible:ring-[#09090b]/15',
   outline:
