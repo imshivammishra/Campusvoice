@@ -302,8 +302,8 @@ export default function DashboardPage() {
               {dateLabel}
             </span>
             <span className="text-[#d4d4d8]">•</span>
-            <span className="inline-flex items-center gap-1.5 font-medium text-[#248a3d]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#248a3d]" />
+            <span className="inline-flex items-center gap-1.5 font-medium text-[#15803d]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#15803d]" />
               Live record
             </span>
             <span className="hidden text-[#d4d4d8] sm:inline">•</span>
@@ -322,15 +322,15 @@ export default function DashboardPage() {
         <div className="flex flex-wrap items-center gap-2">
           <Link
             href="/dashboard/concerns"
-            className="inline-flex h-10 items-center gap-2 rounded-full border border-[#d2d2d7] bg-white px-5 text-[13px] font-medium text-[#1d1d1f] transition-colors hover:bg-[#f5f5f7]"
+            className="inline-flex h-10 items-center gap-2 rounded-[4px] border border-[#d4d4d8] bg-white px-4 text-[12.5px] font-medium text-[#09090b] transition-colors hover:border-[#09090b] hover:bg-[#fafafa]"
           >
-            <FileText className="h-4 w-4 text-[#6e6e73]" />
+            <FileText className="h-4 w-4 text-[#71717a]" />
             Raise a concern
           </Link>
           {spotlight ? (
             <Link
               href={`/dashboard/election/${spotlight._id}`}
-              className="inline-flex h-10 items-center gap-2 rounded-full bg-[#0071e3] px-5 text-[13px] font-medium text-white transition-colors hover:bg-[#0077ed]"
+              className="inline-flex h-10 items-center gap-2 rounded-[4px] bg-[#09090b] px-4 text-[12.5px] font-medium text-white transition-colors hover:bg-[#27272a]"
             >
               {hasVoted ? 'View live results' : 'Open your ballot'}
               <ArrowUpRight className="h-4 w-4" />
@@ -338,7 +338,7 @@ export default function DashboardPage() {
           ) : (
             <Link
               href="/dashboard/election"
-              className="inline-flex h-10 items-center gap-2 rounded-full bg-[#0071e3] px-5 text-[13px] font-medium text-white transition-colors hover:bg-[#0077ed]"
+              className="inline-flex h-10 items-center gap-2 rounded-[4px] bg-[#09090b] px-4 text-[12.5px] font-medium text-white transition-colors hover:bg-[#27272a]"
             >
               View elections
               <ArrowUpRight className="h-4 w-4" />
@@ -353,20 +353,20 @@ export default function DashboardPage() {
           return (
             <div
               key={metric.label}
-              className="rounded-[16px] border border-[#e5e5ea] bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-colors duration-200 hover:border-[#d6d6dc]"
+              className="rounded-[6px] border border-[#e4e4e7] bg-white p-4 transition-colors duration-150 hover:border-[#a1a1aa] sm:p-5"
             >
               <div className="flex items-center justify-between gap-2">
-                <p className="text-[12.5px] font-medium text-[#6e6e73]">
+                <p className="text-[11.5px] font-medium text-[#71717a]">
                   {metric.label}
                 </p>
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0071e3]/10 text-[#0071e3]">
+                <span className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] text-[#0f4c81]">
                   <Icon className="h-4 w-4" />
                 </span>
               </div>
-              <p className="mt-3 text-[30px] font-semibold leading-none tracking-[-0.035em] tabular-nums text-[#1d1d1f]">
+              <p className="mt-3 text-[28px] font-semibold leading-none tracking-[-0.035em] tabular-nums text-[#09090b] sm:text-[30px]">
                 {metric.value}
               </p>
-              <p className="mt-2 text-[11.5px] leading-snug text-[#86868b]">
+              <p className="mt-2 text-[11px] leading-snug text-[#a1a1aa]">
                 {metric.note}
               </p>
             </div>
@@ -376,7 +376,7 @@ export default function DashboardPage() {
 
       <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <div className="min-w-0 space-y-6">
-        <section className="overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+        <section className="overflow-hidden rounded-[6px] border border-[#e4e4e7] bg-white">
           {!data ? (
             <div className="p-6">
               <Skeleton className="h-4 w-32" />
@@ -391,17 +391,17 @@ export default function DashboardPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <span
                       className={cn(
-                        'inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[10.5px] font-medium capitalize',
+                        'inline-flex items-center gap-1.5 rounded-[3px] border px-2 py-0.5 text-[10.5px] font-medium capitalize',
                         spotlight.status === 'active'
-                          ? 'border-[#bbf7d0] bg-[#f0fdf4] text-[#248a3d]'
+                          ? 'border-[#bbf7d0] bg-[#f0fdf4] text-[#15803d]'
                           : 'border-[#e4e4e7] bg-[#fafafa] text-[#71717a]',
                       )}
                     >
                       <span
                         className={cn(
-                          'h-1.5 w-1.5 rounded-full',
+                          'h-1.5 w-1.5 rounded-[1px]',
                           spotlight.status === 'active'
-                            ? 'bg-[#248a3d]'
+                            ? 'bg-[#15803d]'
                             : 'bg-[#a1a1aa]',
                         )}
                       />
@@ -423,7 +423,7 @@ export default function DashboardPage() {
                 </div>
                 <Link
                   href={`/dashboard/election/${spotlight._id}`}
-                  className="inline-flex h-9 shrink-0 items-center gap-2 rounded-[12px] border border-[#d4d4d8] bg-white px-3 text-[12px] font-medium text-[#18181b] transition-colors hover:bg-[#f4f4f5]"
+                  className="inline-flex h-9 shrink-0 items-center gap-2 rounded-[4px] border border-[#d4d4d8] bg-white px-3 text-[12px] font-medium text-[#09090b] transition-colors hover:border-[#09090b] hover:bg-[#fafafa]"
                 >
                   {hasVoted ? 'View results' : 'Open ballot'}
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -475,7 +475,7 @@ export default function DashboardPage() {
                       {candidates.length > 4 && (
                         <Link
                           href={`/dashboard/election/${spotlight._id}`}
-                          className="mt-3 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#0071e3] hover:underline"
+                          className="mt-3 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#0f4c81] hover:underline"
                         >
                           All {candidates.length} candidates
                           <ArrowRight className="h-3.5 w-3.5" />
@@ -490,9 +490,9 @@ export default function DashboardPage() {
                   )}
 
                   <div className="mt-auto pt-6">
-                    <div className="rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] p-4">
+                    <div className="rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] p-4">
                       <div className="flex items-start gap-2.5">
-                        <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#248a3d]" />
+                        <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#15803d]" />
                         <div>
                           <p className="text-[11.5px] font-medium text-[#3f3f46]">
                             Your ballot is anonymous
@@ -505,16 +505,16 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <div className="mt-3 grid grid-cols-2 gap-3">
-                      <div className="rounded-[12px] border border-[#e4e4e7] bg-white p-3">
-                        <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
+                      <div className="rounded-[4px] border border-[#e4e4e7] bg-white p-3">
+                        <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
                           Opened
                         </p>
                         <p className="mt-1 text-[11.5px] font-medium text-[#3f3f46]">
                           {formatDate(spotlight.opensAt)}
                         </p>
                       </div>
-                      <div className="rounded-[12px] border border-[#e4e4e7] bg-white p-3">
-                        <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
+                      <div className="rounded-[4px] border border-[#e4e4e7] bg-white p-3">
+                        <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
                           Closes
                         </p>
                         <p className="mt-1 text-[11.5px] font-medium text-[#3f3f46]">
@@ -538,9 +538,9 @@ export default function DashboardPage() {
                       <span
                         key={index}
                         className={cn(
-                          'h-1.5 flex-1 rounded-full',
+                          'h-1.5 flex-1 rounded-[1px]',
                           index < Math.round(turnout / 5)
-                            ? 'bg-[#0071e3]'
+                            ? 'bg-[#0f4c81]'
                             : 'bg-[#e4e4e7]',
                         )}
                       />
@@ -558,7 +558,7 @@ export default function DashboardPage() {
                       <dd
                         className={cn(
                           'font-medium',
-                          hasVoted ? 'text-[#248a3d]' : 'text-[#b25000]',
+                          hasVoted ? 'text-[#15803d]' : 'text-[#b25000]',
                         )}
                       >
                         {hasVoted ? 'Recorded' : 'Not cast'}
@@ -580,7 +580,7 @@ export default function DashboardPage() {
 
                   <Link
                     href={`/dashboard/election/${spotlight._id}`}
-                    className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#0071e3] hover:underline"
+                    className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#0f4c81] hover:underline"
                   >
                     Election details
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -590,7 +590,7 @@ export default function DashboardPage() {
 
               <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[#e4e4e7] px-5 py-3 text-[11px] text-[#a1a1aa] sm:px-6">
                 <span className="inline-flex items-center gap-1.5">
-                  <ShieldCheck className="h-3.5 w-3.5 text-[#248a3d]" />
+                  <ShieldCheck className="h-3.5 w-3.5 text-[#15803d]" />
                   Anonymous ballot · one vote per student
                 </span>
                 <span>Verified by the registrar</span>
@@ -598,7 +598,7 @@ export default function DashboardPage() {
             </>
           ) : (
             <div className="px-6 py-12 text-center">
-              <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-[16px] border border-[#e4e4e7] bg-[#fafafa]">
+              <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-[4px] border border-[#e4e4e7] bg-[#fafafa]">
                 <Vote className="h-4 w-4 text-[#a1a1aa]" />
               </span>
               <p className="mt-3 text-[15px] font-semibold text-[#09090b]">
@@ -610,7 +610,7 @@ export default function DashboardPage() {
               </p>
               <Link
                 href="/dashboard/election"
-                className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#0071e3] hover:underline"
+                className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#0f4c81] hover:underline"
               >
                 View election history
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -619,15 +619,15 @@ export default function DashboardPage() {
           )}
         </section>
 
-          <section className="overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+          <section className="overflow-hidden rounded-[6px] border border-[#e4e4e7] bg-white">
             <div className="flex items-center justify-between border-b border-[#e4e4e7] px-5 py-4">
-              <h2 className="flex items-center gap-2 text-[13.5px] font-semibold text-[#09090b]">
+              <h2 className="flex items-center gap-2 text-[13px] font-semibold text-[#09090b]">
                 <Megaphone className="h-4 w-4 text-[#71717a]" />
                 Open proposals
               </h2>
               <Link
                 href={proposalHref}
-                className="text-[11.5px] font-medium text-[#0071e3] hover:underline"
+                className="text-[11.5px] font-medium text-[#0f4c81] hover:underline"
               >
                 View all
               </Link>
@@ -667,9 +667,9 @@ export default function DashboardPage() {
         </div>
 
         <aside className="space-y-6">
-          <section className="overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+          <section className="overflow-hidden rounded-[6px] border border-[#e4e4e7] bg-white">
             <div className="flex items-center justify-between border-b border-[#e4e4e7] px-5 py-4">
-              <h2 className="flex items-center gap-2 text-[13.5px] font-semibold text-[#09090b]">
+              <h2 className="flex items-center gap-2 text-[13px] font-semibold text-[#09090b]">
                 <Bell className="h-4 w-4 text-[#71717a]" />
                 Notices
               </h2>
@@ -694,8 +694,8 @@ export default function DashboardPage() {
                   >
                     <span
                       className={cn(
-                        'mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full',
-                        notification.isRead ? 'bg-[#e4e4e7]' : 'bg-[#0071e3]',
+                        'mt-1.5 h-1.5 w-1.5 shrink-0 rounded-[1px]',
+                        notification.isRead ? 'bg-[#d4d4d8]' : 'bg-[#0f4c81]',
                       )}
                     />
                     <div className="min-w-0 flex-1">
@@ -730,16 +730,16 @@ export default function DashboardPage() {
 
             <Link
               href="/dashboard/notifications"
-              className="flex items-center justify-between border-t border-[#e4e4e7] px-5 py-3 text-[12px] font-medium text-[#0071e3] transition-colors hover:bg-[#fafafa]"
+              className="flex items-center justify-between border-t border-[#e4e4e7] px-5 py-3 text-[12px] font-medium text-[#0f4c81] transition-colors hover:bg-[#fafafa]"
             >
               View all notifications
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </section>
 
-          <section className="overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+          <section className="overflow-hidden rounded-[6px] border border-[#e4e4e7] bg-white">
             <div className="border-b border-[#e4e4e7] px-5 py-4">
-              <h2 className="text-[13.5px] font-semibold text-[#09090b]">
+              <h2 className="text-[13px] font-semibold text-[#09090b]">
                 Quick actions
               </h2>
             </div>
@@ -752,7 +752,7 @@ export default function DashboardPage() {
                     href={action.href}
                     className="group flex items-center gap-3 border-b border-[#f4f4f5] px-5 py-3 transition-colors last:border-0 hover:bg-[#fafafa]"
                   >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] text-[#71717a] transition-colors group-hover:border-[#d4d4d8] group-hover:text-[#09090b]">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] text-[#71717a] transition-colors group-hover:border-[#09090b] group-hover:bg-[#09090b] group-hover:text-white">
                       <Icon className="h-4 w-4" />
                     </span>
                     <span className="min-w-0 flex-1">
@@ -763,7 +763,7 @@ export default function DashboardPage() {
                         {action.description}
                       </span>
                     </span>
-                    <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[#d4d4d8] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#0071e3]" />
+                    <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[#d4d4d8] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#0f4c81]" />
                   </Link>
                 );
               })}
@@ -774,10 +774,10 @@ export default function DashboardPage() {
 
       <footer className="flex flex-col gap-1.5 border-t border-[#e4e4e7] pt-5 text-[11px] text-[#a1a1aa] sm:flex-row sm:items-center sm:justify-between">
         <span className="inline-flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#248a3d]" />
+          <span className="h-1.5 w-1.5 rounded-full bg-[#15803d]" />
           All systems operational · ballots anonymous · every action auditable
         </span>
-        <span>CampusVoice · Registrar&apos;s Office</span>
+        <span>HUConnect · Registrar&apos;s Office</span>
       </footer>
     </div>
   );

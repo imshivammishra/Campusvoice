@@ -32,9 +32,9 @@ function VoteBar({
           {value} · {pct}%
         </span>
       </div>
-      <div className="h-1.5 overflow-hidden rounded-full bg-[#f4f4f5]">
+      <div className="h-1.5 overflow-hidden rounded-[1px] bg-[#f4f4f5]">
         <div
-          className={`h-full rounded-full ${color}`}
+          className={`h-full rounded-[1px] ${color}`}
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -70,7 +70,7 @@ export default function VotingPage() {
       />
 
       <Card className="flex items-start gap-3.5 p-4">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]">
           <CheckCircle2 className="h-4 w-4" />
         </span>
         <div>
@@ -128,13 +128,13 @@ export default function VotingPage() {
                         label="Support"
                         value={support}
                         total={total}
-                        color="bg-[#0071e3]"
+                        color="bg-[#0f4c81]"
                       />
                       <VoteBar
                         label="Oppose"
                         value={oppose}
                         total={total}
-                        color="bg-[#d70015]"
+                        color="bg-[#b91c1c]"
                       />
                       <VoteBar
                         label="Abstain"
@@ -148,7 +148,7 @@ export default function VotingPage() {
                       <span className="text-[11px] text-[#a1a1aa]">
                         {total} {total === 1 ? 'ballot' : 'ballots'} recorded
                       </span>
-                      <span className="inline-flex items-center gap-1 text-[11.5px] font-medium text-[#0071e3]">
+                      <span className="inline-flex items-center gap-1 text-[11.5px] font-medium text-[#0f4c81]">
                         {closed ? 'View final record' : 'Open to cast your vote'}
                         <ArrowUpRight className="h-3.5 w-3.5" />
                       </span>

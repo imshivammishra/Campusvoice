@@ -60,11 +60,11 @@ export function AuthBrandPanel({
   const content = PANEL_CONTENT[panel];
 
   return (
-    <div className="relative hidden min-h-screen w-[46%] shrink-0 overflow-hidden bg-[#0071e3] text-white lg:flex">
+    <div className="relative hidden min-h-screen w-[46%] shrink-0 overflow-hidden bg-[#0f4c81] text-white lg:flex">
       <BrandVideo
         src="/media/campusvoice-loop.mp4"
         poster="/media/campusvoice-loop-poster.jpg"
-        label="CampusVoice abstract background"
+        label="HUConnect abstract background"
         className="absolute inset-0 h-full w-full"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,9,11,0.78)_0%,rgba(9,9,11,0.45)_45%,rgba(9,9,11,0.94)_100%)]" />
@@ -73,7 +73,7 @@ export function AuthBrandPanel({
       <div className="relative z-10 flex w-full flex-col justify-between p-9 xl:p-12">
         <div className="flex items-center justify-between">
           <Logo light href="/" />
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[10.5px] font-medium text-white/60 backdrop-blur-sm">
+          <span className="inline-flex items-center gap-1.5 rounded-[3px] border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[10.5px] font-medium text-white/60 backdrop-blur-sm">
             <ShieldCheck className="h-3 w-3" />
             Secure access
           </span>
@@ -138,18 +138,18 @@ export function AuthFormFrame({
 }) {
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-white lg:w-[54%]">
-      <div className="relative h-40 w-full shrink-0 overflow-hidden bg-[#0071e3] lg:hidden">
+      <div className="relative h-40 w-full shrink-0 overflow-hidden bg-[#0f4c81] lg:hidden">
         <BrandVideo
           src="/media/campusvoice-loop.mp4"
           poster="/media/campusvoice-loop-poster.jpg"
-          label="CampusVoice abstract background"
+          label="HUConnect abstract background"
           className="absolute inset-0 h-full w-full"
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,9,11,0.5)_0%,rgba(9,9,11,0.25)_45%,rgba(9,9,11,0.9)_100%)]" />
         <div className="relative flex h-full flex-col justify-between p-5">
           <div className="flex items-center justify-between">
             <Logo light href="/" />
-            <span className="rounded-full border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[10px] font-medium text-white/60">
+            <span className="rounded-[3px] border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[10px] font-medium text-white/60">
               Access portal
             </span>
           </div>

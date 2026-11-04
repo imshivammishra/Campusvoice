@@ -42,11 +42,11 @@ export default function ProfilePage() {
       />
 
       <Card className="overflow-hidden">
-        <div className="grid-paper h-24 border-b border-[#e4e4e7] bg-[#fafafa]" />
+        <div className="h-24 border-b border-[#e4e4e7] bg-[#fafafa]" />
         <div className="flex flex-col gap-4 px-6 pb-6 sm:flex-row sm:items-end">
           <Avatar
             name={user?.fullName || user?.username}
-            className="-mt-11 h-20 w-20 rounded-[16px] border-4 border-white bg-[#0071e3] text-2xl text-white"
+            className="-mt-11 h-20 w-20 rounded-[6px] border-4 border-white bg-[#09090b] text-2xl text-white"
           />
           <div className="min-w-0 flex-1 sm:pb-0.5">
             {loading && !user ? (
@@ -63,8 +63,8 @@ export default function ProfilePage() {
             )}
           </div>
           <div className="flex items-center gap-2 sm:pb-0.5">
-            <span className="inline-flex items-center gap-1.5 rounded-[9px] border border-[#e4e4e7] bg-[#fafafa] px-2 py-1 text-[10.5px] font-medium text-[#52525b]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#248a3d]" />
+            <span className="inline-flex items-center gap-1.5 rounded-[3px] border border-[#e4e4e7] bg-[#fafafa] px-2 py-1 text-[10.5px] font-medium text-[#52525b]">
+              <span className="h-1.5 w-1.5 rounded-[1px] bg-[#15803d]" />
               {user?.isActive === false ? 'Deactivated' : 'Active'}
             </span>
             <Badge variant="default">{roleLabel(user?.role)}</Badge>
@@ -75,9 +75,9 @@ export default function ProfilePage() {
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Account details</CardTitle>
+            <CardTitle>Account details</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3 text-sm">
+          <CardContent className="space-y-3 text-[13px]">
             <Detail label="Username" value={user?.username} />
             <Detail label="Email" value={user?.email} />
             <Detail label="Role" value={roleLabel(user?.role)} />
@@ -90,7 +90,7 @@ export default function ProfilePage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Permissions</CardTitle>
+            <CardTitle>Permissions</CardTitle>
           </CardHeader>
           <CardContent>
             {user?.permissions && user.permissions.length > 0 ? (
@@ -102,7 +102,7 @@ export default function ProfilePage() {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-[12.5px] text-[#71717a]">
                 No elevated permissions assigned.
               </p>
             )}
@@ -149,13 +149,13 @@ function InfoCard({
   body: string;
 }) {
   return (
-    <Card className="p-6">
+    <Card className="p-5">
       <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[4px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]">
           <Icon className="h-5 w-5" />
         </span>
         <div>
-          <h3 className="text-[15px] font-semibold leading-tight text-foreground">
+          <h3 className="text-[13.5px] font-semibold leading-tight text-[#09090b]">
             {title}
           </h3>
           <p className="mt-1 text-[12.5px] leading-relaxed text-[#71717a]">

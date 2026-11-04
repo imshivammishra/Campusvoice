@@ -283,9 +283,9 @@ export default function ElectionDetailPage() {
                               : ''}
                           </span>
                         </div>
-                        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[#f4f4f5]">
+                        <div className="mt-2 h-1.5 overflow-hidden rounded-[1px] bg-[#f4f4f5]">
                           <div
-                            className="h-full rounded-full bg-[#0f4c81]"
+                            className="h-full rounded-[1px] bg-[#0f4c81]"
                             style={{
                               width: `${
                                 totalVotes > 0

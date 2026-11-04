@@ -4,12 +4,12 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: {
-    default: 'CampusVoice',
-    template: '%s · CampusVoice',
+    default: 'HUConnect',
+    template: '%s · HUConnect',
   },
   description:
     'Elections, concerns and proposals for your campus — in one clear, private place.',
-  applicationName: 'CampusVoice',
+  applicationName: 'HUConnect',
   keywords: [
     'college governance',
     'student elections',
@@ -19,11 +19,11 @@ export const metadata: Metadata = {
     'proposal management',
   ],
   openGraph: {
-    title: 'CampusVoice',
+    title: 'HUConnect',
     description:
       'Your campus. Your voice. Elections, concerns and proposals in one clear, private place.',
     type: 'website',
-    siteName: 'CampusVoice',
+    siteName: 'HUConnect',
   },
 };
 

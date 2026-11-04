@@ -11,7 +11,7 @@ export function BrandVideo({
   src,
   poster,
   className,
-  label = 'CampusVoice',
+  label = 'HUConnect',
   preload = 'auto',
 }: {
   src: string;

@@ -114,9 +114,9 @@ export default function NotificationsPage() {
               >
                 <span
                   className={cn(
-                    'mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-[12px] border',
+                    'mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-[4px] border',
                     !n.isRead
-                      ? 'border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]'
+                      ? 'border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]'
                       : 'border-[#e4e4e7] bg-[#fafafa] text-[#a1a1aa]',
                   )}
                 >
@@ -153,8 +153,8 @@ export default function NotificationsPage() {
                       </Badge>
                     )}
                     {!n.isRead && (
-                      <span className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-[#0071e3]">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
+                      <span className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-[#0f4c81]">
+                        <span className="h-1.5 w-1.5 rounded-[1px] bg-[#0f4c81]" />
                         Unread
                       </span>
                     )}

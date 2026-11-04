@@ -69,7 +69,7 @@ export default function ConcernsPage() {
 
       {!canPublish && (
         <Card className="flex items-start gap-3.5 p-4">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]">
             <Info className="h-4 w-4" />
           </span>
           <div>
@@ -80,7 +80,7 @@ export default function ConcernsPage() {
               Only the Class Representative can publish formal concerns. Use{' '}
               <Link
                 href="/dashboard/cr-messages"
-                className="font-medium text-[#0071e3] hover:underline"
+                className="font-medium text-[#0f4c81] hover:underline"
               >
                 Message your CR
               </Link>{' '}
@@ -146,7 +146,7 @@ export default function ConcernsPage() {
                         ? `${p.supportVotes + (p.opposeVotes || 0) + (p.abstainVotes || 0)} votes`
                         : 'Voting record'}
                     </span>
-                    <span className="ml-auto inline-flex items-center gap-1 font-medium text-[#0071e3]">
+                    <span className="ml-auto inline-flex items-center gap-1 font-medium text-[#0f4c81]">
                       Open record
                       <ArrowUpRight className="h-3 w-3" />
                     </span>

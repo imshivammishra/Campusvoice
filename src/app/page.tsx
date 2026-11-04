@@ -153,11 +153,11 @@ const FAQS = [
   },
   {
     q: 'Can our institution use its own structure?',
-    a: 'Yes. Institutions, departments, classes and role permissions are fully configurable, so CampusVoice fits your existing academic hierarchy.',
+    a: 'Yes. Institutions, departments, classes and role permissions are fully configurable, so HUConnect fits your existing academic hierarchy.',
   },
   {
     q: 'Is this secure enough for real elections?',
-    a: 'CampusVoice uses anonymous ballot separation, one-vote authorisations, Argon2id passwords, HttpOnly sessions, role-based access and audit logging. Pair it with HTTPS and a managed MongoDB deployment for production.',
+    a: 'HUConnect uses anonymous ballot separation, one-vote authorisations, Argon2id passwords, HttpOnly sessions, role-based access and audit logging. Pair it with HTTPS and a managed MongoDB deployment for production.',
   },
 ];
 
@@ -167,7 +167,7 @@ function Hero() {
       <BrandVideo
         src="/media/campusvoice-loop.mp4"
         poster="/media/campusvoice-loop-poster.jpg"
-        label="CampusVoice abstract background"
+        label="HUConnect abstract background"
         className="absolute inset-0 -z-20 h-full w-full"
       />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.2)_42%,rgba(0,0,0,0.82)_100%)]" />
@@ -175,7 +175,7 @@ function Hero() {
 
       <div className="mx-auto flex w-full max-w-content flex-1 flex-col items-center justify-center px-6 pb-20 pt-28 text-center sm:pt-32">
         <p className="text-[12px] font-semibold uppercase tracking-[0.26em] text-white/55">
-          CampusVoice
+          HUConnect
         </p>
 
         <h1 className="mt-5 max-w-5xl text-[clamp(3.4rem,9.4vw,7rem)] font-semibold leading-[0.94] tracking-[-0.055em]">
@@ -199,7 +199,7 @@ function Hero() {
             href="#overview"
             className="group inline-flex items-center gap-1.5 text-[15px] font-medium text-[#2997ff] transition-colors hover:text-white"
           >
-            Explore CampusVoice
+            Explore HUConnect
             <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
           </a>
         </div>
@@ -262,7 +262,11 @@ function FeatureVisual({ kind }: { kind: 'election' | 'proposal' | 'audit' }) {
                 <span className="font-medium text-[#1d1d1f]">{candidate.name}</span>
                 <span className="text-[#86868b]">{candidate.votes}</span>
               </div>
-              <Progress value={candidate.value} className="mt-2 h-1.5" />
+              <Progress
+                value={candidate.value}
+                className="mt-2 h-1.5"
+                indicatorClassName="bg-[#0071e3]"
+              />
             </div>
           ))}
         </div>
@@ -357,7 +361,7 @@ function ElectionPreview() {
             <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
           </div>
           <span className="hidden text-[11px] text-[#86868b] sm:block">
-            CampusVoice · Elections
+            HUConnect · Elections
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-medium text-emerald-700">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
@@ -396,7 +400,11 @@ function ElectionPreview() {
                     </span>
                     <span className="text-[#86868b]">{candidate.votes} votes</span>
                   </div>
-                  <Progress value={candidate.value} className="mt-2 h-2" />
+                  <Progress
+                    value={candidate.value}
+                    className="mt-2 h-2"
+                    indicatorClassName="bg-[#0071e3]"
+                  />
                 </div>
               ))}
             </div>
@@ -525,7 +533,11 @@ function ProposalPanel() {
           <span className="text-[#6e6e73]">3 of 4 stages complete</span>
           <span className="font-medium text-[#1d1d1f]">75%</span>
         </div>
-        <Progress value={75} className="mt-2" />
+        <Progress
+          value={75}
+          className="mt-2"
+          indicatorClassName="bg-[#0071e3]"
+        />
       </div>
     </div>
   );
@@ -644,7 +656,7 @@ export default function HomePage() {
                   <span className="text-[#86868b]">In one place.</span>
                 </h2>
                 <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-[#6e6e73] sm:text-[19px]">
-                  CampusVoice brings elections, concerns and proposals into a
+                  HUConnect brings elections, concerns and proposals into a
                   single accountable flow — so nothing gets lost between a
                   conversation and a decision.
                 </p>
@@ -838,7 +850,7 @@ export default function HomePage() {
                 </h2>
                 <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-white/55">
                   Democratic participation only works when people feel safe. Every
-                  layer of CampusVoice protects identity, integrity and
+                  layer of HUConnect protects identity, integrity and
                   accountability.
                 </p>
               </div>
@@ -1051,7 +1063,7 @@ export default function HomePage() {
 
           <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-black/[0.08] pt-6 sm:flex-row sm:items-center">
             <p>
-              Copyright © {new Date().getFullYear()} CampusVoice. All rights
+              Copyright © {new Date().getFullYear()} HUConnect. All rights
               reserved.
             </p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">

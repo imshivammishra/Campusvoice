@@ -5,5 +5,11 @@
   "installCommand": "npm install",
   "git": {
     "deploymentEnabled": true
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/v1/elections/cron",
+      "schedule": "0 0 * * *"
+    }
+  ]
 }

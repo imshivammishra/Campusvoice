@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    /* Apple-inspired light palette (SF system colors) */
-    --background: 240 11% 96%;
-    --foreground: 240 6% 10%;
+    /* Civic hard-white palette */
+    --background: 0 0% 100%;
+    --foreground: 240 6% 4%;
     --card: 0 0% 100%;
-    --card-foreground: 240 6% 10%;
+    --card-foreground: 240 6% 4%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 6% 10%;
-    --primary: 211 100% 45%;
+    --popover-foreground: 240 6% 4%;
+    --primary: 240 6% 4%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 11% 96%;
+    --secondary: 240 5% 96%;
     --secondary-foreground: 240 6% 10%;
-    --muted: 240 9% 95%;
-    --muted-foreground: 240 3% 46%;
-    --accent: 211 100% 45%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 207 79% 28%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 4 90% 58%;
+    --destructive: 0 72% 42%;
     --destructive-foreground: 0 0% 100%;
-    --border: 240 7% 86%;
-    --input: 240 7% 84%;
-    --ring: 211 100% 45%;
-    --radius: 0.75rem;
+    --border: 240 6% 90%;
+    --input: 240 5% 84%;
+    --ring: 240 6% 4%;
+    --radius: 0.375rem;
     --surface: #ffffff;
-    --surface-muted: #f5f5f7;
-    --ink: #1d1d1f;
-    --ink-soft: #6e6e73;
-    --line: #d2d2d7;
-    --civic: #0071e3;
+    --surface-muted: #fafafa;
+    --ink: #09090b;
+    --ink-soft: #71717a;
+    --line: #e4e4e7;
+    --civic: #0f4c81;
     /* Apple system accents */
     --apple-blue: #0071e3;
     --apple-blue-hover: #0077ed;
@@ -52,13 +52,13 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-white text-foreground antialiased;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
     text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background: rgba(0, 113, 227, 0.16);
+    background: rgba(15, 76, 129, 0.16);
     color: var(--ink);
   }
 

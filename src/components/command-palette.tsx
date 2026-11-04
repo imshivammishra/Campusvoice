@@ -84,30 +84,30 @@ export function CommandPalette({
   return (
     <div className="fixed inset-0 z-[70] flex items-start justify-center p-4 pt-[12vh]">
       <div
-        className="absolute inset-0 bg-[#1d1d1f]/40 backdrop-blur-md"
+        className="absolute inset-0 bg-[#09090b]/30 backdrop-blur-[2px]"
         onClick={onClose}
       />
       <div
         role="dialog"
         aria-modal="true"
         aria-label="Command palette"
-        className="relative w-full max-w-lg overflow-hidden rounded-[22px] border border-white/60 material-thick shadow-lift"
+        className="relative w-full max-w-lg overflow-hidden rounded-[6px] border border-[#e4e4e7] bg-white shadow-[0_4px_16px_rgba(9,9,11,0.08),0_32px_64px_-24px_rgba(9,9,11,0.28)]"
       >
-        <div className="flex items-center gap-3 border-b border-black/[0.06] px-4">
-          <Search className="h-4 w-4 shrink-0 text-[#86868b]" />
+        <div className="flex items-center gap-3 border-b border-[#e4e4e7] px-4">
+          <Search className="h-4 w-4 shrink-0 text-[#a1a1aa]" />
           <input
             ref={inputRef}
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search pages, tools and settings…"
-            className="h-12 w-full bg-transparent text-[14px] text-[#1d1d1f] outline-none placeholder:text-[#a1a1aa]"
+            className="h-12 w-full bg-transparent text-[13.5px] text-[#09090b] outline-none placeholder:text-[#a1a1aa]"
           />
           <Kbd>Esc</Kbd>
         </div>
 
         <div className="max-h-[46vh] overflow-y-auto p-1.5">
           {filtered.length === 0 ? (
-            <div className="px-4 py-10 text-center text-[12px] text-[#6e6e73]">
+            <div className="px-4 py-10 text-center text-[12px] text-[#71717a]">
               No matches for “{query}”. Try elections, proposals or support.
             </div>
           ) : (
@@ -124,30 +124,30 @@ export function CommandPalette({
                     onClose();
                   }}
                   className={cn(
-                    'flex w-full items-center gap-3 rounded-[14px] px-2.5 py-2 text-left transition-colors',
-                    isActive ? 'bg-[#0071e3]/10' : 'hover:bg-black/[0.045]',
+                    'flex w-full items-center gap-3 rounded-[4px] px-2.5 py-2 text-left transition-colors',
+                    isActive ? 'bg-[#f4f4f5]' : 'hover:bg-[#fafafa]',
                   )}
                 >
                   <span
                     className={cn(
-                      'flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] transition-colors',
+                      'flex h-8 w-8 shrink-0 items-center justify-center rounded-[3px] transition-colors',
                       isActive
-                        ? 'bg-[#0071e3] text-white shadow-[0_2px_6px_-2px_rgba(0,113,227,0.6)]'
-                        : 'border border-black/[0.06] bg-white text-[#6e6e73]',
+                        ? 'bg-[#09090b] text-white'
+                        : 'border border-[#e4e4e7] bg-white text-[#71717a]',
                     )}
                   >
                     <Icon className="h-3.5 w-3.5" />
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[13px] font-medium text-[#1d1d1f]">
+                    <span className="block truncate text-[12.5px] font-medium text-[#09090b]">
                       {item.name}
                     </span>
-                    <span className="block text-[10.5px] text-[#86868b]">
+                    <span className="block text-[10.5px] text-[#a1a1aa]">
                       {item.section}
                     </span>
                   </span>
                   {isActive ? (
-                    <ArrowUpRight className="h-4 w-4 text-[#0071e3]" />
+                    <ArrowUpRight className="h-4 w-4 text-[#0f4c81]" />
                   ) : (
                     <span className="font-mono text-[10px] text-[#a1a1aa]">
                       {item.href}
@@ -159,7 +159,7 @@ export function CommandPalette({
           )}
         </div>
 
-        <div className="flex items-center justify-between border-t border-black/[0.06] bg-white/40 px-4 py-2.5 text-[10.5px] text-[#86868b]">
+        <div className="flex items-center justify-between border-t border-[#e4e4e7] bg-[#fafafa] px-4 py-2.5 text-[10.5px] text-[#a1a1aa]">
           <span className="flex items-center gap-3">
             <span className="flex items-center gap-1">
               <Kbd>↑</Kbd>
@@ -172,7 +172,7 @@ export function CommandPalette({
               open
             </span>
           </span>
-          <span>CampusVoice</span>
+          <span>HUConnect</span>
         </div>
       </div>
     </div>

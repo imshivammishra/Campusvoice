@@ -468,8 +468,8 @@ function VoteBar({ label, value, total, color }: any) {
           {value} · {pct}%
         </span>
       </div>
-      <div className="h-1.5 overflow-hidden rounded-full bg-[#f4f4f5]">
-        <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
+      <div className="h-1.5 overflow-hidden rounded-[1px] bg-[#f4f4f5]">
+        <div className={`h-full rounded-[1px] ${color}`} style={{ width: `${pct}%` }} />
       </div>
     </div>
   );

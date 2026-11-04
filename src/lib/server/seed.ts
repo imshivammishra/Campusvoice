@@ -50,7 +50,7 @@ async function runSeed() {
   let institution = await Institution.findOne({ code: 'CVIT' });
   if (!institution) {
     institution = await Institution.create({
-      name: 'CampusVoice Institute of Technology',
+      name: 'HUConnect Institute of Technology',
       code: 'CVIT',
       city: 'Bengaluru',
       state: 'Karnataka',

@@ -24,6 +24,7 @@ export async function handleElections(ctx: RouteContext): Promise<Response | nul
   const [root, id, action] = ctx.segments;
   if (root === 'elections') {
     if (ctx.method === 'GET' && !id) return listElections(ctx);
+    if ((ctx.method === 'GET' || ctx.method === 'POST') && id === 'cron') return runElectionCron(ctx);
     if (ctx.method === 'POST' && !id) return createElection(ctx);
     if (ctx.method === 'GET' && id && !action) return getElection(ctx, id);
     if (ctx.method === 'POST' && id && action === 'nominate') return nominate(ctx, id);
@@ -37,6 +38,122 @@ export async function handleElections(ctx: RouteContext): Promise<Response | nul
 
 function canManage(role: string) {
   return role === ROLES.SUPER_ADMIN || role === ROLES.REGISTRAR || AUTHORITY_ROLES.includes(role as any);
+}
+
+/* ---------------------------------------------------------------------------
+ * Automatic weekly CR election cycle.
+ * Every Sunday a 24-hour election opens for each active class, with every
+ * student auto-enrolled as a candidate so a ballot always exists. When the
+ * window closes (Monday) `closeExpiredElections` finalises it and the winner
+ * is automatically promoted to Class Representative.
+ * ------------------------------------------------------------------------- */
+function startOfDay(date: Date) {
+  const copy = new Date(date);
+  copy.setHours(0, 0, 0, 0);
+  return copy;
+}
+
+function currentSundayWindow(now = new Date()) {
+  const todayMidnight = startOfDay(now);
+  const sundayStart = new Date(todayMidnight);
+  sundayStart.setDate(todayMidnight.getDate() - todayMidnight.getDay()); // 0 = Sunday
+  const windowEnd = new Date(sundayStart.getTime() + 24 * 60 * 60 * 1000); // Monday 00:00
+  const nextSunday = new Date(sundayStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+  return { sundayStart, windowEnd, nextSunday, inWindow: now >= sundayStart && now < windowEnd };
+}
+
+async function ensureWeeklyElections(classId?: string) {
+  const { sundayStart, windowEnd, nextSunday, inWindow } = currentSundayWindow();
+  if (!inWindow) return; // Elections only open during the Sunday 24h window.
+
+  const classFilter: Record<string, unknown> = { isActive: true };
+  if (classId) classFilter._id = classId;
+  const classes = await Class.find(classFilter).limit(200).lean();
+
+  for (const klass of classes) {
+    const existing = await CRElection.findOne({
+      classId: klass._id,
+      opensAt: { $gte: sundayStart },
+    })
+      .select('_id')
+      .lean();
+    if (existing) continue;
+
+    const students = await User.find({
+      classId: klass._id,
+      role: { $in: [ROLES.STUDENT, ROLES.CLASS_REPRESENTATIVE] },
+      isActive: true,
+    })
+      .select('_id fullName username')
+      .lean();
+    if (students.length === 0) continue;
+
+    let election;
+    try {
+      election = await CRElection.create({
+        electionId: makeId('ELECTION'),
+        classId: klass._id,
+        className: klass.name,
+        title: 'Weekly Class Representative Election',
+        opensAt: sundayStart,
+        closesAt: windowEnd,
+        nominationOpensAt: sundayStart,
+        nominationClosesAt: sundayStart,
+        status: ELECTION_STATUS.ACTIVE,
+        totalEligibleVoters: students.length,
+        schedulingMode: 'auto_schedule',
+        nextElectionAt: nextSunday,
+      });
+    } catch {
+      continue; // Another concurrent request already created it.
+    }
+
+    try {
+      await CRCandidate.insertMany(
+        students.map((student: any) => ({
+          electionId: election._id,
+          studentId: student._id,
+          studentName: student.fullName || student.username,
+          className: klass.name,
+          manifesto: '',
+          status: 'approved',
+          votes: 0,
+        })),
+        { ordered: false },
+      );
+    } catch {
+      // Ignore duplicate-key races on candidate enrolment.
+    }
+
+    try {
+      await Notification.insertMany(
+        students.map((student: any) => ({
+          userId: student._id,
+          type: NOTIFICATION_TYPE.ELECTION_OPENED,
+          title: 'CR election is open',
+          message:
+            'Voting for your Class Representative is open for 24 hours. Cast your vote before it closes on Monday.',
+          data: { electionId: election._id.toString() },
+        })),
+      );
+    } catch {
+      // Notifications are best-effort.
+    }
+  }
+}
+
+async function runElectionCron(ctx: RouteContext) {
+  const secret = process.env.CRON_SECRET;
+  if (secret) {
+    const provided =
+      ctx.req.headers.get('authorization') || ctx.searchParams.get('key') || '';
+    if (provided !== `Bearer ${secret}` && provided !== secret) {
+      throw new ApiError('Unauthorized', 401);
+    }
+  }
+  await ensureWeeklyElections(undefined);
+  await closeExpiredElections(undefined);
+  return json({ ok: true, ranAt: new Date().toISOString() });
 }
 
 async function listElections(ctx: RouteContext) {
@@ -55,6 +172,7 @@ async function listElections(ctx: RouteContext) {
     filter.classId = user.classId;
   }
 
+  await ensureWeeklyElections(filter.classId as string | undefined);
   await closeExpiredElections(filter.classId as string | undefined);
 
   const [data, total] = await Promise.all([
@@ -255,8 +373,8 @@ async function finalizeElection(election: any, actor: any) {
     .sort({ votes: -1, createdAt: 1 })
     .lean();
   const totalVotes = candidates.reduce((sum, c: any) => sum + (c.votes || 0), 0);
-  const top = candidates[0];
-  const tied = candidates.filter((c: any) => top && c.votes === top.votes);
+  const top = totalVotes > 0 ? candidates[0] : null;
+  const tied = top ? candidates.filter((c: any) => c.votes === top.votes) : [];
 
   election.status = ELECTION_STATUS.CLOSED;
   election.totalParticipatingVoters = totalVotes;

@@ -371,7 +371,7 @@ async function registrations(ctx: RouteContext, id?: string, action?: string) {
           userId: registration.userId,
           type: 'account_activation',
           title: 'Your account is active',
-          message: 'Your CampusVoice registration was approved. You can now sign in.',
+          message: 'Your HUConnect registration was approved. You can now sign in.',
         });
       }
       await audit('approve_registration', {

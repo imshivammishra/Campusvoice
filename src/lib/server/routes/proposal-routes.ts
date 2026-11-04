@@ -41,6 +41,68 @@ function canReview(role: string) {
   return role === ROLES.TEACHER || isAuthority(role);
 }
 
+// --- Community-based voting & visibility rules -----------------------------
+// Student-community items (raised by a CR) may only be voted on by students and
+// class representatives. Teacher-community items may only be voted on by
+// teachers. Authorities and the super admin can raise/oversee but never vote.
+const STUDENT_VOTER_ROLES: string[] = [ROLES.STUDENT, ROLES.CLASS_REPRESENTATIVE];
+const TEACHER_VOTER_ROLES: string[] = [ROLES.TEACHER];
+
+function votersForCommunity(community?: string): string[] {
+  return community === 'teacher' ? TEACHER_VOTER_ROLES : STUDENT_VOTER_ROLES;
+}
+
+function canVoteOnCommunity(community: string | undefined, role: string): boolean {
+  return votersForCommunity(community).includes(role);
+}
+
+// A proposal becomes visible to the wider hierarchy (teachers / authorities)
+// only once it has been forwarded or escalated upward.
+const FORWARDED_STATUSES: string[] = [
+  PROPOSAL_STATUS.FORWARDED,
+  PROPOSAL_STATUS.ESCALATED,
+  PROPOSAL_STATUS.RESOLVED,
+];
+
+// Returns the Mongo visibility clause for the proposals feed, enforcing the
+// community/forwarding matrix described above.
+function visibilityClause(user: { sub: string; role: string }): Record<string, unknown> {
+  const isStudentSide = STUDENT_VOTER_ROLES.includes(user.role);
+  if (isStudentSide) {
+    // Students and CRs only ever see student-community items (plus their own).
+    return {
+      $or: [{ community: 'student' }, { createdBy: user.sub }],
+    };
+  }
+  if (user.role === ROLES.TEACHER) {
+    // Teachers see all teacher-community items, student-community items only
+    // after they have been forwarded upward, and anything they authored.
+    return {
+      $or: [
+        { community: 'teacher' },
+        { community: 'student', status: { $in: FORWARDED_STATUSES } },
+        { createdBy: user.sub },
+      ],
+    };
+  }
+  // Authorities and super admin: oversight only after forwarding/escalation,
+  // plus anything they authored.
+  return {
+    $or: [{ status: { $in: FORWARDED_STATUSES } }, { createdBy: user.sub }],
+  };
+}
+
+function canViewProposal(proposal: any, user: { sub: string; role: string }): boolean {
+  if (proposal.createdBy?.toString() === user.sub) return true;
+  const isStudentSide = STUDENT_VOTER_ROLES.includes(user.role);
+  if (isStudentSide) return proposal.community === 'student';
+  if (user.role === ROLES.TEACHER) {
+    if (proposal.community === 'teacher') return true;
+    return FORWARDED_STATUSES.includes(proposal.status);
+  }
+  return FORWARDED_STATUSES.includes(proposal.status);
+}
+
 export async function handleProposals(ctx: RouteContext): Promise<Response | null> {
   const [root, id, action] = ctx.segments;
   if (root !== 'proposals') return null;
@@ -97,6 +159,14 @@ async function listProposals(ctx: RouteContext) {
     ];
   }
 
+  // Apply the community / forwarding visibility matrix for every role.
+  const visibility = visibilityClause(user);
+  if (Array.isArray(filter.$and)) {
+    (filter.$and as unknown[]).push(visibility);
+  } else {
+    filter.$and = [visibility];
+  }
+
   const [data, total] = await Promise.all([
     Proposal.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
     Proposal.countDocuments(filter),
@@ -134,7 +204,7 @@ async function createProposal(ctx: RouteContext) {
     category: body.category || 'Institutional Improvement',
     type,
     department,
-    community: body.community || (isStudentConcern ? 'student' : 'teacher'),
+    community: isStudentConcern ? 'student' : 'teacher',
     classId: body.classId || user.classId || undefined,
     proposedSolution: body.proposedSolution,
     supportingEvidence: asArray(body.supportingEvidence),
@@ -218,8 +288,10 @@ async function getProposal(ctx: RouteContext, id: string) {
   if (!proposal) {
     const byPid = await Proposal.findOne({ proposalId: id }).select('+votedUserIds').lean();
     if (!byPid) throw new ApiError('Proposal not found', 404);
+    if (!canViewProposal(byPid, user)) throw new ApiError('Proposal not found', 404);
     return decorated(byPid, user);
   }
+  if (!canViewProposal(proposal, user)) throw new ApiError('Proposal not found', 404);
   return decorated(proposal, user);
 }
 
@@ -227,16 +299,18 @@ async function getProposalByPid(ctx: RouteContext, proposalId: string) {
   const user = await requireAuth(ctx.req);
   const proposal = await Proposal.findOne({ proposalId }).select('+votedUserIds').lean();
   if (!proposal) throw new ApiError('Proposal not found', 404);
+  if (!canViewProposal(proposal, user)) throw new ApiError('Proposal not found', 404);
   return decorated(proposal, user);
 }
 
-function decorated(proposal: any, user: { sub: string }) {
+function decorated(proposal: any, user: { sub: string; role: string }) {
   const votedUserIds: string[] = proposal.votedUserIds || [];
   return json({
     ...proposal,
     votedUserIds: undefined,
     isOwner: proposal.createdBy?.toString() === user.sub,
     hasVoted: votedUserIds.includes(user.sub),
+    canVote: canVoteOnCommunity(proposal.community, user.role),
   });
 }
 
@@ -260,8 +334,15 @@ async function vote(ctx: RouteContext, id: string) {
   }
 
   // Enforce community eligibility without exposing individual choices.
-  if (proposal.community === 'teacher' && !(user.role === ROLES.TEACHER || isAuthority(user.role))) {
-    throw new ApiError('This vote is open to the teacher community only', 403);
+  if (!canViewProposal(proposal, user)) {
+    throw new ApiError('This item is not available to you', 403);
+  }
+  if (!canVoteOnCommunity(proposal.community, user.role)) {
+    const message =
+      proposal.community === 'teacher'
+        ? 'This vote is open to the teacher community only'
+        : 'This vote is open to students only — authorities and teachers cannot vote on class concerns';
+    throw new ApiError(message, 403);
   }
 
   const hash = voterHash(user.sub, proposal._id.toString());

@@ -16,22 +16,22 @@ type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
 
 const buttonVariants: Record<ButtonVariant, string> = {
   primary:
-    'bg-[#0071e3] text-white shadow-[0_1px_2px_rgba(0,0,0,0.10)] hover:bg-[#0077ed] active:bg-[#0064cc] focus-visible:ring-[#0071e3]/30',
+    'bg-[#09090b] text-white shadow-[0_1px_2px_rgba(0,0,0,0.16)] hover:bg-[#27272a] active:bg-black focus-visible:ring-[#09090b]/20',
   secondary:
-    'border-[#e3e3e8] bg-white text-[#1d1d1f] shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:bg-[#f5f5f7] active:scale-[0.98] focus-visible:ring-[#0071e3]/25',
+    'border-[#d4d4d8] bg-white text-[#09090b] hover:border-[#a1a1aa] hover:bg-[#fafafa] active:bg-[#f4f4f5] focus-visible:ring-[#09090b]/15',
   outline:
-    'border-[#d2d2d7] bg-white/60 text-[#1d1d1f] hover:border-[#b9b9c0] hover:bg-[#f5f5f7] active:scale-[0.98] focus-visible:ring-[#0071e3]/25',
+    'border-[#d4d4d8] bg-white text-[#09090b] hover:border-[#09090b] hover:bg-[#fafafa] active:bg-[#f4f4f5] focus-visible:ring-[#09090b]/15',
   ghost:
-    'text-[#424245] hover:bg-[#1d1d1f]/[0.055] hover:text-[#1d1d1f] active:scale-[0.98] focus-visible:ring-[#0071e3]/20',
+    'text-[#52525b] hover:bg-[#f4f4f5] hover:text-[#09090b] active:bg-[#e4e4e7] focus-visible:ring-[#09090b]/10',
   destructive:
-    'bg-[#ff3b30] text-white shadow-[0_8px_20px_-8px_rgba(255,59,48,0.6)] hover:bg-[#f52b20] active:bg-[#e01f16] active:scale-[0.98] focus-visible:ring-[#ff3b30]/35',
+    'bg-[#b91c1c] text-white shadow-[0_1px_2px_rgba(0,0,0,0.16)] hover:bg-[#991b1b] active:bg-[#7f1d1d] focus-visible:ring-[#b91c1c]/25',
 };
 
 const buttonSizes: Record<ButtonSize, string> = {
-  sm: 'h-8 px-3.5 text-[12px]',
-  md: 'h-10 px-5 text-[13px]',
-  lg: 'h-12 px-6 text-[15px]',
-  icon: 'h-10 w-10 p-0',
+  sm: 'h-8 px-3 text-[12px]',
+  md: 'h-9 px-4 text-[13px]',
+  lg: 'h-11 px-5 text-[13.5px]',
+  icon: 'h-9 w-9 p-0',
 };
 
 export interface ButtonProps
@@ -58,7 +58,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       disabled={disabled || loading}
       className={cn(
-        'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-transparent font-medium tracking-[-0.01em] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-0 disabled:pointer-events-none disabled:opacity-40',
+        'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[4px] border border-transparent font-medium tracking-[-0.005em] transition-[background-color,border-color,color,box-shadow] duration-150 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-offset-0 disabled:pointer-events-none disabled:opacity-40',
         buttonVariants[variant],
         buttonSizes[size],
         className,
@@ -84,9 +84,9 @@ export function Card({
   return (
     <div
       className={cn(
-        'rounded-[16px] border border-[#e5e5ea] bg-white text-[#1d1d1f] shadow-[0_1px_2px_rgba(0,0,0,0.03)]',
+        'rounded-[6px] border border-[#e4e4e7] bg-white text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)]',
         hover &&
-          'transition-colors duration-200 hover:border-[#d6d6dc]',
+          'transition-colors duration-150 hover:border-[#a1a1aa] hover:bg-[#fefefe]',
         className,
       )}
       {...props}
@@ -99,7 +99,7 @@ export function CardHeader({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn('flex flex-col gap-1.5 p-5 sm:p-6', className)} {...props} />
+    <div className={cn('flex flex-col gap-1.5 p-5', className)} {...props} />
   );
 }
 
@@ -110,7 +110,7 @@ export function CardTitle({
   return (
     <h3
       className={cn(
-        'text-[16px] font-semibold leading-tight tracking-[-0.015em] text-[#09090b]',
+        'text-[14.5px] font-semibold leading-tight tracking-[-0.01em] text-[#09090b]',
         className,
       )}
       {...props}
@@ -124,7 +124,7 @@ export function CardDescription({
 }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
     <p
-      className={cn('text-[13px] leading-relaxed text-[#71717a]', className)}
+      className={cn('text-[12.5px] leading-relaxed text-[#71717a]', className)}
       {...props}
     />
   );
@@ -134,7 +134,7 @@ export function CardContent({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn('p-5 pt-0 sm:p-6 sm:pt-0', className)} {...props} />;
+  return <div className={cn('p-5 pt-0', className)} {...props} />;
 }
 
 export function CardFooter({
@@ -143,7 +143,7 @@ export function CardFooter({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn('flex items-center p-5 pt-0 sm:p-6 sm:pt-0', className)}
+      className={cn('flex items-center p-5 pt-0', className)}
       {...props}
     />
   );
@@ -163,19 +163,13 @@ type BadgeVariant =
   | 'outline';
 
 const badgeVariants: Record<BadgeVariant, string> = {
-  default:
-    'border-black/[0.06] bg-[#f5f5f7] text-[#424245]',
-  secondary:
-    'border-black/[0.06] bg-white text-[#6e6e73]',
-  success:
-    'border-[#34c759]/25 bg-[#34c759]/10 text-[#248a3d]',
-  warning:
-    'border-[#ff9500]/25 bg-[#ff9500]/10 text-[#b25000]',
-  danger:
-    'border-[#ff3b30]/25 bg-[#ff3b30]/10 text-[#d70015]',
-  info:
-    'border-[#0071e3]/20 bg-[#0071e3]/10 text-[#0071e3]',
-  outline: 'border-[#d2d2d7] bg-transparent text-[#424245]',
+  default: 'border-[#e4e4e7] bg-[#fafafa] text-[#52525b]',
+  secondary: 'border-[#e4e4e7] bg-white text-[#71717a]',
+  success: 'border-[#bbf7d0] bg-[#f0fdf4] text-[#15803d]',
+  warning: 'border-[#fde68a] bg-[#fffbeb] text-[#b45309]',
+  danger: 'border-[#fecaca] bg-[#fef2f2] text-[#b91c1c]',
+  info: 'border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]',
+  outline: 'border-[#d4d4d8] bg-transparent text-[#3f3f46]',
 };
 
 export function Badge({
@@ -186,7 +180,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[10.5px] font-medium capitalize leading-4',
+        'inline-flex items-center gap-1 rounded-[3px] border px-2 py-0.5 text-[10.5px] font-medium capitalize leading-4',
         badgeVariants[variant],
         className,
       )}
@@ -203,14 +197,17 @@ const STATUS_MAP: Record<string, BadgeVariant> = {
   passed: 'success',
   published: 'success',
   completed: 'success',
+  certified: 'success',
   pending: 'warning',
   in_review: 'warning',
   review: 'warning',
   voting: 'info',
+  voting_active: 'info',
   nomination: 'info',
   scheduled: 'info',
   draft: 'secondary',
   closed: 'secondary',
+  archived: 'secondary',
   expired: 'secondary',
   rejected: 'danger',
   failed: 'danger',
@@ -240,18 +237,18 @@ export function PageHeader({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4 border-b border-[#e8e8ed] pb-6 sm:flex-row sm:items-end sm:justify-between">
+    <div className="flex flex-col gap-4 border-b border-[#e4e4e7] pb-5 sm:flex-row sm:items-end sm:justify-between">
       <div>
         {eyebrow && (
-          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0071e3]">
+          <p className="mb-2 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-[#0f4c81]">
             {eyebrow}
           </p>
         )}
-        <h1 className="text-[28px] font-semibold leading-[1.05] tracking-[-0.03em] text-[#1d1d1f] sm:text-[34px]">
+        <h1 className="text-[28px] font-semibold leading-[1.06] tracking-[-0.03em] text-[#09090b] sm:text-[32px]">
           {title}
         </h1>
         {description && (
-          <p className="mt-2 max-w-2xl text-[14px] leading-relaxed text-[#6e6e73]">
+          <p className="mt-2 max-w-2xl text-[13px] leading-relaxed text-[#71717a]">
             {description}
           </p>
         )}
@@ -280,26 +277,26 @@ export function StatCard({
   tone?: 'indigo' | 'emerald' | 'amber' | 'sky';
 }) {
   return (
-    <div className="rounded-[16px] border border-[#e5e5ea] bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-colors duration-200 hover:border-[#d6d6dc]">
+    <div className="rounded-[6px] border border-[#e4e4e7] bg-white p-5 transition-colors duration-150 hover:border-[#a1a1aa]">
       <div className="flex items-start justify-between gap-3">
-        <p className="text-[12.5px] font-medium text-[#6e6e73]">{label}</p>
+        <p className="text-[11.5px] font-medium text-[#71717a]">{label}</p>
         {Icon && (
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0071e3]/10 text-[#0071e3]">
+          <span className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] text-[#0f4c81]">
             <Icon className="h-4 w-4" />
           </span>
         )}
       </div>
-      <p className="mt-3 text-[30px] font-semibold leading-none tracking-[-0.035em] tabular-nums text-[#1d1d1f]">
+      <p className="mt-3 text-[30px] font-semibold leading-none tracking-[-0.035em] tabular-nums text-[#09090b]">
         {value}
       </p>
       <div className="mt-2 flex items-center gap-2">
         {delta && (
-          <span className="text-[11px] font-medium text-[#248a3d]">
+          <span className="text-[11px] font-medium text-[#15803d]">
             {delta}
           </span>
         )}
         {hint && (
-          <p className="text-[11.5px] leading-snug text-[#86868b]">{hint}</p>
+          <p className="text-[11.5px] leading-snug text-[#a1a1aa]">{hint}</p>
         )}
       </div>
     </div>
@@ -322,16 +319,16 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <Card className="flex flex-col items-center justify-center gap-3 border-dashed border-[#d2d2d7] bg-[#f5f5f7]/60 p-10 text-center shadow-none">
+    <Card className="flex flex-col items-center justify-center gap-3 border-dashed border-[#d4d4d8] bg-[#fafafa] p-10 text-center shadow-none">
       {Icon && (
-        <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e8e8ed] bg-white text-[#0071e3] shadow-card">
+        <span className="flex h-12 w-12 items-center justify-center rounded-[4px] border border-[#e4e4e7] bg-white text-[#0f4c81]">
           <Icon className="h-5 w-5" />
         </span>
       )}
       <div>
-        <p className="text-[15px] font-semibold text-[#1d1d1f]">{title}</p>
+        <p className="text-[14.5px] font-semibold text-[#09090b]">{title}</p>
         {description && (
-          <p className="mx-auto mt-1.5 max-w-sm text-[12.5px] leading-relaxed text-[#6e6e73]">
+          <p className="mx-auto mt-1.5 max-w-sm text-[12.5px] leading-relaxed text-[#71717a]">
             {description}
           </p>
         )}
@@ -352,7 +349,7 @@ export function Spinner({ className }: { className?: string }) {
 export function Skeleton({ className }: { className?: string }) {
   return (
     <div
-      className={cn('animate-pulse rounded-[12px] bg-[#f4f4f5]', className)}
+      className={cn('animate-pulse rounded-[4px] bg-[#f4f4f5]', className)}
     />
   );
 }
@@ -404,7 +401,7 @@ export function Avatar({
   return (
     <span
       className={cn(
-        'inline-flex items-center justify-center rounded-full bg-[#0071e3] text-[12px] font-semibold uppercase text-white',
+        'inline-flex items-center justify-center rounded-[4px] bg-[#09090b] text-[12px] font-semibold uppercase text-white',
         className,
       )}
     >
@@ -424,7 +421,7 @@ export const Input = React.forwardRef<
   <input
     ref={ref}
     className={cn(
-      'h-11 w-full rounded-[12px] border border-[#d2d2d7] bg-white px-3.5 text-[14px] text-[#1d1d1f] shadow-[0_1px_1px_rgba(0,0,0,0.02)] outline-none transition-[border-color,box-shadow] placeholder:text-[#a1a1aa] focus:border-[#0071e3] focus:ring-4 focus:ring-[#0071e3]/15 disabled:cursor-not-allowed disabled:bg-[#f5f5f7] disabled:opacity-60',
+      'h-10 w-full rounded-[4px] border border-[#d4d4d8] bg-white px-3 text-[13.5px] text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)] outline-none transition-[border-color,box-shadow] placeholder:text-[#a1a1aa] focus:border-[#09090b] focus:ring-[3px] focus:ring-[#09090b]/[0.08] disabled:cursor-not-allowed disabled:bg-[#fafafa] disabled:opacity-60',
       className,
     )}
     {...props}
@@ -439,7 +436,7 @@ export const Textarea = React.forwardRef<
   <textarea
     ref={ref}
     className={cn(
-      'min-h-[96px] w-full rounded-[12px] border border-[#d2d2d7] bg-white px-3.5 py-2.5 text-[14px] leading-relaxed text-[#1d1d1f] shadow-[0_1px_1px_rgba(0,0,0,0.02)] outline-none transition-[border-color,box-shadow] placeholder:text-[#a1a1aa] focus:border-[#0071e3] focus:ring-4 focus:ring-[#0071e3]/15 disabled:bg-[#f5f5f7] disabled:opacity-60',
+      'min-h-[96px] w-full rounded-[4px] border border-[#d4d4d8] bg-white px-3 py-2.5 text-[13.5px] leading-relaxed text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)] outline-none transition-[border-color,box-shadow] placeholder:text-[#a1a1aa] focus:border-[#09090b] focus:ring-[3px] focus:ring-[#09090b]/[0.08] disabled:bg-[#fafafa] disabled:opacity-60',
       className,
     )}
     {...props}
@@ -454,7 +451,7 @@ export const Select = React.forwardRef<
   <select
     ref={ref}
     className={cn(
-      'h-11 w-full rounded-[12px] border border-[#d2d2d7] bg-white px-3.5 text-[14px] text-[#1d1d1f] shadow-[0_1px_1px_rgba(0,0,0,0.02)] outline-none transition-[border-color,box-shadow] focus:border-[#0071e3] focus:ring-4 focus:ring-[#0071e3]/15 disabled:bg-[#f5f5f7] disabled:opacity-60',
+      'h-10 w-full rounded-[4px] border border-[#d4d4d8] bg-white px-3 text-[13.5px] text-[#09090b] shadow-[0_1px_1px_rgba(9,9,11,0.02)] outline-none transition-[border-color,box-shadow] focus:border-[#09090b] focus:ring-[3px] focus:ring-[#09090b]/[0.08] disabled:bg-[#fafafa] disabled:opacity-60',
       className,
     )}
     {...props}
@@ -470,7 +467,7 @@ export function Label({
 }: React.LabelHTMLAttributes<HTMLLabelElement>) {
   return (
     <label
-      className={cn('text-[12.5px] font-medium text-[#424245]', className)}
+      className={cn('text-[12.5px] font-medium text-[#3f3f46]', className)}
       {...props}
     />
   );
@@ -494,14 +491,14 @@ export function Field({
       {label && (
         <Label>
           {label}
-          {required && <span className="ml-0.5 text-[#d70015]">*</span>}
+          {required && <span className="ml-0.5 text-[#b91c1c]">*</span>}
         </Label>
       )}
       {children}
       {hint && !error && (
         <p className="text-[11.5px] leading-relaxed text-[#a1a1aa]">{hint}</p>
       )}
-      {error && <p className="text-[11.5px] text-[#d70015]">{error}</p>}
+      {error && <p className="text-[11.5px] text-[#b91c1c]">{error}</p>}
     </div>
   );
 }
@@ -531,37 +528,37 @@ export function Modal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-[#1d1d1f]/40 backdrop-blur-md animate-in fade-in"
+        className="absolute inset-0 animate-in fade-in bg-[#09090b]/30 backdrop-blur-[2px]"
         onClick={onClose}
       />
       <div
         className={cn(
-          'relative z-10 w-full overflow-hidden rounded-[22px] border border-white/60 material-thick shadow-lift',
+          'relative z-10 w-full overflow-hidden rounded-[6px] border border-[#e4e4e7] bg-white shadow-[0_4px_16px_rgba(9,9,11,0.08),0_32px_64px_-24px_rgba(9,9,11,0.28)]',
           size === 'lg' ? 'max-w-2xl' : 'max-w-md',
         )}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-black/[0.06] p-5 sm:p-6">
+        <div className="flex items-start justify-between gap-4 border-b border-[#e4e4e7] p-5">
           <div>
-            <h3 className="text-[18px] font-semibold leading-tight tracking-[-0.02em] text-[#1d1d1f]">
+            <h3 className="text-[16px] font-semibold leading-tight tracking-[-0.015em] text-[#09090b]">
               {title}
             </h3>
             {description && (
-              <p className="mt-1.5 text-[12.5px] leading-relaxed text-[#6e6e73]">
+              <p className="mt-1.5 text-[12px] leading-relaxed text-[#71717a]">
                 {description}
               </p>
             )}
           </div>
           <button
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-black/[0.06] hover:text-[#1d1d1f]"
+            className="flex h-8 w-8 items-center justify-center rounded-[3px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b]"
             aria-label="Close"
           >
-            <X className="h-[18px] w-[18px]" />
+            <X className="h-[17px] w-[17px]" />
           </button>
         </div>
-        <div className="max-h-[65vh] overflow-y-auto p-5 sm:p-6">{children}</div>
+        <div className="max-h-[65vh] overflow-y-auto p-5">{children}</div>
         {footer && (
-          <div className="flex items-center justify-end gap-2 border-t border-black/[0.06] bg-white/40 p-4">
+          <div className="flex items-center justify-end gap-2 border-t border-[#e4e4e7] bg-[#fafafa] p-4">
             {footer}
           </div>
         )}
@@ -579,15 +576,15 @@ export function Table({
   ...props
 }: React.TableHTMLAttributes<HTMLTableElement>) {
   return (
-    <div className="overflow-x-auto rounded-[18px] border border-[#e8e8ed] bg-white shadow-card">
-      <table className={cn('w-full text-[13px]', className)} {...props} />
+    <div className="overflow-x-auto rounded-[6px] border border-[#e4e4e7] bg-white">
+      <table className={cn('w-full text-[12.5px]', className)} {...props} />
     </div>
   );
 }
 
 export function THead({ children }: { children: React.ReactNode }) {
   return (
-    <thead className="border-b border-[#e8e8ed] bg-[#f5f5f7] text-left text-[10.5px] font-semibold uppercase tracking-[0.08em] text-[#6e6e73]">
+    <thead className="border-b border-[#e4e4e7] bg-[#fafafa] text-left text-[10.5px] font-semibold uppercase tracking-[0.08em] text-[#71717a]">
       {children}
     </thead>
   );
@@ -597,7 +594,9 @@ export function TH({
   className,
   ...props
 }: React.ThHTMLAttributes<HTMLTableCellElement>) {
-  return <th className={cn('px-4 py-3 font-medium', className)} {...props} />;
+  return (
+    <th className={cn('px-4 py-3 font-medium', className)} {...props} />
+  );
 }
 
 export function TR({
@@ -607,7 +606,7 @@ export function TR({
   return (
     <tr
       className={cn(
-        'border-b border-[#f0f0f3] transition-colors last:border-0 hover:bg-[#f5f5f7]',
+        'border-b border-[#f4f4f5] transition-colors last:border-0 hover:bg-[#fafafa]',
         className,
       )}
       {...props}
@@ -644,7 +643,7 @@ export function Progress({
   return (
     <div
       className={cn(
-        'h-1.5 w-full overflow-hidden rounded-full bg-[#e8e8ed]',
+        'h-1.5 w-full overflow-hidden rounded-full bg-[#f4f4f5]',
         className,
       )}
       role="progressbar"
@@ -654,7 +653,7 @@ export function Progress({
     >
       <div
         className={cn(
-          'h-full rounded-full bg-[#0071e3] transition-all duration-700',
+          'h-full rounded-full bg-[#0f4c81] transition-all duration-700',
           indicatorClassName,
         )}
         style={{ width: `${clamped}%` }}
@@ -669,7 +668,7 @@ export function Progress({
 
 export function Kbd({ children }: { children: React.ReactNode }) {
   return (
-    <kbd className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-[9px] border border-[#e4e4e7] bg-[#fafafa] px-1 text-[10px] font-medium text-[#71717a]">
+    <kbd className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-[3px] border border-[#e4e4e7] bg-[#fafafa] px-1 text-[10px] font-medium text-[#71717a]">
       {children}
     </kbd>
   );
@@ -701,11 +700,11 @@ export function SectionHeading({
       )}
     >
       {eyebrow && (
-        <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-[#71717a]">
+        <p className="text-[10.5px] font-medium uppercase tracking-[0.14em] text-[#71717a]">
           {eyebrow}
         </p>
       )}
-      <h2 className="mt-3 text-balance text-[32px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[42px]">
+      <h2 className="mt-3 text-balance text-[32px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#09090b] sm:text-[42px]">
         {title}
       </h2>
       {description && (
@@ -721,4 +720,3 @@ export function SectionHeading({
     </div>
   );
 }
-
