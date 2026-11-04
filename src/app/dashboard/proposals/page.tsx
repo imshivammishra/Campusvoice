@@ -47,9 +47,17 @@ export default function ProposalsPage() {
     try {
       const data = await apiRequest('/proposals');
       const items = data?.data || (Array.isArray(data) ? data : []);
-      // Student concerns have their own workspace; keep this page focused on
-      // teacher proposals and management reviews.
-      setProposals(items.filter((item: any) => item.type !== 'student_concern'));
+      const current = getStoredUser();
+      const isTeacherOrAuthority =
+        current?.role === 'TEACHER' || AUTHORITY_ROLES.includes(current?.role as any);
+      // Student concerns have their own workspace, but teachers and authorities
+      // still see the ones a CR has forwarded to them.
+      setProposals(
+        items.filter((item: any) => {
+          if (item.type !== 'student_concern') return true;
+          return isTeacherOrAuthority && ['forwarded', 'escalated', 'resolved'].includes(String(item.status));
+        }),
+      );
     } catch (e: any) {
       toast.error(e?.message || 'Failed to load proposals');
     } finally {
