@@ -10,6 +10,9 @@ build/
 out/
 *.tsbuildinfo
 
+# Runtime uploads
+public/uploads/
+
 # Environment
 .env
 .env.local

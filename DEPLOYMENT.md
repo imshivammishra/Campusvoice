@@ -1,84 +1,78 @@
-# Deploying CampusVoice
+# Deploying CampusVoice to Vercel
 
-CampusVoice is split into two deployables:
+CampusVoice is a **single Next.js project** at the repository root. The UI and
+the API (`/api/v1/*`, backed by MongoDB) live in the **same app and same
+origin**, so you upload one folder to GitHub and Vercel runs everything — no
+separate backend to host.
 
-| Part | Tech | Where to host |
-| --- | --- | --- |
-| `frontend/` | Next.js 14 | **Vercel** (recommended) |
-| `backend/` | NestJS + MongoDB | A **persistent Node host** (Render, Railway, Fly.io, a VM…) |
+> The older `frontend/` and `backend/` folders are a previous split
+> (NestJS + separate Next.js) and are **not** used by Vercel. They are excluded
+> via `.vercelignore`. You can delete them if you want a truly minimal repo.
 
-> The backend is **not** a good fit for Vercel serverless: it runs a `@Cron`
-> election scheduler (needs a long-lived process), writes uploaded proof files
-> to disk, and holds a MongoDB connection pool. Host it on a normal Node
-> server. The frontend is the Vercel part.
+## 1. Push to GitHub
 
----
+Commit the repository root (the folder containing `package.json`,
+`next.config.js`, `src/`, `vercel.json`) and push it to a GitHub repo.
+`.env.local` is gitignored — your secrets are never committed.
 
-## 1. Deploy the backend (Render / Railway / any Node host)
+## 2. Import into Vercel
 
-1. Create a service from this repo with **root directory `backend`**.
-2. Build command: `npm install && npm run build`
-3. Start command: `node dist/backend/src/main.js`
-4. Set environment variables (see `backend/.env.example`). The important ones
-   for a Vercel frontend:
+1. New Project → import the GitHub repo.
+2. **Root Directory:** leave as the repo root (where `package.json` lives).
+3. Framework auto-detects as **Next.js** (`vercel.json` pins it).
+4. Build command `next build` and install `npm install` are preset.
 
-   ```
-   NODE_ENV=production
-   PORT=3001                     # or whatever the host provides
-   MONGODB_URI=...               # MongoDB Atlas connection string
-   MONGODB_DB_NAME=campusvoice
-   JWT_ACCESS_SECRET=...         # strong random, 32+ chars
-   JWT_REFRESH_SECRET=...        # strong random, 32+ chars
+## 3. Set Environment Variables (Project → Settings → Environment Variables)
 
-   # Allow your Vercel domain(s) to call the API (comma-separated):
-   CORS_ORIGIN=https://your-app.vercel.app
-   # Optional: also allow *.vercel.app preview builds
-   CORS_ALLOW_VERCEL_PREVIEWS=true
+Copy these from `.env.example` and fill real values:
 
-   # Cross-site cookies (frontend and backend on different domains).
-   # Auto-enabled when NODE_ENV=production; this makes it explicit.
-   COOKIE_CROSS_SITE=true
-   ```
+| Variable | Value |
+| --- | --- |
+| `MONGODB_URI` | Your MongoDB Atlas connection string |
+| `MONGODB_DB_NAME` | `campusvoice` |
+| `JWT_ACCESS_SECRET` | A long random string (32+ chars) |
+| `JWT_REFRESH_SECRET` | A different long random string |
+| `VOTE_HASH_SECRET` | A long random string |
+| `ADMIN_USERNAME` | `super_admin` (first-boot admin) |
+| `ADMIN_EMAIL` | `admin@campusvoice.local` |
+| `ADMIN_PASSWORD` | A strong password |
+| `SEED_DEMO_DATA` | `false` for a clean start (or `true` for demo data) |
 
-5. Make sure the host serves the backend over **HTTPS** — cross-site cookies
-   require `Secure`, which only works on HTTPS.
-6. On first boot, bootstrap the super admin (one-off) if your host supports a
-   shell: `node dist/backend/src/scripts/bootstrap.js` (uses
-   `ADMIN_USERNAME` / `ADMIN_EMAIL` / `ADMIN_PASSWORD`).
+Notes:
+- **Do not** set `NEXT_PUBLIC_API_URL` — it defaults to the relative `/api/v1`,
+  keeping the API same-origin so the secure, HttpOnly auth cookies work with no
+  CORS configuration.
+- On Vercel everything is HTTPS, so cookies are issued as `Secure; SameSite=Lax`
+  automatically. No extra cookie settings are needed.
 
-Note the backend's public URL, e.g. `https://campusvoice-api.onrender.com`.
+## 4. Allow Vercel to reach MongoDB Atlas
 
-## 2. Deploy the frontend to Vercel
+In Atlas → Network Access, add `0.0.0.0/0` (allow from anywhere) so Vercel's
+serverless functions can connect. (Atlas still requires valid credentials.)
 
-1. Import the repo into Vercel and set **Root Directory = `frontend`**
-   (Vercel auto-detects Next.js; `frontend/vercel.json` pins the settings).
-2. Add an environment variable:
+## 5. Deploy
 
-   ```
-   NEXT_PUBLIC_API_URL=https://campusvoice-api.onrender.com/api/v1
-   ```
+Click **Deploy**. On the first API request the app connects to MongoDB, syncs
+indexes, and — if the database is empty — bootstraps the super admin (and demo
+data when `SEED_DEMO_DATA=true`). Open the deployment URL and sign in with your
+`ADMIN_USERNAME` / `ADMIN_PASSWORD`.
 
-   The value **must include the `/api/v1` suffix**.
-3. Deploy. Vercel runs `next build` and serves the app.
-
-## 3. Wire the two together
-
-- Set the backend's `CORS_ORIGIN` to the exact Vercel URL Vercel gives you
-  (e.g. `https://campus-voice.vercel.app`). Add a custom domain there too if
-  you use one.
-- Because auth uses secure, HttpOnly cookies, **both** sides must be HTTPS and
-  the backend must have `COOKIE_CROSS_SITE=true` (or `NODE_ENV=production`).
-- Redeploy the frontend after changing `NEXT_PUBLIC_API_URL` (it is inlined at
-  build time).
-
-## Local development (unchanged)
+## Local development
 
 ```
-# backend
-cd backend && npm install && npm run build && node dist/backend/src/main.js
-# frontend
-cd frontend && npm install && npm run dev
+npm install
+# create .env.local from .env.example and set MONGODB_URI
+npm run dev        # http://localhost:3000  (UI + API together)
 ```
 
-Locally, cookies stay `SameSite=Lax` (same-site, `http://localhost`) and CORS
-allows `http://localhost:3000`, so no extra configuration is needed.
+Over plain `http://localhost` cookies are non-secure in dev, so login works
+normally. To test a production build locally over HTTP:
+`COOKIE_SECURE=false npm run build && COOKIE_SECURE=false npm start`.
+
+## Note on file uploads
+
+Resolution-proof uploads are written to the server filesystem, which is
+ephemeral on Vercel (files don't persist across invocations/deploys). For
+durable uploads in production, wire the upload route to object storage
+(e.g. Vercel Blob or S3). Everything else — auth, voting, elections, concerns,
+messaging, admin — runs fully on Vercel as-is.

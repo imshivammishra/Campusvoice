@@ -1,0 +1,6 @@
+# Local-only files that should not be uploaded to Vercel.
+# Next.js build output and dependencies are handled automatically.
+.env.local
+public/uploads/
+.next/
+node_modules/
