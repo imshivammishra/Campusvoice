@@ -16,7 +16,7 @@ type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
 
 const buttonVariants: Record<ButtonVariant, string> = {
   primary:
-    'bg-[#0071e3] text-white shadow-[0_1px_2px_rgba(0,0,0,0.16)] hover:bg-[#0077ed] active:bg-black focus-visible:ring-[#09090b]/20',
+    'bg-[#0a223a] text-white shadow-[0_1px_2px_rgba(0,0,0,0.16)] hover:bg-[#0f2d4d] active:bg-black focus-visible:ring-[#09090b]/20',
   secondary:
     'border-[#d4d4d8] bg-white text-[#09090b] hover:border-[#a1a1aa] hover:bg-[#fafafa] active:bg-[#f4f4f5] focus-visible:ring-[#09090b]/15',
   outline:
@@ -168,7 +168,7 @@ const badgeVariants: Record<BadgeVariant, string> = {
   success: 'border-[#bbf7d0] bg-[#f0fdf4] text-[#248a3d]',
   warning: 'border-[#fde68a] bg-[#fffbeb] text-[#b25000]',
   danger: 'border-[#fecaca] bg-[#fef2f2] text-[#d70015]',
-  info: 'border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]',
+  info: 'border-[#bfdbfe] bg-[#eff6ff] text-[#0a223a]',
   outline: 'border-[#d4d4d8] bg-transparent text-[#3f3f46]',
 };
 
@@ -240,7 +240,7 @@ export function PageHeader({
     <div className="flex flex-col gap-4 border-b border-[#e4e4e7] pb-5 sm:flex-row sm:items-end sm:justify-between">
       <div>
         {eyebrow && (
-          <p className="mb-2 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-[#0071e3]">
+          <p className="mb-2 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-[#0a223a]">
             {eyebrow}
           </p>
         )}
@@ -281,7 +281,7 @@ export function StatCard({
       <div className="flex items-start justify-between gap-3">
         <p className="text-[11.5px] font-medium text-[#71717a]">{label}</p>
         {Icon && (
-          <span className="flex h-8 w-8 items-center justify-center rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] text-[#0071e3]">
+          <span className="flex h-8 w-8 items-center justify-center rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] text-[#0a223a]">
             <Icon className="h-4 w-4" />
           </span>
         )}
@@ -321,7 +321,7 @@ export function EmptyState({
   return (
     <Card className="flex flex-col items-center justify-center gap-3 border-dashed border-[#d4d4d8] bg-[#fafafa] p-10 text-center shadow-none">
       {Icon && (
-        <span className="flex h-12 w-12 items-center justify-center rounded-[12px] border border-[#e4e4e7] bg-white text-[#0071e3]">
+        <span className="flex h-12 w-12 items-center justify-center rounded-[12px] border border-[#e4e4e7] bg-white text-[#0a223a]">
           <Icon className="h-5 w-5" />
         </span>
       )}
@@ -401,7 +401,7 @@ export function Avatar({
   return (
     <span
       className={cn(
-        'inline-flex items-center justify-center rounded-[12px] bg-[#0071e3] text-[12px] font-semibold uppercase text-white',
+        'inline-flex items-center justify-center rounded-[12px] bg-[#0a223a] text-[12px] font-semibold uppercase text-white',
         className,
       )}
     >
@@ -653,7 +653,7 @@ export function Progress({
     >
       <div
         className={cn(
-          'h-full rounded-full bg-[#0071e3] transition-all duration-700',
+          'h-full rounded-full bg-[#0a223a] transition-all duration-700',
           indicatorClassName,
         )}
         style={{ width: `${clamped}%` }}

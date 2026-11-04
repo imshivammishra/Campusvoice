@@ -17,6 +17,7 @@ import {
   Menu,
   MessageSquare,
   Search,
+  Settings,
   ShieldCheck,
   ShieldPlus,
   UserCog,
@@ -258,25 +259,26 @@ export default function DashboardLayout({
         href={item.href}
         onClick={() => setSidebarOpen(false)}
         className={cn(
-          'group relative flex items-center gap-2.5 rounded-[12px] px-2.5 py-2 text-[12.5px] font-medium transition-colors duration-150',
+          'group flex items-center gap-x-2.5 rounded-md px-2.5 py-[6px] text-[11px] font-medium transition-colors',
           isActive
-            ? 'bg-[#f4f4f5] text-[#09090b]'
-            : 'text-[#52525b] hover:bg-[#fafafa] hover:text-[#09090b]',
+            ? 'bg-[#0a223a] text-white shadow-[0_1px_2px_rgba(0,0,0,0.25)]'
+            : 'text-zinc-700 hover:bg-zinc-100 hover:text-[#0a223a]',
         )}
       >
-        <span
+        <Icon
           className={cn(
-            'flex h-6 w-6 shrink-0 items-center justify-center rounded-[10px] transition-colors',
-            isActive
-              ? 'bg-[#0071e3] text-white'
-              : 'text-[#a1a1aa] group-hover:text-[#09090b]',
+            'h-[15px] w-[15px] shrink-0 transition-colors',
+            isActive ? 'text-white' : 'text-zinc-500 group-hover:text-zinc-700',
           )}
-        >
-          <Icon className="h-[15px] w-[15px]" />
-        </span>
-        <span className="flex-1">{item.name}</span>
+        />
+        <span className="flex-1 truncate">{item.name}</span>
         {item.name === 'Notifications' && unread > 0 && (
-          <span className="flex h-[17px] min-w-[17px] items-center justify-center rounded-[10px] bg-[#d70015] px-1 text-[9.5px] font-semibold text-white">
+          <span
+            className={cn(
+              'flex h-[18px] min-w-[18px] items-center justify-center rounded px-1 text-[10px] font-bold',
+              isActive ? 'bg-white text-[#0a223a]' : 'bg-[#0a223a] text-white',
+            )}
+          >
             {unread > 9 ? '9+' : unread}
           </span>
         )}
@@ -284,12 +286,77 @@ export default function DashboardLayout({
     );
   };
 
+  const sidebarContent = (
+    <>
+      <div className="flex h-[58px] shrink-0 items-center justify-between border-b-2 border-zinc-200 px-4">
+        <Logo href="/" />
+        <button
+          className="flex h-7 w-7 items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-[#0a223a] lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Close sidebar"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+
+      <nav className="flex-1 overflow-y-auto px-3 py-4">
+        <p className="px-2.5 pb-1.5 text-[9px] font-bold uppercase tracking-[0.13em] text-zinc-400">
+          Workspace
+        </p>
+        <div className="space-y-0.5">{workspace.map(renderNavItem)}</div>
+
+        <p className="px-2.5 pb-1.5 pt-5 text-[9px] font-bold uppercase tracking-[0.13em] text-zinc-400">
+          Services
+        </p>
+        <div className="space-y-0.5">{services.map(renderNavItem)}</div>
+
+        {admin.length > 0 && (
+          <>
+            <p className="px-2.5 pb-1.5 pt-5 text-[9px] font-bold uppercase tracking-[0.13em] text-zinc-400">
+              Administration
+            </p>
+            <div className="space-y-0.5">{admin.map(renderNavItem)}</div>
+          </>
+        )}
+      </nav>
+
+      <div className="border-t-2 border-zinc-200 p-3">
+        <Link
+          href="/dashboard/profile"
+          onClick={() => setSidebarOpen(false)}
+          className="flex items-center gap-2.5 rounded-md border border-zinc-200 bg-zinc-50 p-2 transition-colors hover:border-[#d4d4d8] hover:bg-[#fafafa]"
+        >
+          <Avatar
+            name={user?.fullName || user?.username}
+            className="h-8 w-8 shrink-0 rounded-md text-[11px]"
+          />
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[11px] font-bold leading-tight text-[#0a223a]">
+              {user?.fullName || user?.username}
+            </p>
+            <p className="mt-0.5 truncate text-[9.5px] text-zinc-500">
+              {roleLabel(user?.role)}
+            </p>
+          </div>
+          <ChevronRight className="h-3.5 w-3.5 shrink-0 text-zinc-400" />
+        </Link>
+        <button
+          onClick={handleLogout}
+          className="mt-1.5 flex w-full items-center justify-center gap-2 rounded-md px-3 py-1.5 text-[11px] font-semibold text-zinc-500 transition-colors hover:bg-[#f4f4f5] hover:text-[#0a223a]"
+        >
+          <LogOut className="h-3.5 w-3.5" />
+          Sign out
+        </button>
+      </div>
+    </>
+  );
+
   if (!ready) {
     return (
-      <div className="flex h-screen items-center justify-center bg-white">
-        <div className="flex flex-col items-center gap-4">
-          <LogoMark hard className="h-11 w-11" />
-          <div className="flex items-center gap-2 text-[12px] font-medium text-[#71717a]">
+      <div className="flex h-screen items-center justify-center bg-zinc-100">
+        <div className="flex flex-col items-center gap-3">
+          <LogoMark hard className="h-10 w-10" />
+          <div className="flex items-center gap-2 text-[12px] font-medium text-zinc-500">
             <Spinner className="h-3.5 w-3.5" />
             Loading workspace…
           </div>
@@ -299,124 +366,59 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex h-screen bg-[#fafafa] text-[#09090b]">
+    <div className="min-h-screen bg-zinc-100 text-[#0a223a]">
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-30 bg-[#09090b]/30 backdrop-blur-[1px] lg:hidden"
+          className="fixed inset-0 z-30 bg-zinc-900/50 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       <aside
         className={cn(
-          'fixed left-0 top-0 z-40 flex h-full w-[256px] flex-col border-r border-[#e4e4e7] bg-white transition-transform duration-300 ease-out lg:static lg:translate-x-0',
+          'fixed left-0 top-0 z-40 flex h-full w-[248px] flex-col border-r-2 border-zinc-200 bg-white transition-transform duration-200 ease-out lg:translate-x-0',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
-        <div className="flex h-16 shrink-0 items-center justify-between border-b border-[#f4f4f5] px-5">
-          <Logo href="/dashboard" hard />
-          <button
-            className="flex h-8 w-8 items-center justify-center rounded-[10px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b] lg:hidden"
-            onClick={() => setSidebarOpen(false)}
-            aria-label="Close sidebar"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-
-        <div className="px-3 pt-3">
-          <Link
-            href="/dashboard/profile"
-            onClick={() => setSidebarOpen(false)}
-            className="flex items-center gap-2.5 rounded-[16px] border border-[#e4e4e7] bg-white p-2.5 transition-colors hover:border-[#a1a1aa] hover:bg-[#fafafa]"
-          >
-            <Avatar
-              name={user?.fullName || user?.username}
-              className="h-9 w-9 shrink-0 text-[12px]"
-            />
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-[12.5px] font-semibold leading-tight text-[#09090b]">
-                {user?.fullName || user?.username}
-              </p>
-              <p className="mt-0.5 truncate text-[10.5px] text-[#71717a]">
-                {roleLabel(user?.role)}
-              </p>
-            </div>
-            <ChevronRight className="h-3.5 w-3.5 shrink-0 text-[#a1a1aa]" />
-          </Link>
-        </div>
-
-        <nav className="flex-1 overflow-y-auto px-3 py-5">
-          <p className="px-2.5 pb-1.5 text-[9.5px] font-semibold uppercase tracking-[0.14em] text-[#a1a1aa]">
-            Workspace
-          </p>
-          <div className="space-y-0.5">{workspace.map(renderNavItem)}</div>
-
-          <p className="px-2.5 pb-1.5 pt-5 text-[9.5px] font-semibold uppercase tracking-[0.14em] text-[#a1a1aa]">
-            Services
-          </p>
-          <div className="space-y-0.5">{services.map(renderNavItem)}</div>
-
-          {admin.length > 0 && (
-            <>
-              <p className="px-2.5 pb-1.5 pt-5 text-[9.5px] font-semibold uppercase tracking-[0.14em] text-[#a1a1aa]">
-                Administration
-              </p>
-              <div className="space-y-0.5">{admin.map(renderNavItem)}</div>
-            </>
-          )}
-        </nav>
-
-        <div className="border-t border-[#f4f4f5] p-3">
-          <div className="flex items-center justify-between px-1 py-1.5">
-            <span className="text-[10px] text-[#a1a1aa]">HUConnect</span>
-            <button
-              onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 rounded-[10px] px-2 py-1 text-[11px] font-medium text-[#71717a] transition-colors hover:bg-[#fef2f2] hover:text-[#d70015]"
-            >
-              <LogOut className="h-3.5 w-3.5" />
-              Sign out
-            </button>
-          </div>
-        </div>
+        {sidebarContent}
       </aside>
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-3 border-b border-[#e4e4e7] bg-white px-4 sm:px-6">
-          <div className="flex min-w-0 items-center gap-3">
+      <div className="flex min-h-screen flex-col lg:pl-[248px]">
+        <header className="sticky top-0 z-20 flex h-[58px] shrink-0 items-center justify-between gap-3 border-b-2 border-zinc-200 bg-white px-4 sm:px-5">
+          <div className="flex min-w-0 items-center gap-2.5">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded-[10px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b] lg:hidden"
+              className="flex h-8 w-8 items-center justify-center rounded-md text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-[#0a223a] lg:hidden"
               aria-label="Open sidebar"
             >
-              <Menu className="h-5 w-5" />
+              <Menu className="h-[18px] w-[18px]" />
             </button>
 
-            <div className="hidden min-w-0 items-center gap-2 text-[12px] sm:flex">
+            <nav className="hidden min-w-0 items-center gap-1.5 text-[12px] sm:flex">
               <Link
                 href="/dashboard"
-                className="font-medium text-[#a1a1aa] transition-colors hover:text-[#09090b]"
+                className="font-semibold text-zinc-400 transition-colors hover:text-zinc-700"
               >
-                Workspace
+                Dashboard
               </Link>
-              <span className="text-[#d4d4d8]">/</span>
-              <span className="truncate font-semibold text-[#09090b]">
+              <ChevronRight className="h-3.5 w-3.5 text-zinc-300" />
+              <span className="truncate font-bold text-[#0a223a]">
                 {activeItem?.name || 'Overview'}
               </span>
-            </div>
+            </nav>
 
-            <span className="truncate text-[13px] font-semibold text-[#09090b] sm:hidden">
+            <span className="truncate text-[13px] font-bold text-[#0a223a] sm:hidden">
               {activeItem?.name || 'Overview'}
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-2.5">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               onClick={() => setCommandOpen(true)}
-              className="hidden h-9 w-[236px] items-center gap-2 rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] px-3.5 text-[12px] text-[#a1a1aa] transition-colors hover:border-[#d4d4d8] hover:bg-white md:flex"
+              className="hidden h-8 w-[220px] items-center gap-2 rounded-md border border-zinc-200 bg-zinc-50 px-3 text-[12px] text-zinc-400 transition-colors hover:border-zinc-300 hover:bg-white md:flex"
             >
               <Search className="h-3.5 w-3.5" />
-              <span className="flex-1 text-left">Search the record</span>
+              <span className="flex-1 text-left">Search…</span>
               <span className="flex items-center gap-0.5">
                 <Kbd>⌘</Kbd>
                 <Kbd>K</Kbd>
@@ -425,40 +427,48 @@ export default function DashboardLayout({
 
             <button
               onClick={() => setCommandOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded-[10px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b] md:hidden"
+              className="flex h-8 w-8 items-center justify-center rounded-md text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-[#0a223a] md:hidden"
               aria-label="Open command palette"
             >
-              <Search className="h-[18px] w-[18px]" />
+              <Search className="h-4 w-4" />
             </button>
 
             <Link
               href="/dashboard/notifications"
-              className="relative flex h-9 w-9 items-center justify-center rounded-[10px] text-[#71717a] transition-colors hover:bg-[#f4f4f5] hover:text-[#09090b]"
+              className="relative flex h-8 w-8 items-center justify-center rounded-md text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-[#0a223a]"
               aria-label="Notifications"
             >
-              <Bell className="h-[18px] w-[18px]" />
+              <Bell className="h-4 w-4" />
               {unread > 0 && (
-                <span className="absolute right-0.5 top-0.5 flex h-3.5 min-w-[14px] items-center justify-center rounded-[10px] bg-[#d70015] px-0.5 text-[9px] font-semibold text-white ring-2 ring-white">
+                <span className="absolute right-0.5 top-0.5 flex h-3.5 min-w-[14px] items-center justify-center rounded bg-[#0a223a] px-0.5 text-[9px] font-bold text-white ring-2 ring-white">
                   {unread > 9 ? '9+' : unread}
                 </span>
               )}
             </Link>
 
-            <div className="hidden h-6 w-px bg-[#e4e4e7] sm:block" />
+            <Link
+              href="/dashboard/admin"
+              className="hidden h-8 w-8 items-center justify-center rounded-md text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-[#0a223a] sm:flex"
+              aria-label="Settings"
+            >
+              <Settings className="h-4 w-4" />
+            </Link>
+
+            <div className="hidden h-6 w-px bg-zinc-200 sm:block" />
 
             <Link
               href="/dashboard/profile"
-              className="flex items-center gap-2 rounded-[12px] p-0.5 pr-2 transition-colors hover:bg-[#f4f4f5]"
+              className="flex items-center gap-2 rounded-md p-0.5 pr-2 transition-colors hover:bg-zinc-100"
             >
               <Avatar
                 name={user?.fullName || user?.username}
-                className="h-8 w-8 text-[11px]"
+                className="h-7 w-7 rounded-md text-[10.5px]"
               />
               <span className="hidden min-w-0 md:block">
-                <span className="block max-w-[140px] truncate text-[12px] font-medium leading-tight text-[#09090b]">
+                <span className="block max-w-[130px] truncate text-[11px] font-bold leading-tight text-[#0a223a]">
                   {user?.fullName || user?.username}
                 </span>
-                <span className="block text-[10px] leading-tight text-[#a1a1aa]">
+                <span className="block text-[10px] font-medium leading-tight text-zinc-400">
                   {roleLabel(user?.role)}
                 </span>
               </span>
@@ -466,8 +476,8 @@ export default function DashboardLayout({
           </div>
         </header>
 
-        <main className="relative flex-1 overflow-y-auto bg-[#fafafa]">
-          <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <main className="flex-1 bg-zinc-100">
+          <div className="mx-auto max-w-[1400px] px-4 py-5 sm:px-5 sm:py-6 lg:px-6">
             {children}
           </div>
         </main>

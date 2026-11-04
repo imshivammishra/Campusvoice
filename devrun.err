@@ -1,0 +1,770 @@
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ ./src/components/logo.tsx
+Error: Failed to read source code from C:\Users\iamsh\OneDrive\Desktop\CampusVoice\src\components\logo.tsx
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Import trace for requested module:
+./src/components/logo.tsx
+./src/app/page.tsx
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\icon.svg\route.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1564:15)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at __webpack_require__.f.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:203:28)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:167:22)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\icon.svg\route.js:12:16110
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\icon.svg\route.js:12:16152)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at requirePage (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:818:17)
+    at async C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\app\\icon.svg\\route.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/icon.svg'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1564:15)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at __webpack_require__.f.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:203:28)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:167:22)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\icon.svg\route.js:12:16110
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\icon.svg\route.js:12:16152)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at requirePage (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:818:17)
+    at async C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\pages\\_document.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/icon.svg'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1564:15)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at __webpack_require__.f.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:203:28)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:167:22)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\icon.svg\route.js:12:16110
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\icon.svg\route.js:12:16152)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at requirePage (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:818:17)
+    at async C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\pages\\_document.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/icon.svg'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1564:15)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at __webpack_require__.f.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:203:28)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:167:22)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\icon.svg\route.js:12:16110
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\icon.svg\route.js:12:16152)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at requirePage (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:818:17)
+    at async C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\pages\\_document.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/icon.svg'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\_not-found'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/_not-found/page' in C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\_not-found\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/_not-found/page' in 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/_not-found/page (expected C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\_not-found\page.js)
+<w>  at file dependencies C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ Failed to generate static paths for /api/v1/[...path]:
+Error [PageNotFoundError]: Cannot find module for page: /api/v1/[...path]/route
+    at getPagePath (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:94:15)
+    at requirePage (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:99:22)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:84
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async loadComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:26)
+    at async Object.loadStaticPaths (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\static-paths-worker.js:23:24) {
+  type: 'PageNotFoundError',
+  code: 'ENOENT'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\_not-found\page.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1564:15)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at __webpack_require__.f.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:203:28)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:167:22)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\api\v1\[...path]\route.js:12:62144
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\api\v1\[...path]\route.js:12:62185)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at requirePage (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:818:17)
+    at async C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/api/v1/notifications'
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1564:15)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at __webpack_require__.f.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:203:28)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:167:22)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js:1:340
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js:1:382)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at requirePage (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:714:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\pages\\_document.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1564:15)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at __webpack_require__.f.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:203:28)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:167:22)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\api\v1\[...path]\route.js:12:62144
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\api\v1\[...path]\route.js:12:62185)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at requirePage (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:818:17)
+    at async C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\pages\\_document.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/api/v1/notifications'
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1564:15)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at __webpack_require__.f.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:203:28)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:167:22)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js:1:340
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js:1:382)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at requirePage (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:714:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\pages\\_document.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1564:15)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at __webpack_require__.f.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:203:28)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:167:22)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\api\v1\[...path]\route.js:12:62144
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\api\v1\[...path]\route.js:12:62185)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at requirePage (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\base-server.js:818:17)
+    at async C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\pages\\_document.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/api/v1/notifications'
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\build\utils.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1564:15)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at __webpack_require__.f.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:203:28)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:167:22)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js:1:340
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_document.js:1:382)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16)
+    at requirePage (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\next-server.js:714:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\pages\\_document.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+[Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\client-development\3.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\client-development\\3.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\client-development\3.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\client-development\\3.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\client-development\3.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\client-development\\3.pack.gz'
+}
+[Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\client-development\12.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\client-development\\12.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\client-development\12.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\client-development\\12.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\client-development\12.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\client-development\\12.pack.gz'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\client-development\3.pack.gz'
+[Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\server-development\4.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\server-development\\4.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\server-development\4.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\server-development\\4.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\server-development\4.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\server-development\\4.pack.gz'
+}
+[Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\server-development\8.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\server-development\\8.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\server-development\8.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\server-development\\8.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\server-development\8.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\cache\\webpack\\server-development\\8.pack.gz'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, stat 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\cache\webpack\server-development\4.pack.gz'

@@ -191,13 +191,13 @@ function Hero() {
         <div className="mt-9 flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
           <Link
             href="/login"
-            className="inline-flex h-12 items-center justify-center rounded-full bg-[#0071e3] px-7 text-[15px] font-medium text-white transition-colors hover:bg-[#0077ed]"
+            className="inline-flex h-12 items-center justify-center rounded-full bg-[#5170ff] px-7 text-[15px] font-medium text-white transition-colors hover:bg-[#3b5bdb]"
           >
             Access HUConnect
           </Link>
           <a
             href="#overview"
-            className="group inline-flex items-center gap-1.5 text-[15px] font-medium text-[#2997ff] transition-colors hover:text-white"
+            className="group inline-flex items-center gap-1.5 text-[15px] font-medium text-[#5170ff] transition-colors hover:text-white"
           >
             Explore HUConnect
             <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
@@ -265,7 +265,7 @@ function FeatureVisual({ kind }: { kind: 'election' | 'proposal' | 'audit' }) {
               <Progress
                 value={candidate.value}
                 className="mt-2 h-1.5"
-                indicatorClassName="bg-[#0071e3]"
+                indicatorClassName="bg-[#5170ff]"
               />
             </div>
           ))}
@@ -298,7 +298,7 @@ function FeatureVisual({ kind }: { kind: 'election' | 'proposal' | 'audit' }) {
                 <span
                   className={cn(
                     'flex h-5 w-5 items-center justify-center rounded-full',
-                    step.done ? 'bg-[#0071e3] text-white' : 'border border-black/15 bg-white',
+                    step.done ? 'bg-[#5170ff] text-white' : 'border border-black/15 bg-white',
                   )}
                 >
                   {step.done ? (
@@ -332,7 +332,7 @@ function FeatureVisual({ kind }: { kind: 'election' | 'proposal' | 'audit' }) {
           { action: 'Concern resolved', meta: 'Welfare · 09:12' },
         ].map((entry) => (
           <div key={entry.action} className="flex items-center gap-2.5">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#e8f2ff] text-[#0071e3]">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#e8f2ff] text-[#5170ff]">
               <CheckCircle2 className="h-3.5 w-3.5" />
             </span>
             <p className="flex-1 text-[12px] font-medium text-[#1d1d1f]">{entry.action}</p>
@@ -403,14 +403,14 @@ function ElectionPreview() {
                   <Progress
                     value={candidate.value}
                     className="mt-2 h-2"
-                    indicatorClassName="bg-[#0071e3]"
+                    indicatorClassName="bg-[#5170ff]"
                   />
                 </div>
               ))}
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <span className="inline-flex items-center gap-2 rounded-full bg-[#0071e3] px-4 py-2 text-[12px] font-medium text-white">
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#5170ff] px-4 py-2 text-[12px] font-medium text-white">
                 <Vote className="h-3.5 w-3.5" />
                 Cast your vote
               </span>
@@ -437,7 +437,7 @@ function ElectionPreview() {
                   cy="50"
                   r="42"
                   fill="none"
-                  stroke="#0071e3"
+                  stroke="#5170ff"
                   strokeWidth="6"
                   strokeLinecap="round"
                   strokeDasharray={ring}
@@ -463,12 +463,12 @@ function ElectionPreview() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-[#6e6e73]">Your ballot</span>
-                <span className="font-medium text-[#0071e3]">Recorded</span>
+                <span className="font-medium text-[#5170ff]">Recorded</span>
               </div>
             </div>
 
             <div className="mt-5 rounded-xl bg-[#f5f5f7] p-3 text-[11px] leading-relaxed text-[#6e6e73]">
-              <ShieldCheck className="mb-1.5 h-4 w-4 text-[#0071e3]" />
+              <ShieldCheck className="mb-1.5 h-4 w-4 text-[#5170ff]" />
               Identities are never linked to choices. Results are aggregate only.
             </div>
           </div>
@@ -508,7 +508,7 @@ function ProposalPanel() {
                 className={cn(
                   'flex h-5 w-5 items-center justify-center rounded-full',
                   step.done
-                    ? 'bg-[#0071e3] text-white'
+                    ? 'bg-[#5170ff] text-white'
                     : 'border border-black/15 bg-white',
                 )}
               >
@@ -536,7 +536,7 @@ function ProposalPanel() {
         <Progress
           value={75}
           className="mt-2"
-          indicatorClassName="bg-[#0071e3]"
+          indicatorClassName="bg-[#5170ff]"
         />
       </div>
     </div>
@@ -550,7 +550,21 @@ export default function HomePage() {
     <div className="min-h-screen bg-white text-[#1d1d1f]">
       <header className="glass-dark fixed inset-x-0 top-0 z-50">
         <div className="mx-auto flex h-12 max-w-content items-center justify-between px-5">
-          <Logo light markClassName="h-[22px] w-[22px] rounded-[16px]" className="gap-2" />
+          <div className="flex items-center gap-3">
+            <img
+              src="/assets/branding/HUconnectLogo.svg"
+              alt="HUConnect"
+              className="h-[18px] w-auto object-contain brightness-0 invert"
+            />
+            <span className="h-4 w-px bg-white/25" />
+            <span className="inline-flex items-center rounded-[7px] bg-white px-1.5 py-1">
+              <img
+                src="/assets/branding/haridwar-university-logo.png"
+                alt="Haridwar University"
+                className="h-5 w-auto object-contain"
+              />
+            </span>
+          </div>
 
           <nav className="hidden items-center gap-8 text-[12px] font-normal text-white/75 md:flex">
             {NAV_LINKS.map((link) => (
@@ -573,7 +587,7 @@ export default function HomePage() {
             </Link>
             <Link
               href="/login"
-              className="rounded-full bg-[#0071e3] px-3.5 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-[#0077ed]"
+              className="rounded-full bg-[#5170ff] px-3.5 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-[#3b5bdb]"
             >
               Access portal
             </Link>
@@ -615,7 +629,7 @@ export default function HomePage() {
               <Link
                 href="/login"
                 onClick={() => setMenuOpen(false)}
-                className="flex h-11 items-center justify-center rounded-full bg-[#0071e3] text-[14px] font-medium text-white"
+                className="flex h-11 items-center justify-center rounded-full bg-[#5170ff] text-[14px] font-medium text-white"
               >
                 Access portal
               </Link>
@@ -637,6 +651,50 @@ export default function HomePage() {
                 )}
               </span>
             ))}
+          </div>
+        </section>
+
+        <section className="border-b border-black/[0.07] bg-[#f5f5f7] px-6 py-16 sm:py-20">
+          <div className="mx-auto max-w-content">
+            <div className="grid gap-4 lg:grid-cols-3">
+              <div className="overflow-hidden rounded-[24px] lg:col-span-2">
+                <img
+                  src="/assets/campus/campus-main.jpg"
+                  alt="Haridwar University campus"
+                  className="h-[300px] w-full object-cover sm:h-[460px]"
+                />
+              </div>
+              <div className="grid gap-4">
+                <div className="overflow-hidden rounded-[24px]">
+                  <img
+                    src="/assets/campus/Home-Page-Slider-2.jpg"
+                    alt="Haridwar University academic life"
+                    className="h-[220px] w-full object-cover"
+                  />
+                </div>
+                <div className="relative flex flex-col justify-between overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,#141d46_0%,#3142b8_55%,#5170ff_100%)] p-6 text-white">
+                  <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-[#fbeb78]/30 blur-2xl" />
+                  <div className="pointer-events-none absolute -bottom-8 left-8 h-24 w-24 rounded-full bg-[#b9e185]/25 blur-2xl" />
+                  <div className="relative flex items-center gap-1.5">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#df3821]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#fbeb78]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#b9e185]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#5170ff] ring-1 ring-white/50" />
+                  </div>
+                  <div className="relative mt-6">
+                    <p className="text-[20px] font-semibold leading-tight tracking-[-0.02em]">
+                      Haridwar University
+                    </p>
+                    <p className="mt-1 text-[12.5px] text-white/70">
+                      Roorkee, Uttarakhand — learning, research & community
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p className="mt-6 text-center text-[12px] font-medium uppercase tracking-[0.18em] text-[#86868b]">
+              Haridwar University, Roorkee — A campus built for learning, research and community
+            </p>
           </div>
         </section>
 
@@ -694,7 +752,7 @@ export default function HomePage() {
             <Reveal>
               <div className="grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
                 <div className="max-w-3xl">
-                  <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#0071e3]">
+                  <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#5170ff]">
                     Elections
                   </p>
                   <h2 className="mt-4 text-[clamp(2.6rem,5.4vw,4.6rem)] font-semibold leading-[1.01] tracking-[-0.045em]">
@@ -731,7 +789,7 @@ export default function HomePage() {
               ].map((item) => (
                 <div key={item.title}>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-[#0071e3]" />
+                    <CheckCircle2 className="h-4 w-4 text-[#5170ff]" />
                     <p className="text-[14px] font-semibold">{item.title}</p>
                   </div>
                   <p className="mt-2 text-[13px] leading-relaxed text-[#6e6e73]">
@@ -762,7 +820,7 @@ export default function HomePage() {
 
                 <div className="relative grid gap-12 px-6 py-16 sm:px-12 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-16">
                   <div className="max-w-xl">
-                    <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#0071e3]">
+                    <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#5170ff]">
                       Proposals
                     </p>
                     <h2 className="mt-4 text-[clamp(2.4rem,4.6vw,4rem)] font-semibold leading-[1.03] tracking-[-0.045em]">
@@ -777,7 +835,7 @@ export default function HomePage() {
                     </p>
                     <Link
                       href="/login"
-                      className="mt-7 inline-flex items-center gap-1.5 text-[15px] font-medium text-[#0071e3] hover:underline"
+                      className="mt-7 inline-flex items-center gap-1.5 text-[15px] font-medium text-[#5170ff] hover:underline"
                     >
                       Explore proposals
                       <ArrowRight className="h-4 w-4" />
@@ -816,7 +874,7 @@ export default function HomePage() {
                   const Icon = persona.icon;
                   return (
                     <div key={persona.title} className="bg-white p-7">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#e8f2ff] text-[#0071e3]">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#e8f2ff] text-[#5170ff]">
                         <Icon className="h-5 w-5" />
                       </span>
                       <h3 className="mt-8 text-[19px] font-semibold tracking-[-0.02em]">
@@ -840,7 +898,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-content">
             <Reveal>
               <div className="max-w-3xl">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#2997ff]">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#5170ff]">
                   Security &amp; privacy
                 </p>
                 <h2 className="mt-4 text-[clamp(2.6rem,5.4vw,4.6rem)] font-semibold leading-[1.01] tracking-[-0.045em]">
@@ -862,7 +920,7 @@ export default function HomePage() {
                   const Icon = item.icon;
                   return (
                     <div key={item.title} className="bg-[#0a0a0a] p-8">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/[0.08] text-[#2997ff]">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/[0.08] text-[#5170ff]">
                         <Icon className="h-5 w-5" />
                       </span>
                       <h3 className="mt-8 text-[20px] font-semibold tracking-[-0.025em] text-white">
@@ -881,7 +939,7 @@ export default function HomePage() {
               {['Argon2id', 'HttpOnly sessions', 'SHA-256 ballots', 'RBAC', 'Audit log'].map(
                 (item) => (
                   <span key={item} className="flex items-center gap-2">
-                    <Check className="h-3.5 w-3.5 text-[#2997ff]" />
+                    <Check className="h-3.5 w-3.5 text-[#5170ff]" />
                     {item}
                   </span>
                 ),
@@ -909,7 +967,7 @@ export default function HomePage() {
               {STEPS.map((step, index) => (
                 <Reveal key={step.number} delay={index * 80}>
                   <div className="border-t border-black/[0.12] pt-6">
-                    <p className="text-[12px] font-semibold tracking-[0.12em] text-[#0071e3]">
+                    <p className="text-[12px] font-semibold tracking-[0.12em] text-[#5170ff]">
                       {step.number}
                     </p>
                     <h3 className="mt-5 text-[24px] font-semibold tracking-[-0.03em]">
@@ -983,13 +1041,13 @@ export default function HomePage() {
               <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
                 <Link
                   href="/login"
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-[#0071e3] px-7 text-[15px] font-medium text-white transition-colors hover:bg-[#0077ed]"
+                  className="inline-flex h-12 items-center justify-center rounded-full bg-[#5170ff] px-7 text-[15px] font-medium text-white transition-colors hover:bg-[#3b5bdb]"
                 >
                   Access HUConnect
                 </Link>
                 <Link
                   href="/login"
-                  className="group inline-flex items-center gap-1.5 text-[15px] font-medium text-[#0071e3] hover:underline"
+                  className="group inline-flex items-center gap-1.5 text-[15px] font-medium text-[#5170ff] hover:underline"
                 >
                   Sign in
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

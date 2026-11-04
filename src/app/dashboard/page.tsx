@@ -3,13 +3,17 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import {
+  ArrowDownRight,
   ArrowRight,
   ArrowUpRight,
   Bell,
   CalendarDays,
+  Download,
   FileText,
   LifeBuoy,
+  Lock,
   Megaphone,
+  Plus,
   Vote,
 } from 'lucide-react';
 import { apiRequest } from '@/lib/api';
@@ -30,13 +34,13 @@ type DashboardData = {
 const QUICK_ACTIONS = [
   {
     title: 'Vote in an election',
-    description: 'Open your class poll and candidate profiles.',
+    description: 'Open your class poll and candidates.',
     href: '/dashboard/election',
     icon: Vote,
   },
   {
     title: 'Raise a concern',
-    description: 'Submit an issue to the people responsible.',
+    description: 'Send an issue to the people responsible.',
     href: '/dashboard/concerns',
     icon: FileText,
   },
@@ -47,7 +51,7 @@ const QUICK_ACTIONS = [
     icon: Megaphone,
   },
   {
-    title: 'Get private support',
+    title: 'Private support',
     description: 'Confidential help from a welfare officer.',
     href: '/dashboard/support',
     icon: LifeBuoy,
@@ -105,6 +109,63 @@ function formatProposalMeta(proposal: any) {
     .toLowerCase();
   const date = proposal.createdAt ? formatDate(proposal.createdAt) : '';
   return [category, date].filter(Boolean).join(' · ');
+}
+
+type TrendTone = 'up' | 'down' | 'flat';
+
+function StatCard({
+  label,
+  value,
+  icon: Icon,
+  badge,
+  tone,
+  note,
+}: {
+  label: string;
+  value: string | number;
+  icon: React.ComponentType<{ className?: string }>;
+  badge?: string;
+  tone?: TrendTone;
+  note?: string;
+}) {
+  const toneClass =
+    tone === 'up'
+      ? 'bg-[#0a223a] text-white'
+      : tone === 'down'
+        ? 'bg-zinc-200 text-zinc-700'
+        : 'bg-zinc-100 text-zinc-500';
+  const TrendIcon =
+    tone === 'up' ? ArrowUpRight : tone === 'down' ? ArrowDownRight : null;
+
+  return (
+    <div className="flex items-start gap-3 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
+      <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-[#0a223a] text-white">
+        <Icon className="h-[18px] w-[18px]" />
+      </span>
+      <div className="grow">
+        <p className="text-[10px] font-bold uppercase tracking-[0.07em] text-zinc-500">
+          {label}
+        </p>
+        <div className="mt-0.5 flex items-center gap-x-2">
+          <h3 className="text-[22px] font-bold leading-none tracking-[-0.02em] text-[#0a223a] tabular-nums">
+            {value}
+          </h3>
+          {badge && (
+            <span
+              className={cn(
+                'inline-flex items-center gap-x-0.5 rounded px-1.5 py-0.5 text-[10px] font-bold',
+                toneClass,
+              )}
+            >
+              {TrendIcon && <TrendIcon className="h-3 w-3" />}
+              {badge}
+            </span>
+          )}
+        </div>
+        {note && <p className="mt-1 text-[11px] text-zinc-400">{note}</p>}
+      </div>
+    </div>
+  );
 }
 
 export default function DashboardPage() {
@@ -198,7 +259,7 @@ export default function DashboardPage() {
             new Date(b.createdAt || 0).getTime() -
             new Date(a.createdAt || 0).getTime(),
         )
-        .slice(0, 3),
+        .slice(0, 5),
     [data?.proposals],
   );
   const unread = useMemo(
@@ -233,7 +294,7 @@ export default function DashboardPage() {
             new Date(b.createdAt || 0).getTime() -
             new Date(a.createdAt || 0).getTime(),
         )
-        .slice(0, 4),
+        .slice(0, 5),
     [data?.notifications],
   );
 
@@ -257,398 +318,370 @@ export default function DashboardPage() {
       ? '/dashboard/proposals'
       : '/dashboard/voting';
 
-  const dateLabel = new Date(now)
-    .toLocaleDateString(undefined, {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    })
-    .toUpperCase();
+  const dateLabel = new Date(now).toLocaleDateString(undefined, {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
 
-  const metrics = [
-    {
-      label: 'Live elections',
-      value: data ? activeElections.length : '—',
-      note: spotlight
-        ? `Closes in ${timeLeft(spotlight.closesAt, now)}`
-        : 'No active poll',
-      icon: Vote,
-    },
-    {
-      label: 'Open proposals',
-      value: data ? openProposals : '—',
-      note: 'Across your communities',
-      icon: Megaphone,
-    },
-    {
-      label: 'Unread notices',
-      value: data ? unread.length : '—',
-      note: unread.length ? 'Awaiting your attention' : 'Nothing outstanding',
-      icon: Bell,
-    },
-    {
-      label: 'Support threads',
-      value: data ? data.tickets.length : '—',
-      note: 'Private and confidential',
-      icon: LifeBuoy,
-    },
-  ];
+  const ring = 2 * Math.PI * 42;
 
   return (
-    <div className="space-y-6">
-      <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+    <div className="space-y-5">
+      {/* Page header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="inline-flex items-center gap-1.5 text-[11.5px] font-medium uppercase tracking-[0.08em] text-[#86868b]">
+          <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-zinc-400">
             <CalendarDays className="h-3.5 w-3.5" />
             {dateLabel}
           </p>
-          <h1 className="mt-2 text-[30px] font-semibold leading-tight tracking-[-0.035em] text-[#1d1d1f] sm:text-[34px]">
+          <h1 className="mt-1 text-[22px] font-bold leading-tight tracking-[-0.02em] text-[#0a223a] sm:text-[24px]">
             {greeting()}, {firstName}
           </h1>
+          <p className="mt-0.5 text-[12px] text-zinc-500">
+            Here is what is happening across your campus today.
+          </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            className="inline-flex h-8 items-center gap-1.5 rounded-md border border-zinc-200 bg-white px-3 text-[12px] font-semibold text-zinc-600 transition-colors hover:bg-zinc-50"
+          >
+            <Download className="h-3.5 w-3.5 text-zinc-400" />
+            Export
+          </button>
           <Link
             href="/dashboard/concerns"
-            className="inline-flex h-10 items-center gap-2 rounded-[12px] border border-[#d4d4d8] bg-white px-4 text-[12.5px] font-medium text-[#09090b] transition-colors hover:border-[#09090b] hover:bg-[#fafafa]"
+            className="inline-flex h-8 items-center gap-1.5 rounded-md bg-[#0a223a] px-3 text-[12px] font-semibold text-white transition-colors hover:bg-[#262626]"
           >
-            <FileText className="h-4 w-4 text-[#71717a]" />
-            Raise a concern
+            <Plus className="h-3.5 w-3.5" />
+            New concern
           </Link>
-          {spotlight ? (
-            <Link
-              href={`/dashboard/election/${spotlight._id}`}
-              className="inline-flex h-10 items-center gap-2 rounded-[12px] bg-[#0071e3] px-4 text-[12.5px] font-medium text-white transition-colors hover:bg-[#0077ed]"
-            >
-              {hasVoted ? 'View live results' : 'Open your ballot'}
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          ) : (
-            <Link
-              href="/dashboard/election"
-              className="inline-flex h-10 items-center gap-2 rounded-[12px] bg-[#0071e3] px-4 text-[12.5px] font-medium text-white transition-colors hover:bg-[#0077ed]"
-            >
-              View elections
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          )}
         </div>
-      </header>
+      </div>
 
-      <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        {metrics.map((metric) => {
-          const Icon = metric.icon;
-          return (
-            <div
-              key={metric.label}
-              className="rounded-[16px] border border-[#e4e4e7] bg-white p-4 transition-colors duration-150 hover:border-[#a1a1aa] sm:p-5"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-[11.5px] font-medium text-[#71717a]">
-                  {metric.label}
-                </p>
-                <span className="flex h-8 w-8 items-center justify-center rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] text-[#0071e3]">
-                  <Icon className="h-4 w-4" />
-                </span>
-              </div>
-              <p className="mt-3 text-[28px] font-semibold leading-none tracking-[-0.035em] tabular-nums text-[#09090b] sm:text-[30px]">
-                {metric.value}
-              </p>
-              <p className="mt-2 text-[11px] leading-snug text-[#a1a1aa]">
-                {metric.note}
-              </p>
-            </div>
-          );
-        })}
+      {/* Stat cards */}
+      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <StatCard
+          label="Live elections"
+          value={data ? activeElections.length : '—'}
+          icon={Vote}
+          badge={data && activeElections.length > 0 ? 'Active' : undefined}
+          tone="up"
+          note={
+            spotlight
+              ? `Closes in ${timeLeft(spotlight.closesAt, now)}`
+              : 'No active poll'
+          }
+        />
+        <StatCard
+          label="Open proposals"
+          value={data ? openProposals : '—'}
+          icon={Megaphone}
+          badge={data ? `${openProposals}` : undefined}
+          tone="flat"
+          note="Across your communities"
+        />
+        <StatCard
+          label="Unread notices"
+          value={data ? unread.length : '—'}
+          icon={Bell}
+          badge={data && unread.length > 0 ? 'New' : undefined}
+          tone={data && unread.length > 0 ? 'down' : 'flat'}
+          note={unread.length ? 'Awaiting your attention' : 'Nothing outstanding'}
+        />
+        <StatCard
+          label="Support threads"
+          value={data ? data.tickets.length : '—'}
+          icon={LifeBuoy}
+          badge="Private"
+          tone="flat"
+          note="Confidential by default"
+        />
       </section>
 
-      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-        <div className="min-w-0 space-y-6">
-        {user?.role !== "SUPER_ADMIN" && (
-          <section className="overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white">
-          {!data ? (
-            <div className="p-6">
-              <Skeleton className="h-4 w-32" />
-              <Skeleton className="mt-4 h-7 w-2/3" />
-              <Skeleton className="mt-3 h-3 w-1/2" />
-              <Skeleton className="mt-8 h-40 w-full" />
-            </div>
-          ) : spotlight ? (
-            <>
-              <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[#e4e4e7] p-5 sm:p-6">
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span
-                      className={cn(
-                        'inline-flex items-center gap-1.5 rounded-[10px] border px-2 py-0.5 text-[10.5px] font-medium capitalize',
-                        spotlight.status === 'active'
-                          ? 'border-[#bbf7d0] bg-[#f0fdf4] text-[#248a3d]'
-                          : 'border-[#e4e4e7] bg-[#fafafa] text-[#71717a]',
-                      )}
-                    >
-                      <span
-                        className={cn(
-                          'h-1.5 w-1.5 rounded-[1px]',
-                          spotlight.status === 'active'
-                            ? 'bg-[#248a3d]'
-                            : 'bg-[#a1a1aa]',
-                        )}
-                      />
-                      {spotlight.status?.replace(/_/g, ' ') || 'Election'}
-                    </span>
-                    <span className="text-[11px] font-medium text-[#a1a1aa]">
-                      {spotlight.className || 'Your class'} · Class representative
-                    </span>
-                  </div>
-                  <h2 className="mt-3 text-[21px] font-semibold leading-snug tracking-[-0.02em] text-[#09090b]">
-                    {spotlight.title || 'Class Representative Election'}
-                  </h2>
-                  <p className="mt-1 text-[12px] text-[#71717a]">
-                    Closes {formatDate(spotlight.closesAt)} ·{' '}
-                    <span className="font-medium text-[#3f3f46]">
-                      {timeLeft(spotlight.closesAt, now)} remaining
-                    </span>
-                  </p>
-                </div>
-                <Link
-                  href={`/dashboard/election/${spotlight._id}`}
-                  className="inline-flex h-9 shrink-0 items-center gap-2 rounded-[12px] border border-[#d4d4d8] bg-white px-3 text-[12px] font-medium text-[#09090b] transition-colors hover:border-[#09090b] hover:bg-[#fafafa]"
-                >
-                  {hasVoted ? 'View results' : 'Open ballot'}
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-
-              <div className="grid md:grid-cols-[minmax(0,1fr)_210px]">
-                <div className="flex flex-col p-5 sm:p-6">
-                  <div className="flex items-center justify-between border-b border-[#e4e4e7] pb-2 text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
-                    <span>Candidate</span>
-                    <span>Votes</span>
-                  </div>
-
-                  {candidates.length > 0 ? (
-                    <div>
-                      {candidates.slice(0, 4).map((candidate, index) => {
-                        const votes = Number(candidate.votes || 0);
-                        const share = totalVotes
-                          ? Math.round((votes / totalVotes) * 100)
-                          : 0;
-                        return (
-                          <div
-                            key={candidate._id || index}
-                            className="flex items-center gap-3 border-b border-[#f4f4f5] py-3.5 last:border-0"
-                          >
-                            <Avatar
-                              name={candidate.studentName || 'Candidate'}
-                              className="h-8 w-8 shrink-0 text-[11px]"
-                            />
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-baseline justify-between gap-3">
-                                <p className="truncate text-[13px] font-medium text-[#09090b]">
-                                  {candidate.studentName || 'Candidate'}
-                                </p>
-                                <span className="shrink-0 text-[12px] font-medium tabular-nums text-[#3f3f46]">
-                                  {votes}
-                                </span>
-                              </div>
-                              <div className="mt-2 flex items-center gap-3">
-                                <Progress value={share} className="h-1" />
-                                <span className="w-8 shrink-0 text-right text-[11px] tabular-nums text-[#a1a1aa]">
-                                  {share}%
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                      {candidates.length > 4 && (
-                        <Link
-                          href={`/dashboard/election/${spotlight._id}`}
-                          className="mt-3 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#0071e3] hover:underline"
-                        >
-                          All {candidates.length} candidates
-                          <ArrowRight className="h-3.5 w-3.5" />
-                        </Link>
-                      )}
-                    </div>
-                  ) : (
-                    <p className="py-6 text-[12px] leading-relaxed text-[#71717a]">
-                      Candidate profiles will appear here once nominations are
-                      confirmed.
-                    </p>
-                  )}
-
-                  <div className="mt-auto pt-6">
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="rounded-[12px] border border-[#e4e4e7] bg-white p-3">
-                        <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
-                          Opened
-                        </p>
-                        <p className="mt-1 text-[11.5px] font-medium text-[#3f3f46]">
-                          {formatDate(spotlight.opensAt)}
-                        </p>
-                      </div>
-                      <div className="rounded-[12px] border border-[#e4e4e7] bg-white p-3">
-                        <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
-                          Closes
-                        </p>
-                        <p className="mt-1 text-[11.5px] font-medium text-[#3f3f46]">
-                          {formatDate(spotlight.closesAt)}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <aside className="border-t border-[#e4e4e7] bg-[#fafafa] p-5 sm:p-6 md:border-l md:border-t-0">
-                  <p className="text-[11px] font-medium text-[#71717a]">
-                    Turnout
-                  </p>
-                  <p className="mt-2 text-[36px] font-semibold leading-none tracking-[-0.04em] tabular-nums text-[#09090b]">
-                    {turnout}
-                    <span className="text-[18px] text-[#a1a1aa]">%</span>
-                  </p>
-                  <div className="mt-3 flex gap-[3px]" aria-hidden="true">
-                    {Array.from({ length: 20 }).map((_, index) => (
-                      <span
-                        key={index}
-                        className={cn(
-                          'h-1.5 flex-1 rounded-[1px]',
-                          index < Math.round(turnout / 5)
-                            ? 'bg-[#0071e3]'
-                            : 'bg-[#e4e4e7]',
-                        )}
-                      />
-                    ))}
-                  </div>
-                  <p className="mt-2 text-[11px] leading-relaxed text-[#a1a1aa]">
-                    {eligibleVoters > 0
-                      ? `${totalVoters} of ${eligibleVoters} eligible ballots cast`
-                      : 'Awaiting the next live poll'}
-                  </p>
-
-                  <dl className="mt-4 space-y-2.5 border-t border-[#e4e4e7] pt-4 text-[11.5px]">
-                    <div className="flex items-center justify-between gap-2">
-                      <dt className="text-[#71717a]">Your ballot</dt>
-                      <dd
-                        className={cn(
-                          'font-medium',
-                          hasVoted ? 'text-[#248a3d]' : 'text-[#b25000]',
-                        )}
-                      >
-                        {hasVoted ? 'Recorded' : 'Not cast'}
-                      </dd>
-                    </div>
-                    <div className="flex items-center justify-between gap-2">
-                      <dt className="text-[#71717a]">Candidates</dt>
-                      <dd className="font-medium tabular-nums text-[#3f3f46]">
-                        {candidates.length || '—'}
-                      </dd>
-                    </div>
-                    <div className="flex items-center justify-between gap-2">
-                      <dt className="text-[#71717a]">Closes in</dt>
-                      <dd className="font-medium tabular-nums text-[#3f3f46]">
-                        {timeLeft(spotlight.closesAt, now)}
-                      </dd>
-                    </div>
-                  </dl>
-
+      {/* Main grid */}
+      <div className="grid items-start gap-5 xl:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)]">
+        <div className="min-w-0 space-y-5">
+          {/* Election spotlight */}
+          {user?.role !== 'SUPER_ADMIN' && (
+            <section className="overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm">
+              <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-3">
+                <h2 className="flex items-center gap-2 text-[13px] font-bold text-[#0a223a]">
+                  <Vote className="h-4 w-4 text-[#0a223a]" />
+                  Election spotlight
+                </h2>
+                {spotlight && (
                   <Link
                     href={`/dashboard/election/${spotlight._id}`}
-                    className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#0071e3] hover:underline"
+                    className="text-[11.5px] font-semibold text-[#0a223a] hover:underline"
                   >
-                    Election details
+                    View details
+                  </Link>
+                )}
+              </div>
+
+              {!data ? (
+                <div className="p-4">
+                  <Skeleton className="h-4 w-32" />
+                  <Skeleton className="mt-4 h-6 w-2/3" />
+                  <Skeleton className="mt-3 h-3 w-1/2" />
+                  <Skeleton className="mt-6 h-36 w-full" />
+                </div>
+              ) : spotlight ? (
+                <div className="grid lg:grid-cols-[minmax(0,1fr)_220px]">
+                  <div className="p-4">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span
+                        className={cn(
+                          'inline-flex items-center gap-1.5 rounded border px-2 py-0.5 text-[10px] font-bold uppercase capitalize',
+                          spotlight.status === 'active'
+                            ? 'border-[#d4d4d8] bg-[#f4f4f5] text-[#0a223a]'
+                            : 'border-zinc-200 bg-zinc-50 text-zinc-500',
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            'h-1.5 w-1.5 rounded-full',
+                            spotlight.status === 'active'
+                              ? 'bg-[#0a223a]'
+                              : 'bg-zinc-400',
+                          )}
+                        />
+                        {spotlight.status?.replace(/_/g, ' ') || 'Election'}
+                      </span>
+                      <span className="text-[10.5px] font-semibold text-zinc-400">
+                        {spotlight.className || 'Your class'} · Class representative
+                      </span>
+                    </div>
+                    <h3 className="mt-2.5 text-[18px] font-bold leading-snug tracking-[-0.015em] text-[#0a223a]">
+                      {spotlight.title || 'Class Representative Election'}
+                    </h3>
+                    <p className="mt-1 text-[11.5px] text-zinc-500">
+                      Closes {formatDate(spotlight.closesAt)} ·{' '}
+                      <span className="font-semibold text-zinc-700">
+                        {timeLeft(spotlight.closesAt, now)} remaining
+                      </span>
+                    </p>
+
+                    <div className="mt-4 space-y-3">
+                      {candidates.length > 0 ? (
+                        candidates.slice(0, 4).map((candidate, index) => {
+                          const votes = Number(candidate.votes || 0);
+                          const share = totalVotes
+                            ? Math.round((votes / totalVotes) * 100)
+                            : 0;
+                          return (
+                            <div
+                              key={candidate._id || index}
+                              className="flex items-center gap-2.5"
+                            >
+                              <Avatar
+                                name={candidate.studentName || 'Candidate'}
+                                className="h-7 w-7 shrink-0 rounded-md text-[10px]"
+                              />
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center justify-between gap-2 text-[12px]">
+                                  <span className="truncate font-semibold text-zinc-700">
+                                    {candidate.studentName || 'Candidate'}
+                                  </span>
+                                  <span className="shrink-0 font-medium text-zinc-400 tabular-nums">
+                                    {votes} · {share}%
+                                  </span>
+                                </div>
+                                <Progress
+                                  value={share}
+                                  className="mt-1 h-1.5 bg-zinc-100"
+                                  indicatorClassName="bg-[#0a223a]"
+                                />
+                              </div>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <p className="rounded-md bg-zinc-50 px-3 py-2.5 text-[11.5px] text-zinc-500">
+                          Candidate standings will appear once voting begins.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <aside className="border-t border-zinc-200 bg-zinc-50 p-4 lg:border-l lg:border-t-0">
+                    <div className="relative mx-auto flex h-28 w-28 items-center justify-center">
+                      <svg className="h-full w-full -rotate-90" viewBox="0 0 100 100">
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="42"
+                          fill="none"
+                          stroke="#e4e4e7"
+                          strokeWidth="8"
+                        />
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="42"
+                          fill="none"
+                          stroke="#0a223a"
+                          strokeWidth="8"
+                          strokeLinecap="round"
+                          strokeDasharray={ring}
+                          strokeDashoffset={ring * (1 - turnout / 100)}
+                        />
+                      </svg>
+                      <div className="absolute text-center">
+                        <p className="text-[22px] font-bold tracking-[-0.03em] text-[#0a223a]">
+                          {turnout}%
+                        </p>
+                        <p className="text-[8.5px] font-bold uppercase tracking-[0.08em] text-zinc-400">
+                          Turnout
+                        </p>
+                      </div>
+                    </div>
+
+                    <dl className="mt-3 space-y-2 text-[11px]">
+                      <div className="flex items-center justify-between gap-2">
+                        <dt className="font-medium text-zinc-500">Your ballot</dt>
+                        <dd
+                          className={cn(
+                            'font-bold',
+                            hasVoted ? 'text-[#0a223a]' : 'text-[#71717a]',
+                          )}
+                        >
+                          {hasVoted ? 'Recorded' : 'Not cast'}
+                        </dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <dt className="font-medium text-zinc-500">Ballots cast</dt>
+                        <dd className="font-bold tabular-nums text-zinc-700">
+                          {totalVoters}
+                          {eligibleVoters > 0 ? ` / ${eligibleVoters}` : ''}
+                        </dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <dt className="font-medium text-zinc-500">Candidates</dt>
+                        <dd className="font-bold tabular-nums text-zinc-700">
+                          {candidates.length || '—'}
+                        </dd>
+                      </div>
+                    </dl>
+
+                    <Link
+                      href={`/dashboard/election/${spotlight._id}`}
+                      className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-md bg-[#0a223a] px-3 py-1.5 text-[11.5px] font-semibold text-white transition-colors hover:bg-[#262626]"
+                    >
+                      {hasVoted ? 'View results' : 'Open ballot'}
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
+                    <p className="mt-2.5 flex items-center justify-center gap-1.5 text-[10px] text-zinc-400">
+                      <Lock className="h-3 w-3" />
+                      Ballot sealed · no identities linked
+                    </p>
+                  </aside>
+                </div>
+              ) : (
+                <div className="px-5 py-10 text-center">
+                  <span className="mx-auto flex h-9 w-9 items-center justify-center rounded-md bg-zinc-100">
+                    <Vote className="h-4 w-4 text-zinc-400" />
+                  </span>
+                  <p className="mt-2.5 text-[14px] font-bold text-[#0a223a]">
+                    No active election
+                  </p>
+                  <p className="mx-auto mt-1 max-w-sm text-[12px] leading-relaxed text-zinc-500">
+                    When your class poll opens, candidates and results appear here.
+                  </p>
+                  <Link
+                    href="/dashboard/election"
+                    className="mt-3 inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-[#0a223a] hover:underline"
+                  >
+                    View election history
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
-                </aside>
-              </div>
-            </>
-          ) : (
-            <div className="px-6 py-12 text-center">
-              <span className="mx-auto flex h-10 w-10 items-center justify-center rounded-[12px] border border-[#e4e4e7] bg-[#fafafa]">
-                <Vote className="h-4 w-4 text-[#a1a1aa]" />
-              </span>
-              <p className="mt-3 text-[15px] font-semibold text-[#09090b]">
-                No active election
-              </p>
-              <p className="mx-auto mt-1.5 max-w-sm text-[12.5px] leading-relaxed text-[#71717a]">
-                When your class poll opens, candidates and results will appear
-                here.
-              </p>
-              <Link
-                href="/dashboard/election"
-                className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#0071e3] hover:underline"
-              >
-                View election history
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
+                </div>
+              )}
+            </section>
           )}
-        </section>
-        )}
 
-          <section className="overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white">
-            <div className="flex items-center justify-between border-b border-[#e4e4e7] px-5 py-4">
-              <h2 className="flex items-center gap-2 text-[13px] font-semibold text-[#09090b]">
-                <Megaphone className="h-4 w-4 text-[#71717a]" />
+          {/* Proposals table */}
+          <section className="overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm">
+            <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-3">
+              <h2 className="flex items-center gap-2 text-[13px] font-bold text-[#0a223a]">
+                <Megaphone className="h-4 w-4 text-[#0a223a]" />
                 Open proposals
               </h2>
               <Link
                 href={proposalHref}
-                className="text-[11.5px] font-medium text-[#0071e3] hover:underline"
+                className="text-[11.5px] font-semibold text-[#0a223a] hover:underline"
               >
                 View all
               </Link>
             </div>
             {!data ? (
-              <div className="space-y-3 p-5">
+              <div className="space-y-3 p-4">
                 <Skeleton className="h-3 w-2/3" />
                 <Skeleton className="h-3 w-1/2" />
                 <Skeleton className="h-3 w-3/4" />
               </div>
             ) : openProposalList.length > 0 ? (
-              <div>
-                {openProposalList.map((proposal, index) => (
-                  <Link
-                    key={proposal._id || index}
-                    href={proposalHref}
-                    className="flex items-center gap-4 border-b border-[#f4f4f5] px-5 py-3.5 transition-colors last:border-0 hover:bg-[#fafafa]"
-                  >
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-[12.5px] font-medium text-[#09090b]">
-                        {proposal.title || 'Untitled proposal'}
-                      </p>
-                      <p className="mt-0.5 truncate text-[11px] text-[#a1a1aa]">
-                        {formatProposalMeta(proposal)}
-                      </p>
-                    </div>
-                    <StatusBadge status={proposal.status} />
-                  </Link>
-                ))}
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[520px] text-left">
+                  <thead>
+                    <tr className="border-b border-zinc-200 bg-zinc-50 text-[10px] font-bold uppercase tracking-[0.06em] text-zinc-500">
+                      <th className="px-4 py-2 font-bold">Proposal</th>
+                      <th className="px-4 py-2 font-bold">Category</th>
+                      <th className="px-4 py-2 font-bold">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {openProposalList.map((proposal, index) => (
+                      <tr
+                        key={proposal._id || index}
+                        className="border-b border-zinc-100 last:border-0 hover:bg-zinc-50"
+                      >
+                        <td className="px-4 py-2.5">
+                          <Link
+                            href={proposalHref}
+                            className="block max-w-[260px] truncate text-[12px] font-semibold text-[#0a223a] hover:text-[#0a223a]"
+                          >
+                            {proposal.title || 'Untitled proposal'}
+                          </Link>
+                        </td>
+                        <td className="px-4 py-2.5 text-[11px] capitalize text-zinc-500">
+                          {formatProposalMeta(proposal)}
+                        </td>
+                        <td className="px-4 py-2.5">
+                          <StatusBadge status={proposal.status} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             ) : (
-              <div className="px-5 py-6 text-[11.5px] text-[#71717a]">
+              <div className="px-4 py-5 text-[11.5px] text-zinc-500">
                 No open proposals right now.
               </div>
             )}
           </section>
         </div>
 
-        <aside className="space-y-6">
-          <section className="overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white">
-            <div className="flex items-center justify-between border-b border-[#e4e4e7] px-5 py-4">
-              <h2 className="flex items-center gap-2 text-[13px] font-semibold text-[#09090b]">
-                <Bell className="h-4 w-4 text-[#71717a]" />
+        {/* Right rail */}
+        <aside className="space-y-5">
+          <section className="overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm">
+            <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-3">
+              <h2 className="flex items-center gap-2 text-[13px] font-bold text-[#0a223a]">
+                <Bell className="h-4 w-4 text-[#0a223a]" />
                 Notices
               </h2>
-              <span className="text-[11px] text-[#71717a]">
+              <span className="text-[10.5px] font-semibold text-zinc-400">
                 {data ? `${unread.length} unread` : '—'}
               </span>
             </div>
 
             {!data ? (
-              <div className="space-y-3 p-5">
+              <div className="space-y-3 p-4">
                 <Skeleton className="h-3 w-3/4" />
                 <Skeleton className="h-3 w-1/2" />
                 <Skeleton className="h-3 w-2/3" />
@@ -659,31 +692,31 @@ export default function DashboardPage() {
                   <Link
                     key={notification._id || index}
                     href="/dashboard/notifications"
-                    className="group flex gap-3 border-b border-[#f4f4f5] px-5 py-3.5 transition-colors last:border-0 hover:bg-[#fafafa]"
+                    className="group flex gap-2.5 border-b border-zinc-100 px-4 py-3 transition-colors last:border-0 hover:bg-zinc-50"
                   >
                     <span
                       className={cn(
-                        'mt-1.5 h-1.5 w-1.5 shrink-0 rounded-[1px]',
-                        notification.isRead ? 'bg-[#d4d4d8]' : 'bg-[#0071e3]',
+                        'mt-1.5 h-2 w-2 shrink-0 rounded-full',
+                        notification.isRead ? 'bg-zinc-300' : 'bg-[#0a223a]',
                       )}
                     />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-baseline justify-between gap-2">
                         <p
                           className={cn(
-                            'truncate text-[12.5px]',
+                            'truncate text-[12px]',
                             notification.isRead
-                              ? 'font-normal text-[#3f3f46]'
-                              : 'font-medium text-[#09090b]',
+                              ? 'font-medium text-zinc-600'
+                              : 'font-bold text-[#0a223a]',
                           )}
                         >
                           {notification.title}
                         </p>
-                        <span className="shrink-0 text-[10.5px] text-[#a1a1aa]">
+                        <span className="shrink-0 text-[10px] text-zinc-400">
                           {timeAgo(notification.createdAt)}
                         </span>
                       </div>
-                      <p className="mt-0.5 line-clamp-1 text-[11.5px] text-[#a1a1aa]">
+                      <p className="mt-0.5 line-clamp-1 text-[11px] text-zinc-400">
                         {notification.content || 'Open the notice for details.'}
                       </p>
                     </div>
@@ -691,48 +724,49 @@ export default function DashboardPage() {
                 ))}
               </div>
             ) : (
-              <div className="flex items-start gap-3 px-5 py-6 text-[11.5px] text-[#71717a]">
-                <Bell className="mt-0.5 h-4 w-4 shrink-0 text-[#a1a1aa]" />
+              <div className="flex items-start gap-2.5 px-4 py-5 text-[11.5px] text-zinc-500">
+                <Bell className="mt-0.5 h-4 w-4 shrink-0 text-zinc-400" />
                 No notices filed today. The desk is quiet.
               </div>
             )}
 
             <Link
               href="/dashboard/notifications"
-              className="flex items-center justify-between border-t border-[#e4e4e7] px-5 py-3 text-[12px] font-medium text-[#0071e3] transition-colors hover:bg-[#fafafa]"
+              className="flex items-center justify-center gap-1.5 border-t border-zinc-200 px-4 py-2.5 text-[11.5px] font-semibold text-[#0a223a] transition-colors hover:bg-zinc-50"
             >
-              View all notifications
+              View all notices
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </section>
 
-          <section className="overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white">
-            <div className="border-b border-[#e4e4e7] px-5 py-4">
-              <h2 className="text-[13px] font-semibold text-[#09090b]">
+          {/* Quick actions */}
+          <section className="overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm">
+            <div className="border-b border-zinc-200 px-4 py-3">
+              <h2 className="text-[13px] font-bold text-[#0a223a]">
                 Quick actions
               </h2>
             </div>
-            <div>
+            <div className="divide-y divide-zinc-100">
               {quickActions.map((action) => {
                 const Icon = action.icon;
                 return (
                   <Link
                     key={action.href}
                     href={action.href}
-                    className="group flex items-center gap-3 border-b border-[#f4f4f5] px-5 py-3 transition-colors last:border-0 hover:bg-[#fafafa]"
+                    className="group flex items-center gap-2.5 px-4 py-3 transition-colors hover:bg-zinc-50"
                   >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] text-[#71717a] transition-colors group-hover:border-[#09090b] group-hover:bg-[#0071e3] group-hover:text-white">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[#f4f4f5] text-[#0a223a]">
                       <Icon className="h-4 w-4" />
                     </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[12.5px] font-medium text-[#09090b]">
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[12px] font-bold text-[#0a223a]">
                         {action.title}
-                      </span>
-                      <span className="mt-0.5 block truncate text-[11px] text-[#a1a1aa]">
+                      </p>
+                      <p className="truncate text-[10.5px] text-zinc-400">
                         {action.description}
-                      </span>
-                    </span>
-                    <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[#d4d4d8] transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#0071e3]" />
+                      </p>
+                    </div>
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-zinc-300 transition-colors group-hover:text-[#0a223a]" />
                   </Link>
                 );
               })}
@@ -740,14 +774,6 @@ export default function DashboardPage() {
           </section>
         </aside>
       </div>
-
-      <footer className="flex flex-col gap-1.5 border-t border-[#e4e4e7] pt-5 text-[11px] text-[#a1a1aa] sm:flex-row sm:items-center sm:justify-between">
-        <span className="inline-flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#248a3d]" />
-          All systems operational · ballots anonymous · every action auditable
-        </span>
-        <span>HUConnect · Registrar&apos;s Office</span>
-      </footer>
     </div>
   );
 }
