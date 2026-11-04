@@ -1,8 +1,8 @@
-﻿'use client';
+'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
-import { LifeBuoy, Plus, Send } from 'lucide-react';
+import { ArrowUpRight, LifeBuoy, Plus, Send } from 'lucide-react';
 import { apiRequest } from '@/lib/api';
 import { getStoredUser, type AuthUser } from '@/lib/auth';
 import {
@@ -86,31 +86,40 @@ export default function SupportPage() {
           }
         />
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {tickets.map((t) => (
             <Card
               key={t._id || t.ticketId}
               hover
-              className="cursor-pointer p-5 hover:border-primary/40"
+              className="group cursor-pointer overflow-hidden p-0"
               onClick={() => setActive(t)}
             >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h3 className="font-semibold text-foreground">{t.subject}</h3>
-                  <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">
-                    {t.message}
+              <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[#e4e4e7] px-5 py-4">
+                <div className="min-w-0">
+                  <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
+                    {t.category || 'Support ticket'}
+                    {t.confidentiality === 'confidential' && ' / confidential'}
                   </p>
+                  <h3 className="mt-1.5 text-[15px] font-semibold leading-snug tracking-[-0.01em] text-[#09090b]">
+                    {t.subject}
+                  </h3>
                 </div>
                 <StatusBadge status={t.status} />
               </div>
-              <div className="mt-3 flex flex-wrap items-center gap-2">
-                {t.category && <Badge variant="secondary">{t.category}</Badge>}
-                {t.confidentiality === 'confidential' && (
-                  <Badge variant="warning">Confidential</Badge>
-                )}
-                <span className="text-xs text-muted-foreground">
-                  {formatDateTime(t.createdAt)}
-                </span>
+              <div className="px-5 py-4">
+                <p className="line-clamp-2 text-[12.5px] leading-relaxed text-[#71717a]">
+                  {t.message}
+                </p>
+                <div className="mt-3.5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-[#f4f4f5] pt-3 text-[11px] text-[#a1a1aa]">
+                  <span>Opened {formatDateTime(t.createdAt)}</span>
+                  {t.confidentiality === 'confidential' && (
+                    <Badge variant="warning">Confidential</Badge>
+                  )}
+                  <span className="ml-auto inline-flex items-center gap-1 font-medium text-[#0071e3]">
+                    Open thread
+                    <ArrowUpRight className="h-3 w-3" />
+                  </span>
+                </div>
               </div>
             </Card>
           ))}
@@ -318,14 +327,14 @@ function ThreadModal({
     >
       <div className="flex max-h-[55vh] flex-col">
         <div className="flex-1 space-y-3 overflow-y-auto pr-1">
-          <div className="rounded-[2px] border border-[#171611]/12 bg-secondary/40 p-3 text-sm">
-            <p className="font-medium text-foreground">Original request</p>
-            <p className="mt-1 text-muted-foreground">{ticket.message}</p>
+          <div className="rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] p-3 text-[12px]">
+            <p className="font-medium text-[#09090b]">Original request</p>
+            <p className="mt-1 leading-relaxed text-[#71717a]">{ticket.message}</p>
           </div>
           {loading ? (
-            <p className="text-sm text-muted-foreground">Loading messages…</p>
+            <p className="text-[12px] text-[#a1a1aa]">Loading messages…</p>
           ) : messages.length === 0 ? (
-            <p className="py-4 text-center text-sm text-muted-foreground">
+            <p className="py-4 text-center text-[12px] text-[#a1a1aa]">
               No replies yet. Start the conversation below.
             </p>
           ) : (
@@ -339,17 +348,15 @@ function ThreadModal({
                   <Avatar name={mine ? 'You' : 'Officer'} className="h-7 w-7 shrink-0" />
                   <div
                     className={cn(
-                      'max-w-[75%] rounded-[2px] px-3 py-2 text-sm',
-                      mine
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-secondary text-foreground',
+                      'max-w-[75%] rounded-[6px] px-3 py-2 text-[12.5px] leading-relaxed',
+                      mine ? 'bg-[#09090b] text-white' : 'bg-[#f4f4f5] text-[#18181b]',
                     )}
                   >
                     <p className="whitespace-pre-wrap">{m.content}</p>
                     <p
                       className={cn(
                         'mt-1 text-[10px]',
-                        mine ? 'text-primary-foreground/70' : 'text-muted-foreground',
+                        mine ? 'text-white/50' : 'text-[#a1a1aa]',
                       )}
                     >
                       {formatDateTime(m.createdAt)}
@@ -362,7 +369,7 @@ function ThreadModal({
           <div ref={bottomRef} />
         </div>
 
-        <div className="mt-3 flex items-center gap-2 border-t border-border pt-3">
+        <div className="mt-3 flex items-center gap-2 border-t border-[#e4e4e7] pt-3">
           <Input
             value={text}
             onChange={(e) => setText(e.target.value)}

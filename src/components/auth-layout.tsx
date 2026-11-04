@@ -1,54 +1,54 @@
 import Link from 'next/link';
-import { ArrowLeft, ArrowUpRight, Lock, ShieldCheck } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  Check,
+  Lock,
+  ShieldCheck,
+} from 'lucide-react';
 import { BrandVideo } from '@/components/brand-video';
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 
 const PANEL_CONTENT = {
   login: {
-    index: '01',
-    eyebrow: 'Access to the record',
+    eyebrow: 'Campus governance',
     title: (
       <>
-        The record
+        A clearer record
         <br />
-        <span className="italic text-[#f8f6f0]/45">starts with you.</span>
+        for every decision.
       </>
     ),
     description:
-      'One private place for the votes you cast, the concerns you raise and the decisions your campus makes.',
-    note: 'A vote is a small act of trust. We built the room around it.',
-    attribution: 'The CampusVoice principle',
+      'One secure workspace for elections, concerns and the decisions that follow — built around privacy, not paperwork.',
+    points: ['Anonymous ballots', 'Verified eligibility', 'Auditable record'],
   },
   register: {
-    index: '02',
     eyebrow: 'Enrolment',
     title: (
       <>
-        Put your name
+        Join the
         <br />
-        <span className="italic text-[#f8f6f0]/45">on the record.</span>
+        campus record.
       </>
     ),
     description:
-      'Enrol once, then vote anonymously, raise concerns formally and follow every answer back to its source.',
-    note: 'Democracy is not a feature. It is a habit we make easier to keep.',
-    attribution: 'From the registrar’s desk',
+      'Create your account to vote, raise concerns and follow every decision through to its outcome.',
+    points: ['One identity', 'One ballot', 'Full traceability'],
   },
   reset: {
-    index: '03',
     eyebrow: 'Account recovery',
     title: (
       <>
-        Back to the
+        Restore access,
         <br />
-        <span className="italic text-[#f8f6f0]/45">business of campus.</span>
+        securely.
       </>
     ),
     description:
-      'A single-use link restores your access. Your ballot history and your privacy remain untouched.',
-    note: 'Identity is verified once. After that, your choices belong only to you.',
-    attribution: 'Security note',
+      'A single-use link returns you to your workspace. Your ballot history and privacy stay untouched.',
+    points: ['Single-use link', 'Session revocation', 'Private by default'],
   },
 } as const;
 
@@ -60,68 +60,65 @@ export function AuthBrandPanel({
   const content = PANEL_CONTENT[panel];
 
   return (
-    <div className="relative hidden min-h-screen w-[52%] overflow-hidden bg-[#12110d] text-[#f8f6f0] lg:flex">
+    <div className="relative hidden min-h-screen w-[46%] shrink-0 overflow-hidden bg-[#0071e3] text-white lg:flex">
       <BrandVideo
         src="/media/campusvoice-loop.mp4"
         poster="/media/campusvoice-loop-poster.jpg"
         label="CampusVoice abstract background"
         className="absolute inset-0 h-full w-full"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,9,7,0.72)_0%,rgba(10,9,7,0.28)_45%,rgba(10,9,7,0.9)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,9,7,0.46)_0%,transparent_62%)]" />
-      <div className="pointer-events-none absolute inset-4 border border-white/15" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,9,11,0.78)_0%,rgba(9,9,11,0.45)_45%,rgba(9,9,11,0.94)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(9,9,11,0.52)_0%,transparent_68%)]" />
 
-      <div className="relative z-10 flex w-full flex-col justify-between p-10 xl:p-14">
+      <div className="relative z-10 flex w-full flex-col justify-between p-9 xl:p-12">
         <div className="flex items-center justify-between">
           <Logo light href="/" />
-          <Link
-            href="/"
-            className="group inline-flex items-center gap-1.5 border-b border-white/25 pb-1 font-mono text-[9px] font-medium uppercase tracking-[0.16em] text-white/65 transition-colors hover:border-white/60 hover:text-white"
-          >
-            Main site
-            <ArrowUpRight className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </Link>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[10.5px] font-medium text-white/60 backdrop-blur-sm">
+            <ShieldCheck className="h-3 w-3" />
+            Secure access
+          </span>
         </div>
 
-        <div className="max-w-[42rem] py-14">
-          <p className="font-mono text-[9px] font-medium uppercase tracking-[0.22em] text-[#f8f6f0]/45">
-            {content.index} <span className="mx-2 text-white/25">/</span>{' '}
+        <div className="py-12">
+          <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/45">
             {content.eyebrow}
           </p>
-          <h1 className="mt-6 font-editorial text-[clamp(3.3rem,5.2vw,5.4rem)] font-semibold leading-[0.9] tracking-[-0.045em]">
+          <h1 className="mt-5 max-w-[35rem] text-[clamp(2.55rem,4.1vw,3.9rem)] font-semibold leading-[1.03] tracking-[-0.045em]">
             {content.title}
           </h1>
-          <p className="mt-7 max-w-md text-[14px] leading-[1.75] text-white/55 xl:text-[15px]">
+          <p className="mt-5 max-w-md text-[14px] leading-relaxed text-white/55">
             {content.description}
           </p>
 
-          <figure className="mt-12 max-w-md border-l border-white/25 pl-5">
-            <blockquote className="font-editorial text-[19px] font-medium italic leading-snug text-white/80">
-              “{content.note}”
-            </blockquote>
-            <figcaption className="mt-3 font-mono text-[8px] font-medium uppercase tracking-[0.2em] text-white/35">
-              {content.attribution}
-            </figcaption>
-          </figure>
+          <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5">
+            {content.points.map((point) => (
+              <li
+                key={point}
+                className="flex items-center gap-1.5 text-[12px] font-medium text-white/70"
+              >
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-white/10">
+                  <Check className="h-2.5 w-2.5" />
+                </span>
+                {point}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <div className="grid grid-cols-3 border-t border-white/20 pt-5">
+        <div className="grid grid-cols-3 border-t border-white/15 pt-5">
           {[
-            { label: 'Established', value: '2026' },
-            { label: 'Ballots', value: 'Anonymous' },
-            { label: 'Record', value: 'Auditable' },
+            { label: 'Governance roles', value: '11' },
+            { label: 'Anonymous ballots', value: '100%' },
+            { label: 'Audit coverage', value: '24/7' },
           ].map((item, index) => (
             <div
               key={item.label}
-              className={cn(
-                'pr-4',
-                index > 0 && 'border-l border-white/15 pl-4',
-              )}
+              className={cn('pr-4', index > 0 && 'border-l border-white/15 pl-4')}
             >
-              <p className="font-mono text-[8px] font-medium uppercase tracking-[0.18em] text-white/35">
+              <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-white/40">
                 {item.label}
               </p>
-              <p className="mt-1.5 font-editorial text-[17px] font-semibold text-white/85">
+              <p className="mt-1.5 text-[15px] font-semibold text-white/90">
                 {item.value}
               </p>
             </div>
@@ -140,39 +137,39 @@ export function AuthFormFrame({
   wide?: boolean;
 }) {
   return (
-    <div className="paper-grain relative flex min-h-screen w-full flex-col bg-[#f1eee6] lg:w-[48%]">
-      <div className="relative h-44 w-full shrink-0 overflow-hidden bg-[#12110d] lg:hidden">
+    <div className="relative flex min-h-screen w-full flex-col bg-white lg:w-[54%]">
+      <div className="relative h-40 w-full shrink-0 overflow-hidden bg-[#0071e3] lg:hidden">
         <BrandVideo
           src="/media/campusvoice-loop.mp4"
           poster="/media/campusvoice-loop-poster.jpg"
           label="CampusVoice abstract background"
           className="absolute inset-0 h-full w-full"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,9,7,0.52)_0%,rgba(10,9,7,0.18)_40%,rgba(10,9,7,0.88)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,9,11,0.5)_0%,rgba(9,9,11,0.25)_45%,rgba(9,9,11,0.9)_100%)]" />
         <div className="relative flex h-full flex-col justify-between p-5">
           <div className="flex items-center justify-between">
             <Logo light href="/" />
-            <span className="font-mono text-[8px] font-medium uppercase tracking-[0.18em] text-white/40">
-              Access / 2026
+            <span className="rounded-full border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[10px] font-medium text-white/60">
+              Access portal
             </span>
           </div>
-          <p className="font-editorial text-[24px] font-semibold leading-none tracking-[-0.03em] text-white">
-            The record starts with you.
+          <p className="text-[13px] font-medium text-white/70">
+            A clearer record for every campus decision.
           </p>
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col px-6 pb-6 pt-6 sm:px-10 lg:px-12 lg:pb-7 lg:pt-7 xl:px-16">
-        <div className="flex items-center justify-between border-b border-[#171611]/15 pb-3.5">
-          <span className="font-mono text-[8px] font-medium uppercase tracking-[0.18em] text-[#7a7365]">
-            CampusVoice / Access
+      <div className="flex flex-1 flex-col px-6 pb-6 pt-6 sm:px-10 lg:px-14 lg:pb-6 lg:pt-6 xl:px-20">
+        <div className="flex h-11 items-center justify-between border-b border-[#e4e4e7]">
+          <span className="text-[12px] font-medium text-[#71717a]">
+            Access portal
           </span>
           <Link
             href="/"
-            className="hidden items-center gap-1.5 font-mono text-[9px] font-medium uppercase tracking-[0.14em] text-[#5f5b4f] transition-colors hover:text-[#a33a1b] sm:inline-flex"
+            className="inline-flex items-center gap-1.5 text-[12px] font-medium text-[#52525b] transition-colors hover:text-[#09090b]"
           >
-            <ArrowLeft className="h-3 w-3" />
-            Return to campus
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Back to campus
           </Link>
         </div>
 
@@ -181,7 +178,7 @@ export function AuthFormFrame({
             <div
               className={cn(
                 'mx-auto',
-                wide ? 'max-w-[34rem]' : 'max-w-[24rem]',
+                wide ? 'max-w-[36rem]' : 'max-w-[25rem]',
               )}
             >
               {children}
@@ -189,14 +186,14 @@ export function AuthFormFrame({
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[#171611]/15 pt-3.5 font-mono text-[8px] font-medium uppercase tracking-[0.15em] text-[#7a7365]">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[#e4e4e7] pt-4 text-[11px] text-[#a1a1aa]">
           <span className="inline-flex items-center gap-1.5">
-            <ShieldCheck className="h-3 w-3 text-[#2f5d3a]" />
+            <Lock className="h-3 w-3" />
             Argon2id · HttpOnly sessions
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Lock className="h-3 w-3" />
-            Registrar&apos;s office · Est. 2026
+            <ShieldCheck className="h-3 w-3" />
+            Registrar&apos;s Office · Est. 2026
           </span>
         </div>
       </div>
@@ -204,10 +201,6 @@ export function AuthFormFrame({
   );
 }
 
-/**
- * Shared split-screen shell for the public authentication pages
- * (register, password reset).
- */
 export function AuthLayout({
   title,
   description,
@@ -222,17 +215,17 @@ export function AuthLayout({
   panel?: 'register' | 'reset';
 }) {
   return (
-    <div className="flex min-h-screen bg-[#f1eee6]">
+    <div className="flex min-h-screen bg-white">
       <AuthBrandPanel panel={panel} />
       <AuthFormFrame wide={wide}>
-        <div className="mb-8">
-          <p className="font-mono text-[8px] font-medium uppercase tracking-[0.2em] text-[#7a7365]">
-            {panel === 'reset' ? '03 / Account recovery' : '02 / Enrolment'}
+        <div className="mb-7">
+          <p className="text-[12px] font-medium text-[#71717a]">
+            {panel === 'reset' ? 'Account recovery' : 'Create an account'}
           </p>
-          <h2 className="mt-4 font-editorial text-[clamp(2.8rem,5vw,4rem)] font-semibold leading-[0.92] tracking-[-0.045em] text-[#171611]">
+          <h2 className="mt-2 text-[30px] font-semibold leading-[1.1] tracking-[-0.035em] text-[#09090b]">
             {title}
           </h2>
-          <p className="mt-4 max-w-md text-[13px] leading-relaxed text-[#5f5b4f]">
+          <p className="mt-2.5 max-w-md text-[13px] leading-relaxed text-[#52525b]">
             {description}
           </p>
         </div>

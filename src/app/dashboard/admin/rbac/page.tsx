@@ -34,7 +34,7 @@ export default function AdminRbacPage() {
       />
 
       <section>
-        <h2 className="mb-4 text-lg font-semibold tracking-tight">Roles</h2>
+        <h2 className="mb-4 text-[14px] font-semibold text-[#09090b]">Roles</h2>
         <div className="grid gap-4 md:grid-cols-2">
           {ROLES.map((role) => {
             const perms = ROLE_PERMISSIONS[role] || [];
@@ -42,35 +42,35 @@ export default function AdminRbacPage() {
             return (
               <Card key={role} className="p-5">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
                     <span
-                      className={`flex h-9 w-9 items-center justify-center rounded-lg ${
+                      className={`flex h-9 w-9 items-center justify-center rounded-[4px] border ${
                         isAuthority
-                          ? 'bg-primary/10 text-primary'
-                          : 'bg-secondary text-muted-foreground'
+                          ? 'border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]'
+                          : 'border-[#e4e4e7] bg-[#fafafa] text-[#71717a]'
                       }`}
                     >
                       <ShieldCheck className="h-4 w-4" />
                     </span>
                     <div>
-                      <p className="font-semibold text-foreground">
+                      <p className="text-[13px] font-semibold text-[#09090b]">
                         {roleLabel(role)}
                       </p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-[11px] text-[#a1a1aa]">
                         {perms.length} permission{perms.length === 1 ? '' : 's'}
                       </p>
                     </div>
                   </div>
                   {isAuthority && <Badge variant="default">Authority</Badge>}
                 </div>
-                <p className="mt-3 text-sm text-muted-foreground">
+                <p className="mt-3 text-[12px] leading-relaxed text-[#71717a]">
                   {ROLE_DESCRIPTIONS[role]}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {perms.map((p) => (
                     <span
                       key={p}
-                      className="rounded-md bg-secondary px-2 py-0.5 font-mono text-[11px] text-secondary-foreground"
+                      className="rounded-[3px] border border-[#e4e4e7] bg-[#fafafa] px-2 py-0.5 font-mono text-[10.5px] text-[#52525b]"
                     >
                       {p}
                     </span>
@@ -83,10 +83,10 @@ export default function AdminRbacPage() {
       </section>
 
       <section>
-        <h2 className="mb-4 text-lg font-semibold tracking-tight">
+        <h2 className="mb-4 text-[14px] font-semibold text-[#09090b]">
           Permission reference
         </h2>
-        <Card className="divide-y divide-border">
+        <Card className="divide-y divide-[#f4f4f5]">
           {(permissions.length
             ? permissions
             : Object.keys(PERMISSION_DESCRIPTIONS)
@@ -95,8 +95,8 @@ export default function AdminRbacPage() {
               key={perm}
               className="flex items-center justify-between gap-4 px-5 py-3"
             >
-              <span className="font-mono text-xs text-foreground">{perm}</span>
-              <span className="text-right text-sm text-muted-foreground">
+              <span className="font-mono text-[11px] text-[#09090b]">{perm}</span>
+              <span className="text-right text-[11.5px] text-[#71717a]">
                 {PERMISSION_DESCRIPTIONS[perm] || '—'}
               </span>
             </div>

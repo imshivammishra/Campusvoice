@@ -16,21 +16,21 @@ type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
 
 const buttonVariants: Record<ButtonVariant, string> = {
   primary:
-    'bg-[#171611] text-[#f8f6f0] hover:bg-[#a33a1b] active:bg-[#8e3117] focus-visible:ring-[#a33a1b]/35',
+    'bg-[#0071e3] text-white shadow-[0_1px_2px_rgba(0,0,0,0.10)] hover:bg-[#0077ed] active:bg-[#0064cc] focus-visible:ring-[#0071e3]/30',
   secondary:
-    'border-[#c9c2b2] bg-transparent text-[#171611] hover:border-[#171611] hover:bg-[#e9e4d8] active:bg-[#e2dccd] focus-visible:ring-[#171611]/20',
+    'border-[#e3e3e8] bg-white text-[#1d1d1f] shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:bg-[#f5f5f7] active:scale-[0.98] focus-visible:ring-[#0071e3]/25',
   outline:
-    'border-[#171611]/25 bg-[#f8f6f0] text-[#171611] hover:border-[#171611]/60 hover:bg-[#e9e4d8] focus-visible:ring-[#171611]/20',
+    'border-[#d2d2d7] bg-white/60 text-[#1d1d1f] hover:border-[#b9b9c0] hover:bg-[#f5f5f7] active:scale-[0.98] focus-visible:ring-[#0071e3]/25',
   ghost:
-    'text-[#a33a1b] hover:bg-[#e9e4d8] active:bg-[#e2dccd] focus-visible:ring-[#a33a1b]/25',
+    'text-[#424245] hover:bg-[#1d1d1f]/[0.055] hover:text-[#1d1d1f] active:scale-[0.98] focus-visible:ring-[#0071e3]/20',
   destructive:
-    'bg-[#8f1d13] text-white hover:bg-[#78170f] active:bg-[#65120c] focus-visible:ring-[#8f1d13]/40',
+    'bg-[#ff3b30] text-white shadow-[0_8px_20px_-8px_rgba(255,59,48,0.6)] hover:bg-[#f52b20] active:bg-[#e01f16] active:scale-[0.98] focus-visible:ring-[#ff3b30]/35',
 };
 
 const buttonSizes: Record<ButtonSize, string> = {
-  sm: 'h-8 px-3 text-[9px]',
-  md: 'h-10 px-4 text-[10px]',
-  lg: 'h-12 px-6 text-[11px]',
+  sm: 'h-8 px-3.5 text-[12px]',
+  md: 'h-10 px-5 text-[13px]',
+  lg: 'h-12 px-6 text-[15px]',
   icon: 'h-10 w-10 p-0',
 };
 
@@ -58,7 +58,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       disabled={disabled || loading}
       className={cn(
-        'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[2px] border border-transparent font-mono font-medium uppercase tracking-[0.12em] transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f1eee6] disabled:pointer-events-none disabled:opacity-40',
+        'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-transparent font-medium tracking-[-0.01em] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-0 disabled:pointer-events-none disabled:opacity-40',
         buttonVariants[variant],
         buttonSizes[size],
         className,
@@ -84,9 +84,9 @@ export function Card({
   return (
     <div
       className={cn(
-        'rounded-[2px] border border-[#d8d2c3] bg-[#f8f6f0] text-card-foreground',
+        'rounded-[16px] border border-[#e5e5ea] bg-white text-[#1d1d1f] shadow-[0_1px_2px_rgba(0,0,0,0.03)]',
         hover &&
-          'transition-colors duration-200 hover:border-[#a33a1b]/55 hover:bg-[#faf8f2]',
+          'transition-colors duration-200 hover:border-[#d6d6dc]',
         className,
       )}
       {...props}
@@ -99,7 +99,7 @@ export function CardHeader({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn('flex flex-col gap-1.5 p-6', className)} {...props} />
+    <div className={cn('flex flex-col gap-1.5 p-5 sm:p-6', className)} {...props} />
   );
 }
 
@@ -110,7 +110,7 @@ export function CardTitle({
   return (
     <h3
       className={cn(
-        'font-editorial text-[20px] font-semibold leading-tight tracking-[-0.025em] text-[#171611]',
+        'text-[16px] font-semibold leading-tight tracking-[-0.015em] text-[#09090b]',
         className,
       )}
       {...props}
@@ -124,7 +124,7 @@ export function CardDescription({
 }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
     <p
-      className={cn('text-[13px] leading-relaxed text-[#5f5b4f]', className)}
+      className={cn('text-[13px] leading-relaxed text-[#71717a]', className)}
       {...props}
     />
   );
@@ -134,7 +134,7 @@ export function CardContent({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn('p-6 pt-0', className)} {...props} />;
+  return <div className={cn('p-5 pt-0 sm:p-6 sm:pt-0', className)} {...props} />;
 }
 
 export function CardFooter({
@@ -142,7 +142,10 @@ export function CardFooter({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn('flex items-center p-6 pt-0', className)} {...props} />
+    <div
+      className={cn('flex items-center p-5 pt-0 sm:p-6 sm:pt-0', className)}
+      {...props}
+    />
   );
 }
 
@@ -161,18 +164,18 @@ type BadgeVariant =
 
 const badgeVariants: Record<BadgeVariant, string> = {
   default:
-    'border-[#a33a1b]/30 bg-[#a33a1b]/10 text-[#8e3117]',
+    'border-black/[0.06] bg-[#f5f5f7] text-[#424245]',
   secondary:
-    'border-[#171611]/15 bg-transparent text-[#5f5b4f]',
+    'border-black/[0.06] bg-white text-[#6e6e73]',
   success:
-    'border-[#2f5d3a]/25 bg-[#2f5d3a]/10 text-[#2f5d3a]',
+    'border-[#34c759]/25 bg-[#34c759]/10 text-[#248a3d]',
   warning:
-    'border-[#8a6116]/25 bg-[#8a6116]/10 text-[#7a5512]',
+    'border-[#ff9500]/25 bg-[#ff9500]/10 text-[#b25000]',
   danger:
-    'border-[#8f1d13]/25 bg-[#8f1d13]/10 text-[#8f1d13]',
+    'border-[#ff3b30]/25 bg-[#ff3b30]/10 text-[#d70015]',
   info:
-    'border-[#1f4f63]/25 bg-[#1f4f63]/10 text-[#1f4f63]',
-  outline: 'border-[#171611]/30 text-[#171611]',
+    'border-[#0071e3]/20 bg-[#0071e3]/10 text-[#0071e3]',
+  outline: 'border-[#d2d2d7] bg-transparent text-[#424245]',
 };
 
 export function Badge({
@@ -183,7 +186,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1 rounded-[2px] border px-1.5 py-0.5 font-mono text-[9px] font-medium uppercase tracking-[0.1em]',
+        'inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[10.5px] font-medium capitalize leading-4',
         badgeVariants[variant],
         className,
       )}
@@ -222,7 +225,7 @@ export function StatusBadge({ status }: { status?: string }) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Page header                                                                 */
+/*  Page header                                                                */
 /* -------------------------------------------------------------------------- */
 
 export function PageHeader({
@@ -237,18 +240,18 @@ export function PageHeader({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4 border-b border-[#cfc8b8] pb-5 sm:flex-row sm:items-end sm:justify-between">
+    <div className="flex flex-col gap-4 border-b border-[#e8e8ed] pb-6 sm:flex-row sm:items-end sm:justify-between">
       <div>
         {eyebrow && (
-          <p className="mb-2 font-mono text-[9px] font-medium uppercase tracking-[0.18em] text-[#7a7365]">
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0071e3]">
             {eyebrow}
           </p>
         )}
-        <h1 className="font-editorial text-[34px] font-semibold leading-[1.02] tracking-[-0.035em] text-[#171611] sm:text-[42px]">
+        <h1 className="text-[28px] font-semibold leading-[1.05] tracking-[-0.03em] text-[#1d1d1f] sm:text-[34px]">
           {title}
         </h1>
         {description && (
-          <p className="mt-2 max-w-2xl text-[13px] leading-relaxed text-[#5f5b4f]">
+          <p className="mt-2 max-w-2xl text-[14px] leading-relaxed text-[#6e6e73]">
             {description}
           </p>
         )}
@@ -259,7 +262,7 @@ export function PageHeader({
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Stat card                                                                   */
+/*  Stat card                                                                  */
 /* -------------------------------------------------------------------------- */
 
 export function StatCard({
@@ -277,30 +280,34 @@ export function StatCard({
   tone?: 'indigo' | 'emerald' | 'amber' | 'sky';
 }) {
   return (
-    <div className="border-t border-[#171611] pt-4">
+    <div className="rounded-[16px] border border-[#e5e5ea] bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-colors duration-200 hover:border-[#d6d6dc]">
       <div className="flex items-start justify-between gap-3">
-        <p className="font-mono text-[9px] font-medium uppercase tracking-[0.16em] text-[#7a7365]">
-          {label}
-        </p>
-        {Icon && <Icon className="h-3.5 w-3.5 text-[#7a7365]" />}
+        <p className="text-[12.5px] font-medium text-[#6e6e73]">{label}</p>
+        {Icon && (
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0071e3]/10 text-[#0071e3]">
+            <Icon className="h-4 w-4" />
+          </span>
+        )}
       </div>
-      <p className="mt-3 font-editorial text-[40px] font-semibold leading-none tracking-[-0.04em] text-[#171611]">
+      <p className="mt-3 text-[30px] font-semibold leading-none tracking-[-0.035em] tabular-nums text-[#1d1d1f]">
         {value}
       </p>
       <div className="mt-2 flex items-center gap-2">
         {delta && (
-          <span className="font-mono text-[9px] font-medium uppercase tracking-[0.1em] text-[#2f5d3a]">
+          <span className="text-[11px] font-medium text-[#248a3d]">
             {delta}
           </span>
         )}
-        {hint && <p className="text-[11px] leading-snug text-[#7a7365]">{hint}</p>}
+        {hint && (
+          <p className="text-[11.5px] leading-snug text-[#86868b]">{hint}</p>
+        )}
       </div>
     </div>
   );
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Empty state                                                                 */
+/*  Empty state                                                                */
 /* -------------------------------------------------------------------------- */
 
 export function EmptyState({
@@ -315,18 +322,16 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <Card className="flex flex-col items-center justify-center gap-3 border-dashed bg-transparent p-12 text-center">
+    <Card className="flex flex-col items-center justify-center gap-3 border-dashed border-[#d2d2d7] bg-[#f5f5f7]/60 p-10 text-center shadow-none">
       {Icon && (
-        <span className="flex h-12 w-12 items-center justify-center border border-[#171611]/20 text-[#7a7365]">
+        <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e8e8ed] bg-white text-[#0071e3] shadow-card">
           <Icon className="h-5 w-5" />
         </span>
       )}
       <div>
-        <p className="font-editorial text-[20px] font-semibold text-[#171611]">
-          {title}
-        </p>
+        <p className="text-[15px] font-semibold text-[#1d1d1f]">{title}</p>
         {description && (
-          <p className="mx-auto mt-1.5 max-w-sm text-[12px] leading-relaxed text-[#5f5b4f]">
+          <p className="mx-auto mt-1.5 max-w-sm text-[12.5px] leading-relaxed text-[#6e6e73]">
             {description}
           </p>
         )}
@@ -337,7 +342,7 @@ export function EmptyState({
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Loading                                                                     */
+/*  Loading                                                                    */
 /* -------------------------------------------------------------------------- */
 
 export function Spinner({ className }: { className?: string }) {
@@ -347,16 +352,16 @@ export function Spinner({ className }: { className?: string }) {
 export function Skeleton({ className }: { className?: string }) {
   return (
     <div
-      className={cn('animate-pulse rounded-[1px] bg-[#e3ddcf]', className)}
+      className={cn('animate-pulse rounded-[12px] bg-[#f4f4f5]', className)}
     />
   );
 }
 
 export function CardSkeletonGrid({ count = 3 }: { count?: number }) {
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {Array.from({ length: count }).map((_, i) => (
-        <Card key={i} className="p-6">
+        <Card key={i} className="p-5">
           <Skeleton className="h-3 w-24" />
           <Skeleton className="mt-4 h-8 w-16" />
           <Skeleton className="mt-6 h-2.5 w-full" />
@@ -369,9 +374,9 @@ export function CardSkeletonGrid({ count = 3 }: { count?: number }) {
 
 export function ListSkeleton({ count = 3 }: { count?: number }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {Array.from({ length: count }).map((_, i) => (
-        <Card key={i} className="p-6">
+        <Card key={i} className="p-5">
           <div className="flex items-center justify-between">
             <Skeleton className="h-4 w-40" />
             <Skeleton className="h-4 w-16" />
@@ -385,7 +390,7 @@ export function ListSkeleton({ count = 3 }: { count?: number }) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Avatar                                                                      */
+/*  Avatar                                                                     */
 /* -------------------------------------------------------------------------- */
 
 export function Avatar({
@@ -399,7 +404,7 @@ export function Avatar({
   return (
     <span
       className={cn(
-        'inline-flex items-center justify-center rounded-[2px] border border-[#171611]/15 bg-[#e7e2d5] font-editorial text-[13px] font-semibold text-[#171611]',
+        'inline-flex items-center justify-center rounded-full bg-[#0071e3] text-[12px] font-semibold uppercase text-white',
         className,
       )}
     >
@@ -409,7 +414,7 @@ export function Avatar({
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Form controls                                                               */
+/*  Form controls                                                              */
 /* -------------------------------------------------------------------------- */
 
 export const Input = React.forwardRef<
@@ -419,7 +424,7 @@ export const Input = React.forwardRef<
   <input
     ref={ref}
     className={cn(
-      'h-11 w-full rounded-[2px] border border-[#c9c2b2] bg-[#f8f6f0] px-3 text-[14px] text-[#171611] outline-none transition-colors placeholder:text-[#948c7d] focus:border-[#171611] focus:ring-2 focus:ring-[#a33a1b]/10 disabled:cursor-not-allowed disabled:bg-[#e9e4d8] disabled:opacity-60',
+      'h-11 w-full rounded-[12px] border border-[#d2d2d7] bg-white px-3.5 text-[14px] text-[#1d1d1f] shadow-[0_1px_1px_rgba(0,0,0,0.02)] outline-none transition-[border-color,box-shadow] placeholder:text-[#a1a1aa] focus:border-[#0071e3] focus:ring-4 focus:ring-[#0071e3]/15 disabled:cursor-not-allowed disabled:bg-[#f5f5f7] disabled:opacity-60',
       className,
     )}
     {...props}
@@ -434,7 +439,7 @@ export const Textarea = React.forwardRef<
   <textarea
     ref={ref}
     className={cn(
-      'min-h-[96px] w-full rounded-[2px] border border-[#c9c2b2] bg-[#f8f6f0] px-3 py-2.5 text-[14px] leading-relaxed text-[#171611] outline-none transition-colors placeholder:text-[#948c7d] focus:border-[#171611] focus:ring-2 focus:ring-[#a33a1b]/10 disabled:bg-[#e9e4d8] disabled:opacity-60',
+      'min-h-[96px] w-full rounded-[12px] border border-[#d2d2d7] bg-white px-3.5 py-2.5 text-[14px] leading-relaxed text-[#1d1d1f] shadow-[0_1px_1px_rgba(0,0,0,0.02)] outline-none transition-[border-color,box-shadow] placeholder:text-[#a1a1aa] focus:border-[#0071e3] focus:ring-4 focus:ring-[#0071e3]/15 disabled:bg-[#f5f5f7] disabled:opacity-60',
       className,
     )}
     {...props}
@@ -449,7 +454,7 @@ export const Select = React.forwardRef<
   <select
     ref={ref}
     className={cn(
-      'h-11 w-full rounded-[2px] border border-[#c9c2b2] bg-[#f8f6f0] px-3 text-[14px] text-[#171611] outline-none transition-colors focus:border-[#171611] focus:ring-2 focus:ring-[#a33a1b]/10 disabled:bg-[#e9e4d8] disabled:opacity-60',
+      'h-11 w-full rounded-[12px] border border-[#d2d2d7] bg-white px-3.5 text-[14px] text-[#1d1d1f] shadow-[0_1px_1px_rgba(0,0,0,0.02)] outline-none transition-[border-color,box-shadow] focus:border-[#0071e3] focus:ring-4 focus:ring-[#0071e3]/15 disabled:bg-[#f5f5f7] disabled:opacity-60',
       className,
     )}
     {...props}
@@ -465,10 +470,7 @@ export function Label({
 }: React.LabelHTMLAttributes<HTMLLabelElement>) {
   return (
     <label
-      className={cn(
-        'font-mono text-[9px] font-medium uppercase tracking-[0.16em] text-[#5f5b4f]',
-        className,
-      )}
+      className={cn('text-[12.5px] font-medium text-[#424245]', className)}
       {...props}
     />
   );
@@ -488,24 +490,24 @@ export function Field({
   children: React.ReactNode;
 }) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5">
       {label && (
         <Label>
           {label}
-          {required && <span className="ml-0.5 text-[#a33a1b]">*</span>}
+          {required && <span className="ml-0.5 text-[#d70015]">*</span>}
         </Label>
       )}
       {children}
       {hint && !error && (
-        <p className="text-[11px] leading-relaxed text-[#7a7365]">{hint}</p>
+        <p className="text-[11.5px] leading-relaxed text-[#a1a1aa]">{hint}</p>
       )}
-      {error && <p className="text-[11px] text-[#8f1d13]">{error}</p>}
+      {error && <p className="text-[11.5px] text-[#d70015]">{error}</p>}
     </div>
   );
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Modal                                                                       */
+/*  Modal                                                                      */
 /* -------------------------------------------------------------------------- */
 
 export function Modal({
@@ -529,37 +531,37 @@ export function Modal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-[#171611]/45 backdrop-blur-sm"
+        className="absolute inset-0 bg-[#1d1d1f]/40 backdrop-blur-md animate-in fade-in"
         onClick={onClose}
       />
       <div
         className={cn(
-          'relative z-10 w-full overflow-hidden rounded-[2px] border border-[#171611]/25 bg-[#f8f6f0] shadow-[0_30px_90px_-32px_rgba(23,22,17,0.6)]',
+          'relative z-10 w-full overflow-hidden rounded-[22px] border border-white/60 material-thick shadow-lift',
           size === 'lg' ? 'max-w-2xl' : 'max-w-md',
         )}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-[#d8d2c3] p-6">
+        <div className="flex items-start justify-between gap-4 border-b border-black/[0.06] p-5 sm:p-6">
           <div>
-            <h3 className="font-editorial text-[24px] font-semibold leading-tight tracking-[-0.025em]">
+            <h3 className="text-[18px] font-semibold leading-tight tracking-[-0.02em] text-[#1d1d1f]">
               {title}
             </h3>
             {description && (
-              <p className="mt-1.5 text-[12px] leading-relaxed text-[#5f5b4f]">
+              <p className="mt-1.5 text-[12.5px] leading-relaxed text-[#6e6e73]">
                 {description}
               </p>
             )}
           </div>
           <button
             onClick={onClose}
-            className="rounded-[2px] p-1.5 text-[#5f5b4f] transition-colors hover:bg-[#e9e4d8] hover:text-[#171611]"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-black/[0.06] hover:text-[#1d1d1f]"
             aria-label="Close"
           >
-            <X className="h-5 w-5" />
+            <X className="h-[18px] w-[18px]" />
           </button>
         </div>
-        <div className="max-h-[65vh] overflow-y-auto p-6">{children}</div>
+        <div className="max-h-[65vh] overflow-y-auto p-5 sm:p-6">{children}</div>
         {footer && (
-          <div className="flex items-center justify-end gap-2 border-t border-[#d8d2c3] bg-[#e9e4d8] p-4">
+          <div className="flex items-center justify-end gap-2 border-t border-black/[0.06] bg-white/40 p-4">
             {footer}
           </div>
         )}
@@ -569,7 +571,7 @@ export function Modal({
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Table                                                                        */
+/*  Table                                                                      */
 /* -------------------------------------------------------------------------- */
 
 export function Table({
@@ -577,7 +579,7 @@ export function Table({
   ...props
 }: React.TableHTMLAttributes<HTMLTableElement>) {
   return (
-    <div className="overflow-x-auto border border-[#d8d2c3] bg-[#f8f6f0]">
+    <div className="overflow-x-auto rounded-[18px] border border-[#e8e8ed] bg-white shadow-card">
       <table className={cn('w-full text-[13px]', className)} {...props} />
     </div>
   );
@@ -585,7 +587,7 @@ export function Table({
 
 export function THead({ children }: { children: React.ReactNode }) {
   return (
-    <thead className="border-b border-[#171611]/20 bg-[#e9e4d8] text-left font-mono text-[9px] font-medium uppercase tracking-[0.13em] text-[#5f5b4f]">
+    <thead className="border-b border-[#e8e8ed] bg-[#f5f5f7] text-left text-[10.5px] font-semibold uppercase tracking-[0.08em] text-[#6e6e73]">
       {children}
     </thead>
   );
@@ -605,7 +607,7 @@ export function TR({
   return (
     <tr
       className={cn(
-        'border-b border-[#171611]/10 transition-colors last:border-0 hover:bg-[#f3efe4]',
+        'border-b border-[#f0f0f3] transition-colors last:border-0 hover:bg-[#f5f5f7]',
         className,
       )}
       {...props}
@@ -619,7 +621,7 @@ export function TD({
 }: React.TdHTMLAttributes<HTMLTableCellElement>) {
   return (
     <td
-      className={cn('px-4 py-3 align-middle text-[#171611]', className)}
+      className={cn('px-4 py-3 align-middle text-[#18181b]', className)}
       {...props}
     />
   );
@@ -641,7 +643,10 @@ export function Progress({
   const clamped = Math.max(0, Math.min(100, Math.round(value)));
   return (
     <div
-      className={cn('h-1 w-full overflow-hidden bg-[#d8d2c3]', className)}
+      className={cn(
+        'h-1.5 w-full overflow-hidden rounded-full bg-[#e8e8ed]',
+        className,
+      )}
       role="progressbar"
       aria-valuenow={clamped}
       aria-valuemin={0}
@@ -649,7 +654,7 @@ export function Progress({
     >
       <div
         className={cn(
-          'h-full bg-[#171611] transition-all duration-700',
+          'h-full rounded-full bg-[#0071e3] transition-all duration-700',
           indicatorClassName,
         )}
         style={{ width: `${clamped}%` }}
@@ -664,7 +669,7 @@ export function Progress({
 
 export function Kbd({ children }: { children: React.ReactNode }) {
   return (
-    <kbd className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-[2px] border border-[#171611]/20 bg-[#f8f6f0] px-1 font-mono text-[9px] font-medium text-[#5f5b4f]">
+    <kbd className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-[9px] border border-[#e4e4e7] bg-[#fafafa] px-1 text-[10px] font-medium text-[#71717a]">
       {children}
     </kbd>
   );
@@ -696,17 +701,17 @@ export function SectionHeading({
       )}
     >
       {eyebrow && (
-        <p className="font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-[#7a7365]">
+        <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-[#71717a]">
           {eyebrow}
         </p>
       )}
-      <h2 className="mt-3 text-balance font-editorial text-[36px] font-semibold leading-[1.02] tracking-[-0.04em] sm:text-[46px]">
+      <h2 className="mt-3 text-balance text-[32px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[42px]">
         {title}
       </h2>
       {description && (
         <p
           className={cn(
-            'mt-4 text-pretty text-[14px] leading-relaxed text-[#5f5b4f] sm:text-[15px]',
+            'mt-4 text-pretty text-[14px] leading-relaxed text-[#52525b] sm:text-[15px]',
             align === 'center' && 'mx-auto max-w-2xl',
           )}
         >
@@ -716,3 +721,4 @@ export function SectionHeading({
     </div>
   );
 }
+

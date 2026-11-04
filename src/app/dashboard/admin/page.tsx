@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -107,14 +107,14 @@ export default function AdminOverviewPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <PageHeader
         title="Admin Console"
         description="System administration, accounts, RBAC and institutional configuration."
       />
 
       {error && (
-        <Card className="border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive">
+        <Card className="border-[#fecaca] bg-[#fef2f2] p-4 text-[12px] text-[#b91c1c]">
           {error}
         </Card>
       )}
@@ -165,21 +165,21 @@ export default function AdminOverviewPage() {
       )}
 
       <section>
-        <h2 className="mb-4 text-lg font-semibold tracking-tight">Manage</h2>
+        <h2 className="mb-4 text-[14px] font-semibold text-[#09090b]">Manage</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {MANAGE_LINKS.map((link) => (
-            <Link key={link.href} href={link.href}>
-              <Card hover className="flex items-center gap-4 p-5 hover:border-primary/40">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[2px] border border-primary/20 bg-primary/10 text-primary">
-                  <link.icon className="h-5 w-5" />
+            <Link key={link.href} href={link.href} className="group">
+              <Card hover className="flex items-center gap-3.5 p-4">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] text-[#71717a] transition-colors group-hover:border-[#09090b] group-hover:bg-[#09090b] group-hover:text-white">
+                  <link.icon className="h-4 w-4" />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="font-medium text-foreground">{link.title}</p>
-                  <p className="truncate text-sm text-muted-foreground">
+                  <p className="text-[13px] font-semibold text-[#09090b]">{link.title}</p>
+                  <p className="truncate text-[11.5px] text-[#a1a1aa]">
                     {link.description}
                   </p>
                 </div>
-                <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+                <ArrowRight className="h-4 w-4 shrink-0 text-[#d4d4d8] transition-transform group-hover:translate-x-0.5 group-hover:text-[#0f4c81]" />
               </Card>
             </Link>
           ))}
@@ -187,17 +187,17 @@ export default function AdminOverviewPage() {
       </section>
 
       <section>
-        <h2 className="mb-4 text-lg font-semibold tracking-tight text-destructive">
+        <h2 className="mb-4 text-[14px] font-semibold text-[#b91c1c]">
           Danger Zone
         </h2>
-        <Card className="flex flex-col gap-4 border-destructive/30 bg-destructive/5 p-5 sm:flex-row sm:items-center sm:justify-between">
+        <Card className="flex flex-col gap-4 border-[#fecaca] p-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[2px] border border-destructive/20 bg-destructive/10 text-destructive">
-              <TriangleAlert className="h-5 w-5" />
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] border border-[#fecaca] bg-[#fef2f2] text-[#b91c1c]">
+              <TriangleAlert className="h-4 w-4" />
             </span>
             <div>
-              <p className="font-medium text-foreground">Reset platform data</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-[12.5px] font-medium text-[#09090b]">Reset platform data</p>
+              <p className="mt-1 text-[11.5px] leading-relaxed text-[#71717a]">
                 Permanently deletes all users (except super admins), concerns,
                 elections, messages, tickets and organization data for a fresh
                 start. This cannot be undone.

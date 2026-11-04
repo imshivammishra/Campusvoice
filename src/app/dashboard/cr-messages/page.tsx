@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
@@ -85,16 +85,34 @@ function StudentThread({ me }: { me: AuthUser | null }) {
 
   return (
     <Card className="flex h-[65vh] flex-col p-0">
+      <div className="flex items-center justify-between border-b border-[#e4e4e7] px-5 py-3">
+        <p className="text-[12px] font-medium text-[#3f3f46]">
+          Private channel with your CR
+        </p>
+        <span className="inline-flex items-center gap-1.5 text-[10.5px] text-[#a1a1aa]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#15803d]" />
+          Confidential
+        </span>
+      </div>
       <div className="flex-1 space-y-3 overflow-y-auto p-5">
         {loading ? (
           <div className="flex h-full items-center justify-center text-muted-foreground">
             <Spinner />
           </div>
         ) : messages.length === 0 ? (
-          <div className="flex h-full flex-col items-center justify-center gap-2 text-center text-muted-foreground">
-            <MessagesSquare className="h-10 w-10" />
-            <p className="text-sm">
-              No messages yet. Send your Class Representative a suggestion.
+          <div className="flex h-full flex-col items-center justify-center px-6 text-center">
+            <span className="flex h-12 w-12 items-center justify-center rounded-[6px] border border-[#e4e4e7] bg-[#fafafa] text-[#71717a]">
+              <MessagesSquare className="h-5 w-5" />
+            </span>
+            <p className="mt-4 text-[15px] font-semibold text-[#09090b]">
+              Start a private thread
+            </p>
+            <p className="mt-1.5 max-w-sm text-[12.5px] leading-relaxed text-[#71717a]">
+              Messages reach your Class Representative directly. They are not
+              published to the class and never count as a vote.
+            </p>
+            <p className="mt-4 text-[10.5px] uppercase tracking-[0.08em] text-[#a1a1aa]">
+              Visible to you and your CR only
             </p>
           </div>
         ) : (
@@ -193,18 +211,18 @@ function CrInbox({ me }: { me: AuthUser | null }) {
             key={c.studentId}
             onClick={() => setActive(c)}
             className={cn(
-              'flex w-full items-center gap-3 rounded-lg p-3 text-left transition-colors',
+              'flex w-full items-center gap-3 rounded-[4px] p-3 text-left transition-colors',
               active?.studentId === c.studentId
-                ? 'bg-primary/10'
-                : 'hover:bg-secondary',
+                ? 'bg-[#f4f4f5]'
+                : 'hover:bg-[#fafafa]',
             )}
           >
             <Avatar name={studentName(c)} className="h-9 w-9 shrink-0" />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-foreground">
+              <p className="truncate text-[12.5px] font-medium text-[#09090b]">
                 {studentName(c)}
               </p>
-              <p className="truncate text-xs text-muted-foreground">
+              <p className="truncate text-[11px] text-[#a1a1aa]">
                 {c.lastMessage}
               </p>
             </div>
@@ -215,8 +233,10 @@ function CrInbox({ me }: { me: AuthUser | null }) {
       <Card className="flex flex-col p-0">
         {active ? (
           <>
-            <div className="border-b border-border px-5 py-3">
-              <p className="font-semibold">{studentName(active)}</p>
+            <div className="border-b border-[#e4e4e7] px-5 py-3">
+              <p className="text-[13px] font-semibold text-[#09090b]">
+                {studentName(active)}
+              </p>
             </div>
             <div className="flex-1 space-y-3 overflow-y-auto p-5">
               {active.messages.map((m: any) => (
@@ -251,15 +271,15 @@ function Bubble({ m, myId }: { m: any; myId: string }) {
       <Avatar name={m.senderName} className="h-7 w-7 shrink-0" />
       <div
         className={cn(
-          'max-w-[75%] rounded-[2px] px-3 py-2 text-sm',
-          mine ? 'bg-primary text-primary-foreground' : 'bg-secondary text-foreground',
+          'max-w-[75%] rounded-[6px] px-3 py-2 text-[12.5px] leading-relaxed',
+          mine ? 'bg-[#09090b] text-white' : 'bg-[#f4f4f5] text-[#18181b]',
         )}
       >
         <p className="whitespace-pre-wrap">{m.content}</p>
         <p
           className={cn(
             'mt-1 text-[10px]',
-            mine ? 'text-primary-foreground/70' : 'text-muted-foreground',
+            mine ? 'text-white/50' : 'text-[#a1a1aa]',
           )}
         >
           {formatDateTime(m.createdAt)}
@@ -283,7 +303,7 @@ function Composer({
   placeholder: string;
 }) {
   return (
-    <div className="flex items-center gap-2 border-t border-border p-3">
+    <div className="flex items-center gap-2 border-t border-[#e4e4e7] p-3">
       <Input
         value={value}
         onChange={(e) => onChange(e.target.value)}

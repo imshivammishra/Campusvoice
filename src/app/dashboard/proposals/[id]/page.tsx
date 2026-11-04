@@ -26,6 +26,7 @@ import {
   Field,
   Input,
   Modal,
+  Select,
   Spinner,
   StatusBadge,
   Textarea,
@@ -139,63 +140,71 @@ export default function ProposalDetailPage() {
     <div className="space-y-6">
       <button
         onClick={() => router.back()}
-        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+        className="inline-flex items-center gap-1.5 text-[12px] font-medium text-[#71717a] transition-colors hover:text-[#09090b]"
       >
-        <ArrowLeft className="h-4 w-4" />
+        <ArrowLeft className="h-3.5 w-3.5" />
         Back
       </button>
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Main */}
         <div className="space-y-6 lg:col-span-2">
-          <Card className="p-6">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="mb-2 flex flex-wrap items-center gap-2">
-                  <StatusBadge status={item.status} />
-                  {item.category && <Badge variant="secondary">{item.category}</Badge>}
-                  {item.department && <Badge variant="outline">{item.department}</Badge>}
+          <Card className="overflow-hidden p-0">
+            <div className="border-b border-[#e4e4e7] p-5 sm:p-6">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="mb-3 flex flex-wrap items-center gap-2">
+                    <StatusBadge status={item.status} />
+                    {item.category && <Badge variant="secondary">{item.category}</Badge>}
+                    {item.department && <Badge variant="outline">{item.department}</Badge>}
+                  </div>
+                  <h1 className="text-[24px] font-semibold leading-tight tracking-[-0.03em] text-[#09090b]">
+                    {item.title}
+                  </h1>
+                  <p className="mt-2 text-[12px] text-[#71717a]">
+                    Raised by {item.raisedByName || 'Unknown'}
+                    {item.raisedByRole ? ` (${roleLabel(item.raisedByRole)})` : ''}
+                    {' · '}
+                    {formatDateTime(item.createdAt)}
+                  </p>
                 </div>
-                <h1 className="text-2xl font-semibold tracking-tight">
-                  {item.title}
-                </h1>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Raised by {item.raisedByName || 'Unknown'}
-                  {item.raisedByRole ? ` (${roleLabel(item.raisedByRole)})` : ''}
-                  {' · '}
-                  {formatDateTime(item.createdAt)}
-                </p>
               </div>
             </div>
-            <p className="mt-4 whitespace-pre-wrap leading-relaxed text-foreground">
-              {item.description}
-            </p>
-            {item.proposedSolution && (
-              <div className="mt-4 rounded-xl border border-border bg-secondary/40 p-4">
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Proposed solution
-                </p>
-                <p className="mt-1 text-sm">{item.proposedSolution}</p>
-              </div>
-            )}
+            <div className="p-5 sm:p-6">
+              <p className="whitespace-pre-wrap text-[13.5px] leading-relaxed text-[#3f3f46]">
+                {item.description}
+              </p>
+              {item.proposedSolution && (
+                <div className="mt-5 rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] p-4">
+                  <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
+                    Proposed solution
+                  </p>
+                  <p className="mt-1.5 text-[12.5px] leading-relaxed text-[#3f3f46]">
+                    {item.proposedSolution}
+                  </p>
+                </div>
+              )}
+            </div>
           </Card>
 
           {/* Resolution proof */}
           {item.status === 'resolved' && (
-            <Card className="border-emerald-500/30 bg-emerald-50/50 p-6 dark:bg-emerald-500/5">
+            <Card className="border-[#bbf7d0] bg-[#f0fdf4] p-6">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-                <h2 className="font-semibold">Resolved</h2>
+                <CheckCircle2 className="h-4 w-4 text-[#15803d]" />
+                <h2 className="text-[14px] font-semibold text-[#14532d]">Resolved</h2>
               </div>
               {item.resolutionNote && (
-                <p className="mt-2 text-sm text-foreground">{item.resolutionNote}</p>
+                <p className="mt-2 text-[12.5px] leading-relaxed text-[#166534]">
+                  {item.resolutionNote}
+                </p>
               )}
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-1.5 text-[11px] text-[#15803d]/70">
                 By {item.resolvedByName} · {formatDateTime(item.resolvedAt)}
               </p>
               {item.proofAttachments?.length > 0 && (
                 <div className="mt-4">
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  <p className="mb-2 text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#15803d]/70">
                     Proof of resolution
                   </p>
                   <ProofGrid files={item.proofAttachments} />
@@ -206,33 +215,35 @@ export default function ProposalDetailPage() {
 
           {/* Timeline */}
           <Card className="p-6">
-            <h2 className="mb-4 font-semibold">Timeline</h2>
-            <ol className="relative space-y-5 border-l border-border pl-6">
+            <h2 className="text-[14px] font-semibold text-[#09090b]">Timeline</h2>
+            <ol className="relative mt-4 space-y-5 border-l border-[#e4e4e7] pl-6">
               {events.map((ev: any, i: number) => {
                 const Icon = EVENT_ICON[ev.action] || FileCheck2;
                 return (
                   <li key={i} className="relative">
-                    <span className="absolute -left-[31px] flex h-6 w-6 items-center justify-center rounded-full border border-border bg-card text-primary">
-                      <Icon className="h-3.5 w-3.5" />
+                    <span className="absolute -left-[31px] flex h-6 w-6 items-center justify-center rounded-[4px] border border-[#e4e4e7] bg-white text-[#52525b]">
+                      <Icon className="h-3 w-3" />
                     </span>
-                    <div className="flex flex-wrap items-center gap-x-2 text-sm">
-                      <span className="font-medium capitalize text-foreground">
+                    <div className="flex flex-wrap items-center gap-x-2 text-[12.5px]">
+                      <span className="font-medium capitalize text-[#09090b]">
                         {ev.action.replace(/_/g, ' ')}
                       </span>
-                      <span className="text-muted-foreground">
+                      <span className="text-[#a1a1aa]">
                         by {ev.actorName}
                         {ev.actorRole ? ` (${roleLabel(ev.actorRole)})` : ''}
                       </span>
                     </div>
                     {ev.note && (
-                      <p className="mt-0.5 text-sm text-muted-foreground">{ev.note}</p>
+                      <p className="mt-0.5 text-[12px] leading-relaxed text-[#71717a]">
+                        {ev.note}
+                      </p>
                     )}
                     {ev.attachments?.length > 0 && (
                       <div className="mt-2">
                         <ProofGrid files={ev.attachments} compact />
                       </div>
                     )}
-                    <p className="mt-0.5 text-xs text-muted-foreground">
+                    <p className="mt-1 text-[10.5px] text-[#a1a1aa]">
                       {formatDateTime(ev.at)}
                     </p>
                   </li>
@@ -245,35 +256,61 @@ export default function ProposalDetailPage() {
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Votes */}
-          <Card className="p-6">
-            <div className="flex items-center justify-between">
-              <h2 className="font-semibold">Votes</h2>
-              <span className="text-sm text-muted-foreground">{total} total</span>
+          <Card className="overflow-hidden p-0">
+            <div className="flex items-center justify-between border-b border-[#e4e4e7] px-5 py-3.5">
+              <h2 className="text-[13px] font-semibold text-[#09090b]">Votes</h2>
+              <span className="text-[11px] tabular-nums text-[#a1a1aa]">
+                {total} total
+              </span>
             </div>
-            <div className="mt-4 space-y-3">
-              <VoteBar label="Support" value={support} total={total} color="bg-emerald-500" />
-              <VoteBar label="Oppose" value={oppose} total={total} color="bg-red-500" />
-              <VoteBar label="Abstain" value={abstain} total={total} color="bg-muted-foreground" />
+            <div className="space-y-3 p-5">
+              <VoteBar label="Support" value={support} total={total} color="bg-[#0f4c81]" />
+              <VoteBar label="Oppose" value={oppose} total={total} color="bg-[#b91c1c]" />
+              <VoteBar label="Abstain" value={abstain} total={total} color="bg-[#a1a1aa]" />
             </div>
 
             {canVoteNow ? (
-              <div className="mt-5 grid grid-cols-3 gap-2">
-                <Button variant="outline" size="sm" disabled={busy} onClick={() => vote('support')}>
-                  <ThumbsUp className="h-4 w-4" />
+              <div className="space-y-2 border-t border-[#e4e4e7] bg-[#fafafa] p-4">
+                <p className="pb-1 text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
+                  Cast your anonymous vote
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full justify-start"
+                  disabled={busy}
+                  onClick={() => vote('support')}
+                >
+                  <ThumbsUp className="h-3.5 w-3.5 text-[#0f4c81]" />
+                  Support
                 </Button>
-                <Button variant="outline" size="sm" disabled={busy} onClick={() => vote('oppose')}>
-                  <ThumbsDown className="h-4 w-4" />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full justify-start"
+                  disabled={busy}
+                  onClick={() => vote('oppose')}
+                >
+                  <ThumbsDown className="h-3.5 w-3.5 text-[#b91c1c]" />
+                  Oppose
                 </Button>
-                <Button variant="outline" size="sm" disabled={busy} onClick={() => vote('abstain')}>
-                  <MinusCircle className="h-4 w-4" />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full justify-start"
+                  disabled={busy}
+                  onClick={() => vote('abstain')}
+                >
+                  <MinusCircle className="h-3.5 w-3.5 text-[#a1a1aa]" />
+                  Abstain
                 </Button>
               </div>
             ) : (
-              <p className="mt-4 text-xs text-muted-foreground">
+              <p className="border-t border-[#e4e4e7] bg-[#fafafa] px-5 py-3 text-[11px] leading-relaxed text-[#a1a1aa]">
                 {item.isOwner
                   ? 'You cannot vote on your own submission.'
                   : item.hasVoted
-                    ? 'You have already voted. Thank you!'
+                    ? 'Your anonymous vote is recorded.'
                     : item.status === 'voting_active'
                       ? ''
                       : 'Voting is closed.'}
@@ -283,9 +320,11 @@ export default function ProposalDetailPage() {
 
           {/* Actions */}
           {(canForward || canReview) && item.status !== 'resolved' && item.status !== 'rejected' && (
-            <Card className="p-6">
-              <h2 className="mb-4 font-semibold">Actions</h2>
-              <div className="space-y-2">
+            <Card className="overflow-hidden p-0">
+              <div className="border-b border-[#e4e4e7] px-5 py-3.5">
+                <h2 className="text-[13px] font-semibold text-[#09090b]">Actions</h2>
+              </div>
+              <div className="space-y-2 p-4">
                 {canForward && (item.status === 'draft' || item.status === 'pending_review' || item.status === 'approved_for_voting') && (
                   <Button
                     className="w-full"
@@ -423,13 +462,13 @@ function VoteBar({ label, value, total, color }: any) {
   const pct = total > 0 ? Math.round((value / total) * 100) : 0;
   return (
     <div>
-      <div className="mb-1 flex items-center justify-between text-xs">
-        <span className="font-medium text-foreground">{label}</span>
-        <span className="text-muted-foreground">
+      <div className="mb-1.5 flex items-center justify-between text-[11px]">
+        <span className="font-medium text-[#3f3f46]">{label}</span>
+        <span className="tabular-nums text-[#a1a1aa]">
           {value} · {pct}%
         </span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-secondary">
+      <div className="h-1.5 overflow-hidden rounded-full bg-[#f4f4f5]">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
     </div>
@@ -455,11 +494,11 @@ function ProofGrid({ files, compact }: { files: string[]; compact?: boolean }) {
               <img
                 src={url}
                 alt="proof"
-                className={`rounded-lg border border-border object-cover ${compact ? 'h-16 w-16' : 'h-28 w-28'}`}
+                className={`rounded-[4px] border border-[#e4e4e7] object-cover ${compact ? 'h-16 w-16' : 'h-28 w-28'}`}
               />
             ) : (
-              <span className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground hover:bg-secondary">
-                <Paperclip className="h-4 w-4" />
+              <span className="inline-flex items-center gap-2 rounded-[4px] border border-[#e4e4e7] bg-white px-3 py-2 text-[12px] text-[#3f3f46] hover:bg-[#fafafa]">
+                <Paperclip className="h-3.5 w-3.5" />
                 Document
               </span>
             )}
@@ -626,17 +665,13 @@ function EscalateModal({
     >
       <div className="space-y-4">
         <Field label="Escalate to">
-          <select
-            value={to}
-            onChange={(e) => setTo(e.target.value)}
-            className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm"
-          >
+          <Select value={to} onChange={(e) => setTo(e.target.value)}>
             <option value="HOD">Head of Department</option>
             <option value="PRINCIPAL">Principal</option>
             <option value="REGISTRAR">Registrar</option>
             <option value="PRO_VICE_CHANCELLOR">Pro Vice-Chancellor</option>
             <option value="CHAIRMAN">Chairman</option>
-          </select>
+          </Select>
         </Field>
         <Field label="Reason / note">
           <Textarea

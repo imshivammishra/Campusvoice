@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { ArrowRight, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 import { AuthBrandPanel, AuthFormFrame } from '@/components/auth-layout';
-import { Button } from '@/components/ui';
+import { Button, Field, Input, Label } from '@/components/ui';
 import { login, getStoredUser, fetchCurrentUser } from '@/lib/auth';
 
 const DEMO_ACCOUNTS = [
@@ -56,129 +56,124 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#f1eee6]">
+    <div className="flex min-h-screen bg-white">
       <AuthBrandPanel panel="login" />
 
       <AuthFormFrame>
-        <div className="mb-9">
-          <div className="flex items-center justify-between font-mono text-[8px] font-medium uppercase tracking-[0.18em] text-[#7a7365]">
-            <span>01 / Sign in</span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#2f5d3a]" />
-              Secure session
-            </span>
-          </div>
-          <h1 className="mt-4 font-editorial text-[clamp(3.4rem,6vw,4.6rem)] font-semibold leading-[0.9] tracking-[-0.05em] text-[#171611]">
-            Sign in<span className="text-[#a33a1b]">.</span>
+        <div className="mb-7">
+          <p className="text-[12px] font-medium text-[#71717a]">
+            Sign in to CampusVoice
+          </p>
+          <h1 className="mt-2 text-[32px] font-semibold leading-[1.05] tracking-[-0.04em] text-[#09090b]">
+            Welcome back.
           </h1>
-          <p className="mt-4 max-w-[22rem] text-[13px] leading-relaxed text-[#5f5b4f]">
+          <p className="mt-2.5 max-w-[23rem] text-[13px] leading-relaxed text-[#52525b]">
             Use your campus credentials. Your ballot stays separate from your
             name — always.
           </p>
         </div>
 
-        {checking ? (
-          <div className="flex items-center gap-3 border-y border-[#171611]/15 py-4 text-[12px] text-[#5f5b4f]">
-            <span className="h-3.5 w-3.5 animate-spin rounded-full border border-[#a33a1b] border-t-transparent" />
-            Checking your session…
+        {checking && (
+          <div className="mb-5 flex items-center gap-2.5 rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] px-3 py-2.5 text-[11.5px] text-[#71717a]">
+            <span className="h-3 w-3 animate-spin rounded-full border border-[#09090b] border-t-transparent" />
+            Checking for an existing session…
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-7">
-            {error && (
-              <div className="border-l-2 border-[#8f1d13] bg-[#8f1d13]/[0.055] px-4 py-3 text-[12px] leading-relaxed text-[#8f1d13]">
-                {error}
-              </div>
-            )}
-
-            <div>
-              <div className="flex items-baseline justify-between gap-3">
-                <label
-                  htmlFor="username"
-                  className="font-mono text-[8px] font-medium uppercase tracking-[0.18em] text-[#5f5b4f]"
-                >
-                  Username or email <span className="text-[#a33a1b]">*</span>
-                </label>
-                <span className="font-mono text-[7px] font-medium uppercase tracking-[0.16em] text-[#a29a8b]">
-                  Required
-                </span>
-              </div>
-              <input
-                id="username"
-                type="text"
-                value={usernameOrEmail}
-                onChange={(e) => setUsernameOrEmail(e.target.value)}
-                placeholder="student1 or you@college.edu"
-                autoComplete="username"
-                className="mt-1.5 w-full border-0 border-b border-[#b8b09f] bg-transparent px-0 py-3 text-[16px] text-[#171611] outline-none transition-colors placeholder:text-[#a29a8b] focus:border-[#171611] focus:ring-0"
-                required
-              />
-            </div>
-
-            <div>
-              <div className="flex items-baseline justify-between gap-3">
-                <label
-                  htmlFor="password"
-                  className="font-mono text-[8px] font-medium uppercase tracking-[0.18em] text-[#5f5b4f]"
-                >
-                  Password <span className="text-[#a33a1b]">*</span>
-                </label>
-                <Link
-                  href="/forgot-password"
-                  className="font-mono text-[8px] font-medium uppercase tracking-[0.12em] text-[#a33a1b] underline-offset-4 hover:underline"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-              <div className="relative">
-                <input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
-                  autoComplete="current-password"
-                  className="mt-1.5 w-full border-0 border-b border-[#b8b09f] bg-transparent py-3 pr-11 text-[16px] text-[#171611] outline-none transition-colors placeholder:text-[#a29a8b] focus:border-[#171611] focus:ring-0"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((v) => !v)}
-                  className="absolute bottom-2.5 right-0 p-1 text-[#7a7365] transition-colors hover:text-[#171611]"
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <Button
-              type="submit"
-              className="group h-12 w-full justify-between px-5"
-              size="lg"
-              loading={loading}
-            >
-              <span>{loading ? 'Signing in…' : 'Enter the workspace'}</span>
-              {!loading && (
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              )}
-            </Button>
-          </form>
         )}
 
-        {showDemo && !checking && (
-          <details className="group mt-8 border-t border-[#171611]/15">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-3.5 font-mono text-[8px] font-medium uppercase tracking-[0.15em] text-[#5f5b4f] transition-colors hover:text-[#a33a1b]">
-              <span>Demo access</span>
-              <span className="text-[7px] tracking-[0.18em] text-[#a29a8b]">
-                Local only · click to reveal
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="rounded-[12px] border border-[#fecaca] bg-[#fef2f2] px-3.5 py-2.5 text-[12.5px] leading-relaxed text-[#d70015]">
+              {error}
+            </div>
+          )}
+
+          <Field label="Username or email" required>
+            <Input
+              id="username"
+              type="text"
+              value={usernameOrEmail}
+              onChange={(e) => setUsernameOrEmail(e.target.value)}
+              placeholder="student1 or you@college.edu"
+              autoComplete="username"
+              className="h-11"
+              required
+            />
+          </Field>
+
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between gap-3">
+              <Label>
+                Password <span className="ml-0.5 text-[#d70015]">*</span>
+              </Label>
+              <Link
+                href="/forgot-password"
+                className="text-[12px] font-medium text-[#0071e3] transition-colors hover:text-[#0a3559] hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+            <div className="relative">
+              <Input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                autoComplete="current-password"
+                className="h-11 pr-10"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-[9px] p-1.5 text-[#a1a1aa] transition-colors hover:bg-[#f4f4f5] hover:text-[#3f3f46]"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          <Button
+            type="submit"
+            className="group h-11 w-full justify-between px-4"
+            size="lg"
+            loading={loading}
+          >
+            <span>{loading ? 'Signing in…' : 'Sign in'}</span>
+            {!loading && (
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            )}
+          </Button>
+        </form>
+
+        <p className="mt-5 text-[12.5px] text-[#52525b]">
+          New to CampusVoice?{' '}
+          <Link
+            href="/register"
+            className="font-medium text-[#0071e3] transition-colors hover:text-[#0a3559] hover:underline"
+          >
+            Create an account
+          </Link>
+        </p>
+
+        {showDemo && (
+          <details className="group mt-6 rounded-[16px] border border-[#e4e4e7] bg-white">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-[12px] font-medium text-[#3f3f46]">
+              <span className="inline-flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
+                Demo accounts
+              </span>
+              <span className="text-[11px] font-normal text-[#a1a1aa]">
+                4 accounts · local only
               </span>
             </summary>
-            <div className="border-t border-[#171611]/10">
-              {DEMO_ACCOUNTS.map((account, index) => (
+            <div className="border-t border-[#e4e4e7]">
+              {DEMO_ACCOUNTS.map((account) => (
                 <button
                   key={account.username}
                   type="button"
@@ -187,36 +182,24 @@ export default function LoginPage() {
                     setPassword(account.password);
                     setError('');
                   }}
-                  className="group/row flex w-full items-center gap-3 border-b border-[#171611]/10 py-2.5 text-left transition-colors last:border-0 hover:bg-[#e9e4d8]/60"
+                  className="group/row flex w-full items-center gap-3 border-b border-[#f4f4f5] px-4 py-2.5 text-left transition-colors last:border-0 hover:bg-[#fafafa]"
                 >
-                  <span className="font-mono text-[8px] text-[#a29a8b]">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <span className="flex-1 text-[12px] font-medium text-[#171611]">
+                  <span className="flex-1 text-[12px] font-medium text-[#18181b]">
                     {account.label}
                   </span>
-                  <span className="font-mono text-[9px] text-[#7a7365] group-hover/row:text-[#a33a1b]">
+                  <span className="font-mono text-[11px] text-[#71717a]">
                     {account.username}
                   </span>
-                  <ArrowRight className="h-3 w-3 text-[#a29a8b] transition-transform group-hover/row:translate-x-0.5 group-hover/row:text-[#a33a1b]" />
+                  <ArrowRight className="h-3.5 w-3.5 text-[#a1a1aa] transition-all group-hover/row:translate-x-0.5 group-hover/row:text-[#0071e3]" />
                 </button>
               ))}
             </div>
           </details>
         )}
 
-        <p className="mt-7 flex flex-wrap items-baseline gap-x-2 text-[12px] text-[#5f5b4f]">
-          New to CampusVoice?
-          <Link
-            href="/register"
-            className="border-b border-[#171611]/40 pb-0.5 font-medium text-[#171611] transition-colors hover:border-[#a33a1b] hover:text-[#a33a1b]"
-          >
-            Create an account
-          </Link>
-        </p>
-
-        <p className="mt-8 font-mono text-[7px] font-medium uppercase tracking-[0.18em] text-[#a29a8b]">
-          One person, one vote · Anonymous by design · Audit-ready
+        <p className="mt-6 flex items-center gap-1.5 text-[11px] text-[#a1a1aa]">
+          <ShieldCheck className="h-3.5 w-3.5" />
+          Anonymous ballots · One vote per person · Audit-ready
         </p>
       </AuthFormFrame>
     </div>

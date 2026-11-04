@@ -3,11 +3,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'sonner';
-import { Megaphone, Plus, ThumbsUp } from 'lucide-react';
+import { ArrowUpRight, Megaphone, Plus, ThumbsUp } from 'lucide-react';
 import { apiRequest } from '@/lib/api';
 import { getStoredUser, type AuthUser } from '@/lib/auth';
 import {
-  Badge,
   Button,
   Card,
   EmptyState,
@@ -100,31 +99,52 @@ export default function ProposalsPage() {
           {proposals.map((p) => {
             const total =
               (p.supportVotes || 0) + (p.opposeVotes || 0) + (p.abstainVotes || 0);
+            const typeLabel = String(p.type || 'Proposal').replace(/_/g, ' ');
             return (
               <Link key={p._id || p.proposalId} href={`/dashboard/proposals/${p._id}`}>
-                <Card hover className="p-6 hover:border-primary/40">
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="font-semibold text-foreground">{p.title}</h3>
+                <Card hover className="group overflow-hidden p-0">
+                  <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[#e4e4e7] px-5 py-4">
+                    <div className="min-w-0">
+                      <p className="flex flex-wrap items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
+                        <span>{typeLabel}</span>
+                        {p.department && (
+                          <>
+                            <span className="text-[#d4d4d8]">/</span>
+                            <span>{p.department}</span>
+                          </>
+                        )}
+                      </p>
+                      <h3 className="mt-1.5 text-[15px] font-semibold leading-snug tracking-[-0.01em] text-[#09090b]">
+                        {p.title}
+                      </h3>
+                    </div>
                     <StatusBadge status={p.status} />
                   </div>
-                  {p.description && (
-                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-                      {p.description}
-                    </p>
-                  )}
-                  <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
-                    {p.type && (
-                      <Badge variant="secondary">{p.type.replace(/_/g, ' ')}</Badge>
+                  <div className="px-5 py-4">
+                    {p.description && (
+                      <p className="line-clamp-2 text-[12.5px] leading-relaxed text-[#71717a]">
+                        {p.description}
+                      </p>
                     )}
-                    {p.raisedByName && (
-                      <span className="text-xs text-muted-foreground">
-                        by {p.raisedByName}
+                    <div className="mt-3.5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-[#f4f4f5] pt-3 text-[11px] text-[#a1a1aa]">
+                      <span className="inline-flex items-center gap-1.5">
+                        <ThumbsUp className="h-3 w-3" />
+                        {p.supportVotes || 0} support
                       </span>
-                    )}
-                    <span className="inline-flex items-center gap-1 text-muted-foreground">
-                      <ThumbsUp className="h-3.5 w-3.5" />
-                      {p.supportVotes || 0} support · {total} votes
-                    </span>
+                      <span>{total} votes</span>
+                      {p.raisedByName && (
+                        <span>
+                          Raised by{' '}
+                          <span className="font-medium text-[#52525b]">
+                            {p.raisedByName}
+                          </span>
+                        </span>
+                      )}
+                      <span className="ml-auto inline-flex items-center gap-1 font-medium text-[#0071e3]">
+                        Open record
+                        <ArrowUpRight className="h-3 w-3" />
+                      </span>
+                    </div>
                   </div>
                 </Card>
               </Link>

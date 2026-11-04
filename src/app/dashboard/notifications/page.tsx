@@ -89,42 +89,81 @@ export default function NotificationsPage() {
           description="Updates about your governance activity will show up here."
         />
       ) : (
-        <div className="space-y-3">
-          {notifications.map((n) => (
-            <Card
-              key={n._id}
-              onClick={() => markRead(n)}
-              className={cn(
-                'cursor-pointer p-5 transition-colors',
-                !n.isRead && 'border-primary/40 bg-primary/5',
-              )}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-start gap-3">
-                  {!n.isRead && (
-                    <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary" />
+        <Card className="overflow-hidden">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#e4e4e7] bg-white px-5 py-3">
+            <p className="text-[11.5px] font-medium text-[#3f3f46]">
+              {unreadCount > 0
+                ? `${unreadCount} unread of ${notifications.length} notices`
+                : `${notifications.length} notices · all read`}
+            </p>
+            <span className="text-[10.5px] text-[#a1a1aa]">
+              Select a notice to mark it read
+            </span>
+          </div>
+
+          <div>
+            {notifications.map((n) => (
+              <button
+                key={n._id}
+                type="button"
+                onClick={() => markRead(n)}
+                className={cn(
+                  'flex w-full items-start gap-3.5 border-b border-[#f4f4f5] px-5 py-4 text-left transition-colors last:border-0 hover:bg-[#fafafa]',
+                  !n.isRead && 'bg-white',
+                )}
+              >
+                <span
+                  className={cn(
+                    'mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-[12px] border',
+                    !n.isRead
+                      ? 'border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]'
+                      : 'border-[#e4e4e7] bg-[#fafafa] text-[#a1a1aa]',
                   )}
-                  <div>
-                    <h3 className="font-medium text-foreground">{n.title}</h3>
-                    {n.content && (
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        {n.content}
-                      </p>
-                    )}
+                >
+                  <Bell className="h-3 w-3" />
+                </span>
+
+                <span className="min-w-0 flex-1">
+                  <span className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                    <span
+                      className={cn(
+                        'text-[13px] leading-snug',
+                        !n.isRead
+                          ? 'font-semibold text-[#09090b]'
+                          : 'font-medium text-[#3f3f46]',
+                      )}
+                    >
+                      {n.title}
+                    </span>
+                    <span className="shrink-0 text-[10.5px] tabular-nums text-[#a1a1aa]">
+                      {formatDateTime(n.createdAt)}
+                    </span>
+                  </span>
+
+                  {n.content && (
+                    <span className="mt-1 block text-[12.5px] leading-relaxed text-[#71717a]">
+                      {n.content}
+                    </span>
+                  )}
+
+                  <span className="mt-2 flex flex-wrap items-center gap-2">
                     {n.type && (
-                      <Badge variant="secondary" className="mt-2">
-                        {n.type.replace(/_/g, ' ')}
+                      <Badge variant="secondary" className="normal-case">
+                        {String(n.type).replace(/_/g, ' ')}
                       </Badge>
                     )}
-                  </div>
-                </div>
-                <span className="shrink-0 text-xs text-muted-foreground">
-                  {formatDateTime(n.createdAt)}
+                    {!n.isRead && (
+                      <span className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-[#0071e3]">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
+                        Unread
+                      </span>
+                    )}
+                  </span>
                 </span>
-              </div>
-            </Card>
-          ))}
-        </div>
+              </button>
+            ))}
+          </div>
+        </Card>
       )}
     </div>
   );

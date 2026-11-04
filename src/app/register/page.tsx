@@ -175,22 +175,22 @@ export default function RegisterPage() {
         wide
         panel="register"
       >
-        <div className="border border-[#171611]/15 bg-[#f8f6f0] p-6">
-          <div className="flex h-11 w-11 items-center justify-center border border-[#2f5d3a]/30 bg-[#2f5d3a]/10 text-[#2f5d3a]">
+        <div className="rounded-[16px] border border-[#e4e4e7] bg-white p-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-[#bbf7d0] bg-[#f0fdf4] text-[#248a3d]">
             <CheckCircle2 className="h-5 w-5" />
           </div>
-          <p className="mt-4 text-[12px] leading-relaxed text-[#5f5b4f]">
+          <p className="mt-4 text-[12.5px] leading-relaxed text-[#52525b]">
             {success.message}
           </p>
           {success.reference && (
-            <p className="mt-4 border-l-2 border-[#2f5d3a] bg-[#2f5d3a]/[0.07] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.1em] text-[#2f5d3a]">
+            <p className="mt-4 rounded-[12px] border border-[#e4e4e7] bg-[#fafafa] px-3.5 py-2.5 text-[11px] text-[#71717a]">
               Reference{' '}
-              <span className="ml-2 normal-case tracking-normal text-[#171611]">
+              <span className="ml-1.5 font-mono text-[11px] text-[#09090b]">
                 {success.reference}
               </span>
             </p>
           )}
-          <p className="mt-4 text-[12px] leading-relaxed text-[#5f5b4f]">
+          <p className="mt-4 text-[12.5px] leading-relaxed text-[#52525b]">
             You will be able to sign in once a registrar or administrator
             approves your account.
           </p>
@@ -295,7 +295,7 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <p className="mb-2 font-mono text-[8px] font-medium uppercase tracking-[0.16em] text-[#5f5b4f]">
+          <p className="mb-2 text-[12px] font-medium text-[#3f3f46]">
             I am registering as
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -307,14 +307,14 @@ export default function RegisterPage() {
                 key={option.value}
                 type="button"
                 onClick={() => update('role', option.value)}
-                className={`flex items-center gap-3 rounded-[2px] border p-4 text-left transition-colors ${
+                className={`flex items-center gap-3 rounded-[12px] border p-3.5 text-left transition-colors ${
                   form.role === option.value
-                    ? 'border-[#171611] bg-[#a33a1b]/[0.06]'
-                    : 'border-[#c9c2b2] bg-[#f8f6f0] hover:border-[#171611]/50'
+                    ? 'border-[#09090b] bg-[#fafafa]'
+                    : 'border-[#d4d4d8] bg-white hover:border-[#a1a1aa]'
                 }`}
               >
-                <option.icon className="h-4 w-4 text-[#a33a1b]" />
-                <span className="text-[12px] font-medium">{option.label}</span>
+                <option.icon className="h-4 w-4 text-[#0071e3]" />
+                <span className="text-[12.5px] font-medium">{option.label}</span>
               </button>
             ))}
           </div>
@@ -375,9 +375,9 @@ export default function RegisterPage() {
           )}
         </div>
 
-        <div className="border border-[#171611]/15 bg-[#e9e4d8]/40 p-4">
-          <div className="mb-4 flex items-center gap-2 font-mono text-[8px] font-medium uppercase tracking-[0.16em] text-[#5f5b4f]">
-            <UserRound className="h-3.5 w-3.5 text-[#a33a1b]" />
+        <div className="rounded-[16px] border border-[#e4e4e7] bg-[#fafafa] p-4">
+          <div className="mb-4 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.08em] text-[#71717a]">
+            <UserRound className="h-3.5 w-3.5 text-[#0071e3]" />
             Institutional details
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -445,12 +445,12 @@ export default function RegisterPage() {
           Already have an account?{' '}
           <Link
             href="/login"
-            className="border-b border-[#171611]/40 pb-0.5 font-medium text-[#171611] transition-colors hover:border-[#a33a1b] hover:text-[#a33a1b]"
+            className="font-medium text-[#0071e3] transition-colors hover:text-[#0a3559] hover:underline"
           >
             Sign in
           </Link>
         </p>
-        <p className="font-mono text-[7px] font-medium uppercase tracking-[0.16em] text-[#a29a8b]">
+        <p className="text-[11px] text-[#a1a1aa]">
           No Google login · No social login · Username &amp; password only
         </p>
       </form>

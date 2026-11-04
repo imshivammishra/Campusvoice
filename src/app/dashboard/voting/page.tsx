@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { CheckCircle2, Vote } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, Vote } from 'lucide-react';
 import { apiRequest } from '@/lib/api';
 import {
   Card,
@@ -26,13 +26,13 @@ function VoteBar({
   const pct = total > 0 ? Math.round((value / total) * 100) : 0;
   return (
     <div>
-      <div className="mb-1 flex items-center justify-between text-xs">
-        <span className="font-medium text-foreground">{label}</span>
-        <span className="text-muted-foreground">
+      <div className="mb-1.5 flex items-center justify-between text-[11px]">
+        <span className="font-medium text-[#3f3f46]">{label}</span>
+        <span className="tabular-nums text-[#a1a1aa]">
           {value} · {pct}%
         </span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-secondary">
+      <div className="h-1.5 overflow-hidden rounded-full bg-[#f4f4f5]">
         <div
           className={`h-full rounded-full ${color}`}
           style={{ width: `${pct}%` }}
@@ -63,19 +63,26 @@ export default function VotingPage() {
   }, []);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <PageHeader
         title="Voting"
         description="Cast anonymous votes on open proposals and elections."
       />
 
-      <Card className="flex items-start gap-3 border-primary/30 bg-primary/5 p-5">
-        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-        <p className="text-sm text-muted-foreground">
-          Open proposals and concerns appear here. Open any item to cast your
-          vote — one vote per person, and you can&apos;t vote on your own
-          submission.
-        </p>
+      <Card className="flex items-start gap-3.5 p-4">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]">
+          <CheckCircle2 className="h-4 w-4" />
+        </span>
+        <div>
+          <p className="text-[12.5px] font-medium text-[#09090b]">
+            One vote per person, anonymous by design
+          </p>
+          <p className="mt-1 text-[12px] leading-relaxed text-[#71717a]">
+            Open proposals and concerns appear here. Open any item to cast your
+            vote — you can&apos;t vote on your own submission, and your choice is
+            never linked back to your account.
+          </p>
+        </div>
       </Card>
 
       {loading ? (
@@ -93,43 +100,60 @@ export default function VotingPage() {
             const oppose = s.opposeVotes || 0;
             const abstain = s.abstainVotes || 0;
             const total = support + oppose + abstain;
+            const closed = s.status === 'voting_closed';
             return (
               <Link key={s._id || s.sessionId} href={`/dashboard/proposals/${s._id}`}>
-                <Card hover className="p-6 hover:border-primary/40">
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="font-semibold text-foreground">
-                      {s.title || 'Voting session'}
-                    </h3>
+                <Card hover className="group overflow-hidden p-0">
+                  <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[#e4e4e7] px-5 py-4">
+                    <div className="min-w-0">
+                      <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
+                        Anonymous ballot / {s.type?.replace(/_/g, ' ') || 'Campus record'}
+                      </p>
+                      <h3 className="mt-1.5 text-[15px] font-semibold leading-snug tracking-[-0.01em] text-[#09090b]">
+                        {s.title || 'Voting session'}
+                      </h3>
+                    </div>
                     <StatusBadge status={s.status} />
                   </div>
-                  {s.description && (
-                    <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
-                      {s.description}
-                    </p>
-                  )}
-                  <div className="mt-5 space-y-3 border-t border-border pt-4">
-                    <VoteBar
-                      label="Support"
-                      value={support}
-                      total={total}
-                      color="bg-emerald-500"
-                    />
-                    <VoteBar
-                      label="Oppose"
-                      value={oppose}
-                      total={total}
-                      color="bg-red-500"
-                    />
-                    <VoteBar
-                      label="Abstain"
-                      value={abstain}
-                      total={total}
-                      color="bg-muted-foreground"
-                    />
+
+                  <div className="px-5 py-4">
+                    {s.description && (
+                      <p className="line-clamp-2 text-[12.5px] leading-relaxed text-[#71717a]">
+                        {s.description}
+                      </p>
+                    )}
+
+                    <div className="mt-4 space-y-3 border-t border-[#f4f4f5] pt-4">
+                      <VoteBar
+                        label="Support"
+                        value={support}
+                        total={total}
+                        color="bg-[#0071e3]"
+                      />
+                      <VoteBar
+                        label="Oppose"
+                        value={oppose}
+                        total={total}
+                        color="bg-[#d70015]"
+                      />
+                      <VoteBar
+                        label="Abstain"
+                        value={abstain}
+                        total={total}
+                        color="bg-[#a1a1aa]"
+                      />
+                    </div>
+
+                    <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-[#f4f4f5] pt-3">
+                      <span className="text-[11px] text-[#a1a1aa]">
+                        {total} {total === 1 ? 'ballot' : 'ballots'} recorded
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[11.5px] font-medium text-[#0071e3]">
+                        {closed ? 'View final record' : 'Open to cast your vote'}
+                        <ArrowUpRight className="h-3.5 w-3.5" />
+                      </span>
+                    </div>
                   </div>
-                  <p className="mt-4 text-xs font-medium text-primary">
-                    Open to cast your vote →
-                  </p>
                 </Card>
               </Link>
             );

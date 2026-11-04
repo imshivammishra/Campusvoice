@@ -52,11 +52,20 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        apple: {
+          blue: '#0071e3',
+          indigo: '#5e5ce6',
+          green: '#34c759',
+          orange: '#ff9500',
+          red: '#ff3b30',
+          gray: '#f5f5f7',
+          ink: '#1d1d1f',
+        },
       },
       borderRadius: {
-        lg: '0.875rem',
+        lg: '1rem',
         md: '0.75rem',
-        sm: '0.625rem',
+        sm: '0.5rem',
       },
       fontFamily: {
         sans: [
@@ -103,8 +112,9 @@ const config: Config = {
         wide: '1280px',
       },
       boxShadow: {
-        card: '0 1px 2px rgba(0,0,0,0.03), 0 12px 32px -24px rgba(0,0,0,0.16)',
-        lift: '0 2px 6px rgba(0,0,0,0.04), 0 28px 60px -32px rgba(0,0,0,0.22)',
+        card: '0 1px 2px rgba(0,0,0,0.04), 0 10px 30px -14px rgba(0,0,0,0.12)',
+        lift: '0 4px 14px rgba(0,0,0,0.06), 0 30px 60px -28px rgba(0,0,0,0.24)',
+        blue: '0 1px 2px rgba(0,0,0,0.12), 0 8px 20px -8px rgba(0,113,227,0.55)',
       },
     },
   },

@@ -117,12 +117,12 @@ export default function ElectionDetailPage() {
   const totalVotes = candidates.reduce((sum, candidate) => sum + (candidate.votes || 0), 0);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <Link
         href="/dashboard/election"
-        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        className="inline-flex items-center gap-1.5 text-[12px] font-medium text-[#71717a] transition-colors hover:text-[#09090b]"
       >
-        <ArrowLeft className="h-4 w-4" />
+        <ArrowLeft className="h-3.5 w-3.5" />
         Back to elections
       </Link>
 
@@ -137,27 +137,31 @@ export default function ElectionDetailPage() {
         <StatusBadge status={election.status} />
       </PageHeader>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-3">
         <Card className="p-5">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <CalendarClock className="h-4 w-4" />
+          <div className="flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#71717a]">
+            <CalendarClock className="h-3.5 w-3.5" />
             Opens
           </div>
-          <p className="mt-2 font-medium">{formatDateTime(election.opensAt)}</p>
+          <p className="mt-2 text-[13px] font-medium text-[#09090b]">
+            {formatDateTime(election.opensAt)}
+          </p>
         </Card>
         <Card className="p-5">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Lock className="h-4 w-4" />
+          <div className="flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#71717a]">
+            <Lock className="h-3.5 w-3.5" />
             Closes
           </div>
-          <p className="mt-2 font-medium">{formatDateTime(election.closesAt)}</p>
+          <p className="mt-2 text-[13px] font-medium text-[#09090b]">
+            {formatDateTime(election.closesAt)}
+          </p>
         </Card>
         <Card className="p-5">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <UsersRound className="h-4 w-4" />
+          <div className="flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#71717a]">
+            <UsersRound className="h-3.5 w-3.5" />
             Participation
           </div>
-          <p className="mt-2 font-medium">
+          <p className="mt-2 text-[13px] font-medium text-[#09090b]">
             {election.totalParticipatingVoters || totalVotes} vote
             {(election.totalParticipatingVoters || totalVotes) === 1 ? '' : 's'}
             {election.totalEligibleVoters
@@ -168,11 +172,15 @@ export default function ElectionDetailPage() {
       </div>
 
       {election.hasVoted && (
-        <Card className="flex items-start gap-3 border-emerald-500/30 bg-emerald-500/5 p-5">
-          <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+        <Card className="flex items-start gap-3.5 border-[#bbf7d0] bg-[#f0fdf4] p-4">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] border border-[#bbf7d0] bg-white/60 text-[#15803d]">
+            <CheckCircle2 className="h-4 w-4" />
+          </span>
           <div>
-            <p className="font-medium">Your anonymous vote is recorded</p>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="text-[12.5px] font-medium text-[#14532d]">
+              Your anonymous vote is recorded
+            </p>
+            <p className="mt-1 text-[11.5px] leading-relaxed text-[#15803d]">
               Your choice cannot be linked back to your account. Results are
               shown below.
             </p>
@@ -181,9 +189,11 @@ export default function ElectionDetailPage() {
       )}
 
       {!election.isEligible && (
-        <Card className="flex items-start gap-3 border-amber-500/30 bg-amber-500/5 p-5">
-          <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
-          <p className="text-sm text-muted-foreground">
+        <Card className="flex items-start gap-3.5 border-[#fde68a] bg-[#fffbeb] p-4">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] border border-[#fde68a] bg-white/60 text-[#b45309]">
+            <ShieldCheck className="h-4 w-4" />
+          </span>
+          <p className="text-[11.5px] leading-relaxed text-[#b45309]">
             You can view this election, but only students in the election class
             are eligible to vote.
           </p>
@@ -191,11 +201,15 @@ export default function ElectionDetailPage() {
       )}
 
       {election.status === 'certified' && election.winnerName && (
-        <Card className="flex items-start gap-3 border-primary/30 bg-primary/5 p-5">
-          <Award className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+        <Card className="flex items-start gap-3.5 p-4">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0f4c81]">
+            <Award className="h-4 w-4" />
+          </span>
           <div>
-            <p className="font-medium">Certified Class Representative</p>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="text-[12.5px] font-medium text-[#09090b]">
+              Certified Class Representative
+            </p>
+            <p className="mt-1 text-[11.5px] leading-relaxed text-[#71717a]">
               {election.winnerName} has been certified as the CR for{' '}
               {election.className || 'this class'}.
             </p>
@@ -204,7 +218,12 @@ export default function ElectionDetailPage() {
       )}
 
       <section>
-        <h2 className="mb-4 text-lg font-semibold tracking-tight">Candidates</h2>
+        <div className="mb-4 flex items-end justify-between gap-3">
+          <h2 className="text-[14px] font-semibold text-[#09090b]">Candidates</h2>
+          <span className="text-[11px] text-[#a1a1aa]">
+            {candidates.length} {candidates.length === 1 ? 'candidate' : 'candidates'}
+          </span>
+        </div>
         {candidates.length === 0 ? (
           <EmptyState
             icon={Vote}
@@ -222,17 +241,19 @@ export default function ElectionDetailPage() {
               return (
                 <Card
                   key={candidate._id}
-                  className={`p-6 ${isWinner ? 'border-emerald-500/40' : ''}`}
+                  className={`overflow-hidden p-0 ${isWinner ? 'border-[#bbf7d0]' : ''}`}
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-3">
+                  <div className="flex items-start justify-between gap-3 border-b border-[#e4e4e7] px-5 py-4">
+                    <div className="flex min-w-0 items-center gap-3">
                       <Avatar
                         name={candidate.studentName || 'Candidate'}
-                        className="h-10 w-10"
+                        className="h-9 w-9 shrink-0"
                       />
-                      <div>
-                        <p className="font-semibold">{candidate.studentName}</p>
-                        <p className="text-xs text-muted-foreground">
+                      <div className="min-w-0">
+                        <p className="truncate text-[13px] font-semibold text-[#09090b]">
+                          {candidate.studentName}
+                        </p>
+                        <p className="mt-0.5 text-[11px] text-[#a1a1aa]">
                           {isMe ? 'Your candidacy' : candidate.className || 'Student'}
                         </p>
                       </div>
@@ -244,59 +265,61 @@ export default function ElectionDetailPage() {
                     )}
                   </div>
 
-                  {candidate.manifesto && (
-                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                      {candidate.manifesto}
-                    </p>
-                  )}
+                  <div className="px-5 py-4">
+                    {candidate.manifesto && (
+                      <p className="text-[12.5px] leading-relaxed text-[#71717a]">
+                        {candidate.manifesto}
+                      </p>
+                    )}
 
-                  {showResults ? (
-                    <div className="mt-5 border-t border-border pt-4">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Votes</span>
-                        <span className="font-semibold">
-                          {candidate.votes || 0}
-                          {totalVotes > 0
-                            ? ` · ${Math.round(((candidate.votes || 0) / totalVotes) * 100)}%`
-                            : ''}
-                        </span>
+                    {showResults ? (
+                      <div className="mt-4 border-t border-[#f4f4f5] pt-4">
+                        <div className="flex items-center justify-between text-[11px]">
+                          <span className="text-[#a1a1aa]">Votes</span>
+                          <span className="font-medium tabular-nums text-[#09090b]">
+                            {candidate.votes || 0}
+                            {totalVotes > 0
+                              ? ` · ${Math.round(((candidate.votes || 0) / totalVotes) * 100)}%`
+                              : ''}
+                          </span>
+                        </div>
+                        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[#f4f4f5]">
+                          <div
+                            className="h-full rounded-full bg-[#0f4c81]"
+                            style={{
+                              width: `${
+                                totalVotes > 0
+                                  ? Math.round(((candidate.votes || 0) / totalVotes) * 100)
+                                  : 0
+                              }%`,
+                            }}
+                          />
+                        </div>
                       </div>
-                      <div className="mt-2 h-2 overflow-hidden rounded-full bg-secondary">
-                        <div
-                          className="h-full rounded-full bg-primary"
-                          style={{
-                            width: `${
-                              totalVotes > 0
-                                ? Math.round(((candidate.votes || 0) / totalVotes) * 100)
-                                : 0
-                            }%`,
-                          }}
-                        />
+                    ) : (
+                      <div className="mt-4 border-t border-[#f4f4f5] pt-4">
+                        {isOpen && election.isEligible && !isMe ? (
+                          <Button
+                            className="w-full"
+                            loading={votingFor === candidate._id}
+                            disabled={Boolean(votingFor)}
+                            onClick={() => castVote(candidate._id)}
+                          >
+                            <Vote className="h-4 w-4" />
+                            Vote for {candidate.studentName?.split(' ')[0] || 'candidate'}
+                          </Button>
+                        ) : (
+                          <p className="text-[11px] leading-relaxed text-[#a1a1aa]">
+                            {isMe
+                              ? 'You cannot vote for yourself.'
+                              : isOpen
+                                ? 'Only eligible class students can vote.'
+                                : 'Voting is not open.'}
+                          </p>
+                        )}
                       </div>
-                    </div>
-                  ) : (
-                    <div className="mt-5 border-t border-border pt-4">
-                      {isOpen && election.isEligible && !isMe ? (
-                        <Button
-                          className="w-full"
-                          loading={votingFor === candidate._id}
-                          disabled={Boolean(votingFor)}
-                          onClick={() => castVote(candidate._id)}
-                        >
-                          <Vote className="h-4 w-4" />
-                          Vote for {candidate.studentName?.split(' ')[0] || 'candidate'}
-                        </Button>
-                      ) : (
-                        <p className="text-xs text-muted-foreground">
-                          {isMe
-                            ? 'You cannot vote for yourself.'
-                            : isOpen
-                              ? 'Only eligible class students can vote.'
-                              : 'Voting is not open.'}
-                        </p>
-                      )}
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </Card>
               );
             })}
@@ -307,8 +330,10 @@ export default function ElectionDetailPage() {
       {canManage && election.status !== 'certified' && (
         <Card className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="font-medium">Election administration</p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-[12.5px] font-medium text-[#09090b]">
+              Election administration
+            </p>
+            <p className="mt-1 text-[11.5px] text-[#71717a]">
               Close the poll to calculate the winner, then certify the result.
             </p>
           </div>

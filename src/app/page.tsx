@@ -538,7 +538,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-white text-[#1d1d1f]">
       <header className="glass-dark fixed inset-x-0 top-0 z-50">
         <div className="mx-auto flex h-12 max-w-content items-center justify-between px-5">
-          <Logo light markClassName="h-[22px] w-[22px] rounded-[6px]" className="gap-2" />
+          <Logo light markClassName="h-[22px] w-[22px] rounded-[16px]" className="gap-2" />
 
           <nav className="hidden items-center gap-8 text-[12px] font-normal text-white/75 md:flex">
             {NAV_LINKS.map((link) => (

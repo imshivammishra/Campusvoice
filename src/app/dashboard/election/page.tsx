@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { CalendarClock, Vote } from 'lucide-react';
+import { ArrowUpRight, CalendarClock, Vote } from 'lucide-react';
 import { apiRequest } from '@/lib/api';
 import {
   Card,
@@ -25,7 +25,7 @@ export default function ElectionPage() {
   }, []);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <PageHeader
         title="CR Elections"
         description="Weekly Class Representative elections for your class."
@@ -46,41 +46,45 @@ export default function ElectionPage() {
               key={election._id || election.electionId}
               href={`/dashboard/election/${election._id || election.electionId}`}
             >
-              <Card hover className="p-6 hover:border-primary/40">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h3 className="font-semibold text-foreground">
+              <Card hover className="group overflow-hidden p-0">
+                <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[#e4e4e7] px-5 py-4">
+                  <div className="min-w-0">
+                    <p className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
+                      CR election / {election.className || election.classId || 'Class'}
+                    </p>
+                    <h3 className="mt-1.5 text-[15px] font-semibold leading-snug tracking-[-0.01em] text-[#09090b]">
                       {election.title || 'CR Election'}
                     </h3>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      Class: {election.className || election.classId || 'N/A'}
-                    </p>
                   </div>
                   <StatusBadge status={election.status} />
                 </div>
-                <div className="mt-5 grid grid-cols-2 gap-4 border-t border-border pt-4 text-sm">
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <CalendarClock className="h-4 w-4" />
-                    <div>
-                      <p className="text-xs uppercase tracking-wide">Opens</p>
-                      <p className="font-medium text-foreground">
-                        {formatDate(election.opensAt)}
-                      </p>
-                    </div>
+                <div className="grid grid-cols-2 gap-3 px-5 py-4">
+                  <div className="rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] px-3 py-2.5">
+                    <p className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
+                      <CalendarClock className="h-3 w-3" />
+                      Opens
+                    </p>
+                    <p className="mt-1 text-[12px] font-medium text-[#3f3f46]">
+                      {formatDate(election.opensAt)}
+                    </p>
                   </div>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <CalendarClock className="h-4 w-4" />
-                    <div>
-                      <p className="text-xs uppercase tracking-wide">Closes</p>
-                      <p className="font-medium text-foreground">
-                        {formatDate(election.closesAt)}
-                      </p>
-                    </div>
+                  <div className="rounded-[4px] border border-[#e4e4e7] bg-[#fafafa] px-3 py-2.5">
+                    <p className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.08em] text-[#a1a1aa]">
+                      <CalendarClock className="h-3 w-3" />
+                      Closes
+                    </p>
+                    <p className="mt-1 text-[12px] font-medium text-[#3f3f46]">
+                      {formatDate(election.closesAt)}
+                    </p>
                   </div>
                 </div>
-                <p className="mt-4 text-xs font-medium text-primary">
-                  View candidates and vote →
-                </p>
+                <div className="flex items-center justify-between border-t border-[#e4e4e7] px-5 py-3 text-[11.5px]">
+                  <span className="text-[#a1a1aa]">Anonymous ballot</span>
+                  <span className="inline-flex items-center gap-1 font-medium text-[#0f4c81]">
+                    View candidates
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </span>
+                </div>
               </Card>
             </Link>
           ))}

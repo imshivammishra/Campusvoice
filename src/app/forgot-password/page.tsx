@@ -129,7 +129,7 @@ export default function ForgotPasswordPage() {
             Remembered your password?{' '}
             <Link
               href="/login"
-              className="border-b border-[#171611]/40 pb-0.5 font-medium text-[#171611] transition-colors hover:border-[#a33a1b] hover:text-[#a33a1b]"
+              className="font-medium text-[#0071e3] transition-colors hover:text-[#0a3559] hover:underline"
             >
               Sign in
             </Link>
@@ -138,14 +138,14 @@ export default function ForgotPasswordPage() {
       )}
 
       {step === 'sent' && (
-        <div className="border border-[#171611]/15 bg-[#f8f6f0] p-6">
-          <div className="flex h-11 w-11 items-center justify-center border border-[#a33a1b]/25 bg-[#a33a1b]/10 text-[#a33a1b]">
+        <div className="rounded-[16px] border border-[#e4e4e7] bg-white p-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-[#bfdbfe] bg-[#eff6ff] text-[#0071e3]">
             <Mail className="h-5 w-5" />
           </div>
-          <p className="mt-4 text-[12px] leading-relaxed text-[#5f5b4f]">
+          <p className="mt-4 text-[12.5px] leading-relaxed text-[#52525b]">
             {notice}
           </p>
-          <p className="mt-2 text-[12px] leading-relaxed text-[#5f5b4f]">
+          <p className="mt-2 text-[12.5px] leading-relaxed text-[#52525b]">
             If your institution has not configured email delivery yet, contact
             an administrator to reset your credentials.
           </p>
@@ -165,7 +165,7 @@ export default function ForgotPasswordPage() {
       {step === 'reset' && (
         <form onSubmit={confirmReset} className="space-y-5">
           {notice && (
-            <div className="border-l-2 border-[#a33a1b] bg-[#a33a1b]/[0.06] px-4 py-3 text-[12px] leading-relaxed text-[#5f5b4f]">
+            <div className="rounded-[12px] border border-[#bfdbfe] bg-[#eff6ff] px-3.5 py-2.5 text-[12px] leading-relaxed text-[#0071e3]">
               {notice}
             </div>
           )}
@@ -215,7 +215,7 @@ export default function ForgotPasswordPage() {
                 setStep('request');
                 setError('');
               }}
-              className="font-medium text-[#171611] underline decoration-[#171611]/30 underline-offset-4 transition-colors hover:text-[#a33a1b]"
+              className="font-medium text-[#0071e3] hover:underline"
             >
               Request a new token
             </button>
@@ -224,11 +224,11 @@ export default function ForgotPasswordPage() {
       )}
 
       {step === 'done' && (
-        <div className="border border-[#171611]/15 bg-[#f8f6f0] p-6">
-          <div className="flex h-11 w-11 items-center justify-center border border-[#2f5d3a]/30 bg-[#2f5d3a]/10 text-[#2f5d3a]">
+        <div className="rounded-[16px] border border-[#e4e4e7] bg-white p-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-[#bbf7d0] bg-[#f0fdf4] text-[#248a3d]">
             <CheckCircle2 className="h-5 w-5" />
           </div>
-          <p className="mt-4 text-[12px] leading-relaxed text-[#5f5b4f]">
+          <p className="mt-4 text-[12.5px] leading-relaxed text-[#52525b]">
             Your password has been changed and all other sessions have been
             signed out.
           </p>

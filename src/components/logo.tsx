@@ -11,15 +11,13 @@ export function LogoMark({
   return (
     <span
       className={cn(
-        'inline-flex shrink-0 items-center justify-center rounded-[2px] border',
-        inverted
-          ? 'border-[#f8f6f0] bg-[#f8f6f0] text-[#171611]'
-          : 'border-[#171611] bg-[#171611] text-[#f8f6f0]',
+        'inline-flex shrink-0 items-center justify-center rounded-[11px]',
+        inverted ? 'bg-white text-[#0071e3]' : 'bg-[#0071e3] text-white',
         className,
       )}
       aria-hidden="true"
     >
-      <span className="font-editorial text-[0.63em] font-semibold leading-none tracking-[-0.04em]">
+      <span className="text-[0.62em] font-semibold leading-none tracking-[-0.05em]">
         CV
       </span>
     </span>
@@ -48,15 +46,12 @@ export function Logo({
       )}
       aria-label="CampusVoice home"
     >
-      <LogoMark
-        inverted={light}
-        className={cn('h-7 w-7', markClassName)}
-      />
+      <LogoMark inverted={light} className={cn('h-7 w-7', markClassName)} />
       {wordmark && (
         <span
           className={cn(
-            'font-editorial text-[20px] font-semibold leading-none tracking-[-0.035em]',
-            light ? 'text-[#f8f6f0]' : 'text-[#171611]',
+            'text-[17px] font-semibold leading-none tracking-[-0.025em]',
+            light ? 'text-white' : 'text-[#1d1d1f]',
           )}
         >
           CampusVoice

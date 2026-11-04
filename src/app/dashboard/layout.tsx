@@ -251,23 +251,25 @@ export default function DashboardLayout({
         href={item.href}
         onClick={() => setSidebarOpen(false)}
         className={cn(
-          'group flex items-center gap-3 border-l-2 px-3 py-2 font-mono text-[10px] font-medium uppercase tracking-[0.08em] transition-colors',
+          'group relative flex items-center gap-2.5 rounded-[12px] px-2.5 py-2 text-[13px] font-medium transition-all duration-200',
           isActive
-            ? 'border-[#c2542f] bg-white/[0.055] text-[#f8f6f0]'
-            : 'border-transparent text-white/50 hover:border-white/20 hover:bg-white/[0.03] hover:text-white/85',
+            ? 'bg-[#0071e3]/10 text-[#0071e3]'
+            : 'text-[#424245] hover:bg-black/[0.045] hover:text-[#1d1d1f]',
         )}
       >
-        <Icon
+        <span
           className={cn(
-            'h-3.5 w-3.5 shrink-0',
+            'flex h-6 w-6 shrink-0 items-center justify-center rounded-[8px] transition-colors',
             isActive
-              ? 'text-[#d07a58]'
-              : 'text-white/35 group-hover:text-white/70',
+              ? 'bg-[#0071e3] text-white'
+              : 'text-[#86868b] group-hover:text-[#1d1d1f]',
           )}
-        />
+        >
+          <Icon className="h-[15px] w-[15px]" />
+        </span>
         <span className="flex-1">{item.name}</span>
         {item.name === 'Notifications' && unread > 0 && (
-          <span className="flex h-4 min-w-[16px] items-center justify-center bg-[#a33a1b] px-1 font-mono text-[8px] font-medium text-white">
+          <span className="flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#ff3b30] px-1 text-[10px] font-semibold text-white">
             {unread > 9 ? '9+' : unread}
           </span>
         )}
@@ -277,12 +279,12 @@ export default function DashboardLayout({
 
   if (!ready) {
     return (
-      <div className="flex h-screen items-center justify-center bg-[#f1eee6]">
-        <div className="flex flex-col items-center gap-5">
-          <LogoMark className="h-12 w-12" />
-          <div className="flex items-center gap-2 font-mono text-[9px] font-medium uppercase tracking-[0.16em] text-[#7a7365]">
+      <div className="flex h-screen items-center justify-center bg-white">
+        <div className="flex flex-col items-center gap-4">
+          <LogoMark className="h-11 w-11" />
+          <div className="flex items-center gap-2 text-[12px] font-medium text-[#6e6e73]">
             <Spinner className="h-3.5 w-3.5" />
-            Opening the record…
+            Loading workspace…
           </div>
         </div>
       </div>
@@ -290,72 +292,67 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex h-screen bg-[#f1eee6] text-[#171611]">
+    <div className="flex h-screen bg-white text-[#1d1d1f]">
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-30 bg-[#171611]/50 lg:hidden"
+          className="fixed inset-0 z-30 bg-[#1d1d1f]/20 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       <aside
         className={cn(
-          'fixed left-0 top-0 z-40 flex h-full w-[252px] flex-col border-r border-[#171611] bg-[#161510] transition-transform duration-300 lg:static lg:translate-x-0',
+          'fixed left-0 top-0 z-40 flex h-full w-[256px] flex-col border-r border-[#e5e5ea] bg-white transition-transform duration-300 ease-out lg:static lg:translate-x-0',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
-        <div className="border-b border-white/10 px-5 pb-5 pt-6">
-          <div className="flex items-start justify-between">
-            <Logo light href="/dashboard" />
-            <button
-              className="p-1 text-white/40 transition-colors hover:text-white lg:hidden"
-              onClick={() => setSidebarOpen(false)}
-              aria-label="Close sidebar"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-          <p className="mt-4 font-mono text-[7px] font-medium uppercase tracking-[0.2em] text-white/30">
-            Registrar&apos;s desk <span className="mx-1.5">/</span> 2026
-          </p>
+        <div className="flex h-16 shrink-0 items-center justify-between px-5">
+          <Logo href="/dashboard" />
+          <button
+            className="flex h-8 w-8 items-center justify-center rounded-full text-[#86868b] transition-colors hover:bg-black/[0.06] hover:text-[#1d1d1f] lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Close sidebar"
+          >
+            <X className="h-4 w-4" />
+          </button>
         </div>
 
-        <div className="px-4 pt-4">
+        <div className="px-3 pt-1">
           <Link
             href="/dashboard/profile"
             onClick={() => setSidebarOpen(false)}
-            className="flex items-center gap-3 border border-white/10 p-3 transition-colors hover:border-white/25 hover:bg-white/[0.03]"
+            className="flex items-center gap-2.5 rounded-[14px] border border-[#e5e5ea] bg-white p-2.5 transition-colors hover:bg-[#f5f5f7]"
           >
             <Avatar
               name={user?.fullName || user?.username}
-              className="h-9 w-9 shrink-0 border-white/20 bg-[#f8f6f0] text-[14px] text-[#171611]"
+              className="h-9 w-9 shrink-0 text-[12px]"
             />
             <div className="min-w-0 flex-1">
-              <p className="truncate font-editorial text-[15px] font-semibold leading-tight text-white">
+              <p className="truncate text-[12.5px] font-semibold leading-tight text-[#1d1d1f]">
                 {user?.fullName || user?.username}
               </p>
-              <p className="mt-0.5 truncate font-mono text-[7px] font-medium uppercase tracking-[0.14em] text-white/40">
+              <p className="mt-0.5 truncate text-[10.5px] text-[#6e6e73]">
                 {roleLabel(user?.role)}
               </p>
             </div>
-            <ChevronRight className="h-3.5 w-3.5 shrink-0 text-white/30" />
+            <ChevronRight className="h-3.5 w-3.5 shrink-0 text-[#a1a1aa]" />
           </Link>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-4 py-6">
-          <p className="pb-2 pl-1 font-mono text-[7px] font-medium uppercase tracking-[0.2em] text-white/25">
+        <nav className="flex-1 overflow-y-auto px-3 py-5">
+          <p className="px-2.5 pb-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#86868b]">
             Workspace
           </p>
           <div className="space-y-0.5">{workspace.map(renderNavItem)}</div>
 
-          <p className="pb-2 pl-1 pt-7 font-mono text-[7px] font-medium uppercase tracking-[0.2em] text-white/25">
+          <p className="px-2.5 pb-1.5 pt-5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#86868b]">
             Services
           </p>
           <div className="space-y-0.5">{services.map(renderNavItem)}</div>
 
           {admin.length > 0 && (
             <>
-              <p className="pb-2 pl-1 pt-7 font-mono text-[7px] font-medium uppercase tracking-[0.2em] text-white/25">
+              <p className="px-2.5 pb-1.5 pt-5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#86868b]">
                 Administration
               </p>
               <div className="space-y-0.5">{admin.map(renderNavItem)}</div>
@@ -363,69 +360,66 @@ export default function DashboardLayout({
           )}
         </nav>
 
-        <div className="border-t border-white/10 p-4">
-          <div className="border-l border-white/20 pl-3">
-            <p className="font-mono text-[7px] font-medium uppercase tracking-[0.16em] text-white/35">
-              Trust note
+        <div className="p-3">
+          <div className="rounded-[14px] border border-[#e5e5ea] bg-[#f7f7f8] p-3">
+            <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#6e6e73]">
+              <ShieldCheck className="h-3 w-3" />
+              Ballot privacy
             </p>
-            <p className="mt-1.5 text-[10px] leading-relaxed text-white/45">
-              Ballots are separated from identities. Every administrative action
-              is written to the record.
+            <p className="mt-1.5 text-[10.5px] leading-relaxed text-[#86868b]">
+              Votes are separated from identities. Every administrative action
+              is written to the audit log.
             </p>
           </div>
-
-          <div className="mt-4 flex items-center gap-2.5 border-t border-white/10 pt-3">
-            <p className="min-w-0 flex-1 truncate font-mono text-[8px] uppercase tracking-[0.12em] text-white/30">
-              @{user?.username}
-            </p>
+          <div className="mt-2 flex items-center justify-between px-1 py-1.5">
+            <span className="text-[10px] text-[#a1a1aa]">CampusVoice v1.0</span>
             <button
               onClick={handleLogout}
-              className="p-1.5 text-white/35 transition-colors hover:text-[#d07a58]"
-              aria-label="Sign out"
-              title="Sign out"
+              className="inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-[11px] font-medium text-[#6e6e73] transition-colors hover:bg-[#ff3b30]/10 hover:text-[#ff3b30]"
             >
               <LogOut className="h-3.5 w-3.5" />
+              Sign out
             </button>
           </div>
         </div>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-20 flex h-[56px] shrink-0 items-center justify-between border-b border-[#cfc8b8] bg-[#f8f6f0]/95 px-4 backdrop-blur-sm sm:px-6">
+        <header className="sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-3 border-b border-[#e5e5ea] bg-white px-4 sm:px-6">
           <div className="flex min-w-0 items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="p-1.5 text-[#5f5b4f] transition-colors hover:text-[#171611] lg:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-[#f0f0f2] hover:text-[#1d1d1f] lg:hidden"
               aria-label="Open sidebar"
             >
               <Menu className="h-5 w-5" />
             </button>
 
-            <div className="hidden min-w-0 items-center gap-2 font-mono text-[8px] font-medium uppercase tracking-[0.14em] sm:flex">
+            <div className="hidden min-w-0 items-center gap-2 text-[12px] sm:flex">
               <Link
                 href="/dashboard"
-                className="text-[#8a8274] transition-colors hover:text-[#171611]"
+                className="font-medium text-[#86868b] transition-colors hover:text-[#0071e3]"
               >
                 Workspace
               </Link>
-              <span className="text-[#b3ab9c]">/</span>
-              <span className="truncate text-[#171611]">
+              <span className="text-[#c7c7cc]">/</span>
+              <span className="truncate font-semibold text-[#1d1d1f]">
                 {activeItem?.name || 'Overview'}
               </span>
             </div>
 
-            <span className="truncate font-mono text-[9px] font-medium uppercase tracking-[0.1em] sm:hidden">
+            <span className="truncate text-[13px] font-semibold text-[#1d1d1f] sm:hidden">
               {activeItem?.name || 'Overview'}
             </span>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-2.5">
             <button
               onClick={() => setCommandOpen(true)}
-              className="hidden h-8 items-center gap-2 border border-[#171611]/20 bg-transparent px-3 font-mono text-[8px] font-medium uppercase tracking-[0.1em] text-[#7a7365] transition-colors hover:border-[#171611]/50 hover:text-[#171611] md:flex"
+              className="hidden h-9 w-[232px] items-center gap-2 rounded-full border border-[#e5e5ea] bg-[#f5f5f7] px-3.5 text-[12px] text-[#86868b] transition-colors hover:bg-[#efeff1] md:flex"
             >
-              <Search className="h-3 w-3" />
-              <span className="pr-8">Search the record</span>
+              <Search className="h-3.5 w-3.5" />
+              <span className="flex-1 text-left">Search the record</span>
               <span className="flex items-center gap-0.5">
                 <Kbd>⌘</Kbd>
                 <Kbd>K</Kbd>
@@ -434,44 +428,49 @@ export default function DashboardLayout({
 
             <button
               onClick={() => setCommandOpen(true)}
-              className="p-1.5 text-[#5f5b4f] transition-colors hover:text-[#171611] md:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-[#f0f0f2] hover:text-[#1d1d1f] md:hidden"
               aria-label="Open command palette"
             >
-              <Search className="h-4.5 w-4.5" />
+              <Search className="h-[18px] w-[18px]" />
             </button>
-
-            <div className="hidden items-center gap-1.5 border-l border-[#171611]/15 pl-3 font-mono text-[7px] font-medium uppercase tracking-[0.14em] text-[#7a7365] lg:flex">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#2f5d3a]" />
-              {roleLabel(user?.role)}
-            </div>
 
             <Link
               href="/dashboard/notifications"
-              className="relative p-1.5 text-[#5f5b4f] transition-colors hover:text-[#171611]"
+              className="relative flex h-9 w-9 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-[#f0f0f2] hover:text-[#1d1d1f]"
               aria-label="Notifications"
             >
               <Bell className="h-[18px] w-[18px]" />
               {unread > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-3.5 min-w-[14px] items-center justify-center bg-[#a33a1b] px-0.5 font-mono text-[7px] font-medium text-white">
+                <span className="absolute right-1 top-1 flex h-3.5 min-w-[14px] items-center justify-center rounded-full bg-[#ff3b30] px-0.5 text-[9px] font-semibold text-white ring-2 ring-white">
                   {unread > 9 ? '9+' : unread}
                 </span>
               )}
             </Link>
 
+            <div className="hidden h-6 w-px bg-[#e5e5ea] sm:block" />
+
             <Link
               href="/dashboard/profile"
-              className="ml-0.5 flex items-center transition-opacity hover:opacity-75"
+              className="flex items-center gap-2 rounded-full p-0.5 pr-2 transition-colors hover:bg-[#f0f0f2]"
             >
               <Avatar
                 name={user?.fullName || user?.username}
-                className="h-7 w-7 text-[11px]"
+                className="h-8 w-8 text-[11px]"
               />
+              <span className="hidden min-w-0 md:block">
+                <span className="block max-w-[140px] truncate text-[12px] font-medium leading-tight text-[#1d1d1f]">
+                  {user?.fullName || user?.username}
+                </span>
+                <span className="block text-[10px] leading-tight text-[#86868b]">
+                  {roleLabel(user?.role)}
+                </span>
+              </span>
             </Link>
           </div>
         </header>
 
-        <main className="relative flex-1 overflow-y-auto bg-[#f1eee6]">
-          <div className="mx-auto max-w-[1220px] px-5 py-7 sm:px-7 lg:px-10 lg:py-10">
+        <main className="relative flex-1 overflow-y-auto bg-white">
+          <div className="mx-auto max-w-[1240px] px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
             {children}
           </div>
         </main>
