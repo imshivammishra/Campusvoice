@@ -190,10 +190,10 @@ function Hero() {
 
         <div className="mt-9 flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
           <Link
-            href="/register"
+            href="/login"
             className="inline-flex h-12 items-center justify-center rounded-full bg-[#0071e3] px-7 text-[15px] font-medium text-white transition-colors hover:bg-[#0077ed]"
           >
-            Get started
+            Access HUConnect
           </Link>
           <a
             href="#overview"
@@ -572,10 +572,10 @@ export default function HomePage() {
               Sign in
             </Link>
             <Link
-              href="/register"
+              href="/login"
               className="rounded-full bg-[#0071e3] px-3.5 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-[#0077ed]"
             >
-              Get started
+              Access portal
             </Link>
           </div>
 
@@ -613,11 +613,11 @@ export default function HomePage() {
                 Sign in
               </Link>
               <Link
-                href="/register"
+                href="/login"
                 onClick={() => setMenuOpen(false)}
                 className="flex h-11 items-center justify-center rounded-full bg-[#0071e3] text-[14px] font-medium text-white"
               >
-                Get started
+                Access portal
               </Link>
             </div>
           </div>
@@ -982,10 +982,10 @@ export default function HomePage() {
               </p>
               <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
                 <Link
-                  href="/register"
+                  href="/login"
                   className="inline-flex h-12 items-center justify-center rounded-full bg-[#0071e3] px-7 text-[15px] font-medium text-white transition-colors hover:bg-[#0077ed]"
                 >
-                  Create an account
+                  Access HUConnect
                 </Link>
                 <Link
                   href="/login"
@@ -1028,7 +1028,7 @@ export default function HomePage() {
                 title: 'Access',
                 links: [
                   { label: 'Sign in', href: '/login' },
-                  { label: 'Create account', href: '/register' },
+                  { label: 'Access portal', href: '/login' },
                   { label: 'Reset password', href: '/forgot-password' },
                 ],
               },

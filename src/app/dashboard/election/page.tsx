@@ -30,7 +30,6 @@ function canStartElections(user: AuthUser | null) {
 export default function ElectionPage() {
   const [elections, setElections] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [starting, setStarting] = useState(false);
   const [user, setUser] = useState<AuthUser | null>(null);
 
   const load = useCallback(() => {
@@ -45,20 +44,6 @@ export default function ElectionPage() {
     load();
   }, [load]);
 
-  const startVoting = async () => {
-    setStarting(true);
-    try {
-      const res: any = await apiRequest('/elections/start', { method: 'POST' });
-      toast.success(res?.message || 'CR voting started.');
-      setLoading(true);
-      load();
-    } catch (error: any) {
-      toast.error(error?.message || 'Could not start CR voting');
-    } finally {
-      setStarting(false);
-    }
-  };
-
   const isAdmin = canStartElections(user);
 
   return (
@@ -68,10 +53,12 @@ export default function ElectionPage() {
         description="Class Representative elections. A 24-hour vote opens automatically every Sunday, and a super admin can also start one manually."
       >
         {isAdmin && (
-          <Button onClick={startVoting} loading={starting}>
-            <Play className="h-4 w-4" />
-            Start CR voting
-          </Button>
+          <Link href="/dashboard/election/start">
+            <Button>
+              <Play className="h-4 w-4" />
+              Start CR voting
+            </Button>
+          </Link>
         )}
       </PageHeader>
 
@@ -88,10 +75,12 @@ export default function ElectionPage() {
           }
           action={
             isAdmin ? (
-              <Button onClick={startVoting} loading={starting}>
-                <Play className="h-4 w-4" />
-                Start CR voting now
-              </Button>
+              <Link href="/dashboard/election/start">
+                <Button>
+                  <Play className="h-4 w-4" />
+                  Start CR voting now
+                </Button>
+              </Link>
             ) : undefined
           }
         />

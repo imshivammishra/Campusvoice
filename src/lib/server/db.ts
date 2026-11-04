@@ -63,6 +63,53 @@ export async function connectDB(): Promise<typeof mongoose> {
 async function syncIndexes() {
   if (process.env.SYNC_DB_INDEXES === 'false') return;
   const models = await import('./models');
+  // Drop legacy unique indexes (created by the old NestJS backend) that lacked
+  // a partial filter and therefore blocked multiple documents with a missing
+  // studentId/employeeId (which MongoDB stores as null).
+  try {
+    const User = (models as any).User;
+    if (User?.collection?.indexes) {
+      const indexes = await User.collection.indexes();
+      for (const idx of indexes) {
+        const keys = Object.keys(idx.key || {});
+        const isLegacyUnique =
+          idx.unique === true &&
+          !idx.partialFilterExpression &&
+          keys.length === 1 &&
+          (keys[0] === 'studentId' || keys[0] === 'employeeId');
+        if (isLegacyUnique) {
+          await User.collection.dropIndex(idx.name);
+          console.log('[db] dropped legacy index:', idx.name);
+        }
+      }
+    }
+  } catch (error: any) {
+    console.warn('[db] legacy index cleanup failed:', error?.message || error);
+  }
+
+  // Drop obsolete indexes left by the previous NestJS backend (ballotId, escalationId).
+  for (const model of Object.values(models)) {
+    const m = model as any;
+    if (!m?.collection?.indexes) continue;
+    try {
+      const idxs = await m.collection.indexes();
+      for (const idx of idxs) {
+        const keys = Object.keys(idx.key || {});
+        const isObsolete =
+          idx.name === 'ballotId_1' ||
+          idx.name === 'escalationId_1' ||
+          keys.includes('ballotId') ||
+          keys.includes('escalationId');
+        if (isObsolete) {
+          await m.collection.dropIndex(idx.name);
+          console.log('[db] dropped obsolete index:', idx.name);
+        }
+      }
+    } catch (error: any) {
+      console.warn('[db] obsolete index cleanup failed:', error?.message || error);
+    }
+  }
+
   const results = await Promise.allSettled(
     Object.values(models).map((model: any) =>
       typeof model?.syncIndexes === 'function' ? model.syncIndexes() : Promise.resolve(),

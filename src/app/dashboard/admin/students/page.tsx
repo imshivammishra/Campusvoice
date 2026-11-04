@@ -188,7 +188,7 @@ export default function AdminStudentsPage() {
             <code className="rounded bg-secondary px-1">
               Full Name, Student ID, Email (optional), Password (optional)
             </code>
-            . Username defaults to the Student ID. If no password is given, a
+            . Username is generated from the student&apos;s name. If no password is given, a
             secure one is generated automatically.
           </p>
           <Textarea

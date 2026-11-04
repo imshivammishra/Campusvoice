@@ -1,0 +1,147 @@
+ ⨯ TypeError: e[o] is not a function
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at 46051 (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:611)
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at r (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8610)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8637
+    at t.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:1191)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8623
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8665)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+ ⨯ TypeError: e[o] is not a function
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at 46051 (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:611)
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at r (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8610)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8637
+    at t.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:1191)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8623
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8665)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+ ⨯ TypeError: e[o] is not a function
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at 46051 (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:611)
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at r (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8610)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8637
+    at t.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:1191)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8623
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8665)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+ ⨯ TypeError: e[o] is not a function
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at 46051 (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:611)
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at r (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8610)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8637
+    at t.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:1191)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8623
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8665)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+ ⨯ TypeError: e[o] is not a function
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at 46051 (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:611)
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at r (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8610)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8637
+    at t.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:1191)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8623
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8665)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+ ⨯ TypeError: e[o] is not a function
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at 46051 (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:611)
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at r (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8610)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8637
+    at t.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:1191)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8623
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8665)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+ ⨯ TypeError: e[o] is not a function
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at 46051 (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:611)
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at r (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8610)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8637
+    at t.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:1191)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8623
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8665)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+ ⨯ TypeError: e[o] is not a function
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at 46051 (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:611)
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at r (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8610)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8637
+    at t.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:1191)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8623
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js:1:8665)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+ ⨯ TypeError: e[o] is not a function
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at 13945 (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\_not-found\page.js:1:635)
+    at t (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:127)
+    at n (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\_not-found\page.js:1:3943)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\_not-found\page.js:1:3974
+    at t.X (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\webpack-runtime.js:1:1191)
+    at C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\_not-found\page.js:1:3956
+    at Object.<anonymous> (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\_not-found\page.js:1:4002)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js'
+    at Object.readFileSync (node:fs:484:20)
+    at defaultLoadImpl (node:internal/modules/cjs/loader:1243:17)
+    at loadSource (node:internal/modules/cjs/loader:1955:20)
+    at Object..js (node:internal/modules/cjs/loader:2053:44)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\pages\\_error.js'
+}
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\pages\_error.js'
+    at Object.readFileSync (node:fs:484:20)
+    at defaultLoadImpl (node:internal/modules/cjs/loader:1243:17)
+    at loadSource (node:internal/modules/cjs/loader:1955:20)
+    at Object..js (node:internal/modules/cjs/loader:2053:44)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\pages\\_error.js'
+}
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\iamsh\OneDrive\Desktop\CampusVoice\.next\server\app\_not-found\page.js'
+    at Object.readFileSync (node:fs:484:20)
+    at defaultLoadImpl (node:internal/modules/cjs/loader:1243:17)
+    at loadSource (node:internal/modules/cjs/loader:1955:20)
+    at Object..js (node:internal/modules/cjs/loader:2053:44)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1674:12)
+    at mod.require (C:\Users\iamsh\OneDrive\Desktop\CampusVoice\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:157:16) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\iamsh\\OneDrive\\Desktop\\CampusVoice\\.next\\server\\app\\_not-found\\page.js'
+}

@@ -67,6 +67,37 @@ async function listStudents(ctx: RouteContext) {
 }
 
 async function users(ctx: RouteContext, id?: string, action?: string) {
+  if (ctx.method === 'DELETE' && id === 'bulk') {
+    const viewer = await requireAuth(ctx.req);
+    if (viewer.role !== ROLES.SUPER_ADMIN && !hasPermission(viewer, PERMISSIONS.USERS_DEACTIVATE)) {
+      throw new ApiError('You do not have permission to delete users', 403);
+    }
+    const body = await ctx.body().catch(() => ({}));
+    const ids: string[] = Array.isArray(body.ids) ? body.ids.filter((v: any) => typeof v === 'string') : [];
+    const targetIds = ids.filter((id) => id !== viewer.sub);
+    if (targetIds.length === 0) {
+      return json({ success: true, deleted: 0 });
+    }
+    const targets = await User.find({ _id: { $in: targetIds }, role: { $ne: ROLES.SUPER_ADMIN } }).select('_id').lean();
+    const deleteIds = targets.map((u: any) => u._id.toString());
+    if (deleteIds.length === 0) {
+      return json({ success: true, deleted: 0 });
+    }
+    await Promise.all([
+      User.deleteMany({ _id: { $in: deleteIds } }),
+      Notification.deleteMany({ userId: { $in: deleteIds } }),
+      SupportTicket.deleteMany({ createdBy: { $in: deleteIds } }),
+      SupportMessage.deleteMany({ senderId: { $in: deleteIds } }),
+      Proposal.deleteMany({ createdBy: { $in: deleteIds } }),
+      CrMessage.deleteMany({ $or: [{ studentId: { $in: deleteIds } }, { senderId: { $in: deleteIds } }] }),
+      RegistrationApproval.deleteMany({ userId: { $in: deleteIds } }),
+      VotingAuthorization.deleteMany({ userId: { $in: deleteIds } }),
+      AuditEvent.deleteMany({ userId: { $in: deleteIds } }),
+    ]);
+    await audit('accounts_bulk_deleted', { user: viewer, entityType: 'User', metadata: { count: deleteIds.length } });
+    return json({ success: true, deleted: deleteIds.length });
+  }
+
   if (ctx.method === 'GET' && !id) {
     const viewer = await requireAuth(ctx.req);
     if (!hasPermission(viewer, PERMISSIONS.USERS_READ)) {
@@ -187,21 +218,36 @@ async function users(ctx: RouteContext, id?: string, action?: string) {
         const email = row.email
           ? String(row.email).toLowerCase()
           : `${username}@student.campusvoice.local`;
-        const user = await User.create({
-          username,
-          email,
-          passwordHash: await hashPassword(tempPassword),
-          fullName,
-          role: ROLES.STUDENT,
-          permissions: ROLE_PERMISSIONS.STUDENT,
-          studentId: row.studentId || undefined,
-          className: defaults.className || undefined,
-          section: defaults.section || undefined,
-          course: defaults.course || undefined,
-          institutionId: viewer.institutionId || undefined,
-          isActive: true,
-          isEmailVerified: true,
-        });
+        const providedStudentId = typeof row.studentId === 'string' ? row.studentId.trim() : '';
+        const createStudent = async (studentId?: string) =>
+          User.create({
+            username,
+            email,
+            passwordHash: await hashPassword(tempPassword),
+            fullName,
+            role: ROLES.STUDENT,
+            permissions: ROLE_PERMISSIONS.STUDENT,
+            studentId: studentId || undefined,
+            className: defaults.className || undefined,
+            section: defaults.section || undefined,
+            course: defaults.course || undefined,
+            institutionId: viewer.institutionId || undefined,
+            isActive: true,
+            isEmailVerified: true,
+          });
+        let user: any;
+        try {
+          user = await createStudent(providedStudentId || undefined);
+        } catch (createError: any) {
+          // Work around legacy unique indexes that treat a missing studentId as
+          // null and therefore allow only one such document. Retry with a
+          // generated unique student id so the account can still be created.
+          if (createError?.code === 11000 && !providedStudentId) {
+            user = await createStudent(`AUTO-${Date.now()}-${index + 1}`);
+          } else {
+            throw createError;
+          }
+        }
         created += 1;
         results.push({
           ok: true,
@@ -218,7 +264,7 @@ async function users(ctx: RouteContext, id?: string, action?: string) {
           ok: false,
           fullName,
           studentId: row.studentId,
-          error: error?.code === 11000 ? 'Duplicate username, email or student ID' : error?.message || 'Failed',
+          error: error?.code === 11000 ? ('Duplicate ' + (Object.keys(error.keyPattern || error.keyValue || {})[0] || 'username, email or student ID')) : (error?.message || 'Failed'),
         });
       }
     }

@@ -111,6 +111,7 @@ const ADMIN_NAV: NavItem[] = [
     icon: Building2,
   },
   { name: 'Roles & Access', href: '/dashboard/admin/rbac', icon: ShieldPlus },
+  { name: 'CR Voting', href: '/dashboard/election/start', icon: Vote },
 ];
 
 function visibleNav(items: NavItem[], role?: string) {

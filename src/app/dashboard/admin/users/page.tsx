@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 import { KeyRound, Plus, Search, ShieldCheck, Trash2, UserCog, UsersRound } from 'lucide-react';
 import { apiRequest } from '@/lib/api';
-import {
+import { fetchCurrentUser } from '@/lib/auth';import {
   Avatar,
   Badge,
   Button,
@@ -62,6 +62,9 @@ export default function AdminUsersPage() {
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState('');
   const [allPermissions, setAllPermissions] = useState<string[]>([]);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [canDeleteUsers, setCanDeleteUsers] = useState(false);
+  const [bulkDeleting, setBulkDeleting] = useState(false);
 
   const [createOpen, setCreateOpen] = useState(false);
   const [editUser, setEditUser] = useState<User | null>(null);
@@ -81,9 +84,63 @@ export default function AdminUsersPage() {
     }
   }, [search, roleFilter]);
 
+  const toggleSelect = (id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (selected.size === users.length && users.length > 0) {
+      setSelected(new Set());
+    } else {
+      setSelected(new Set(users.map((u) => u._id)));
+    }
+  };
+
+  const bulkDelete = async () => {
+    if (selected.size === 0) return;
+    const confirmed = window.confirm(
+      `Permanently delete ${selected.size} selected user${selected.size === 1 ? '' : 's'}? This cannot be undone.`,
+    );
+    if (!confirmed) return;
+    setBulkDeleting(true);
+    try {
+      const res = await apiRequest('/users/bulk', {
+        method: 'DELETE',
+        body: JSON.stringify({ ids: Array.from(selected) }),
+      });
+      toast.success(`${res?.deleted ?? selected.size} user${(res?.deleted ?? selected.size) === 1 ? '' : 's'} deleted`);
+      setSelected(new Set());
+      load();
+    } catch (e: any) {
+      toast.error(e?.message || 'Bulk delete failed');
+    } finally {
+      setBulkDeleting(false);
+    }
+  };
+
   useEffect(() => {
     load();
   }, [load]);
+
+  useEffect(() => {
+    fetchCurrentUser()
+      .then((u: any) =>
+        setCanDeleteUsers(
+          u?.role === 'SUPER_ADMIN' ||
+            (Array.isArray(u?.permissions) && u.permissions.includes('users:deactivate')),
+        ),
+      )
+      .catch(() => setCanDeleteUsers(false));
+  }, []);
+
+  useEffect(() => {
+    setSelected(new Set());
+  }, [users]);
 
   useEffect(() => {
     apiRequest('/permissions')
@@ -142,9 +199,31 @@ export default function AdminUsersPage() {
           description="Try adjusting your search, or create a new account."
         />
       ) : (
-        <Table>
+        <>
+          {canDeleteUsers && selected.size > 0 && (
+            <div className="flex items-center justify-between rounded-[12px] border border-[#fecaca] bg-[#fef2f2] px-4 py-3">
+              <p className="text-sm font-medium text-destructive">
+                {selected.size} user{selected.size === 1 ? '' : 's'} selected
+              </p>
+              <Button variant="destructive" size="sm" onClick={bulkDelete} loading={bulkDeleting}>
+                <Trash2 className="h-4 w-4" />
+                Delete selected
+              </Button>
+            </div>
+          )}
+          <Table>
           <THead>
             <TR>
+              {canDeleteUsers && (
+                <TH className="w-10">
+                  <input
+                    type="checkbox"
+                    checked={users.length > 0 && selected.size === users.length}
+                    onChange={toggleSelectAll}
+                    className="h-4 w-4 rounded border-[#d4d4d8]"
+                  />
+                </TH>
+              )}
               <TH>User</TH>
               <TH className="hidden md:table-cell">Email</TH>
               <TH>Role</TH>
@@ -155,6 +234,16 @@ export default function AdminUsersPage() {
           <tbody>
             {users.map((u) => (
               <TR key={u._id}>
+                {canDeleteUsers && (
+                  <TD className="w-10">
+                    <input
+                      type="checkbox"
+                      checked={selected.has(u._id)}
+                      onChange={() => toggleSelect(u._id)}
+                      className="h-4 w-4 rounded border-[#d4d4d8]"
+                    />
+                  </TD>
+                )}
                 <TD>
                   <div className="flex items-center gap-3">
                     <Avatar name={u.fullName || u.username} className="h-9 w-9" />
@@ -202,6 +291,7 @@ export default function AdminUsersPage() {
             ))}
           </tbody>
         </Table>
+        </>
       )}
 
       <CreateUserModal
@@ -533,7 +623,7 @@ function ManageUserModal({
     }
   };
 
-  const isSuperAdmin = user.role === 'SUPER_ADMIN';
+  const canDeleteUsers = user.role === 'SUPER_ADMIN';
 
   return (
     <Modal
@@ -621,7 +711,7 @@ function ManageUserModal({
           />
         </div>
 
-        {!isSuperAdmin && (
+        {!canDeleteUsers && (
           <div className="rounded-[12px] border border-[#fecaca] bg-[#fef2f2] p-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">

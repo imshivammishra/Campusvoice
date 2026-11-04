@@ -207,10 +207,14 @@ export default function DashboardPage() {
   );
   const quickActions = useMemo(() => {
     const role = user?.role || '';
+    let actions = QUICK_ACTIONS;
+    if (role === 'SUPER_ADMIN') {
+      actions = actions.filter((action) => action.href !== '/dashboard/election');
+    }
     const canBrowseProposals =
       role === 'TEACHER' || AUTHORITY_ROLES.includes(role as any);
-    if (canBrowseProposals) return QUICK_ACTIONS;
-    return QUICK_ACTIONS.map((action) =>
+    if (canBrowseProposals) return actions;
+    return actions.map((action) =>
       action.href === '/dashboard/proposals'
         ? {
             ...action,
@@ -361,7 +365,8 @@ export default function DashboardPage() {
 
       <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <div className="min-w-0 space-y-6">
-        <section className="overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white">
+        {user?.role !== "SUPER_ADMIN" && (
+          <section className="overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white">
           {!data ? (
             <div className="p-6">
               <Skeleton className="h-4 w-32" />
@@ -581,6 +586,7 @@ export default function DashboardPage() {
             </div>
           )}
         </section>
+        )}
 
           <section className="overflow-hidden rounded-[16px] border border-[#e4e4e7] bg-white">
             <div className="flex items-center justify-between border-b border-[#e4e4e7] px-5 py-4">
