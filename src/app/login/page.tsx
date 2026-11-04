@@ -154,13 +154,8 @@ export default function LoginPage() {
         </form>
 
         <p className="mt-5 text-[12.5px] text-[#52525b]">
-          New to HUConnect?{' '}
-          <Link
-            href="/register"
-            className="font-medium text-[#0071e3] transition-colors hover:text-[#0b3a63] hover:underline"
-          >
-            Create an account
-          </Link>
+          Accounts are created by your institution&apos;s administrator. Contact
+          them if you need access.
         </p>
 
         {showDemo && (

@@ -30,6 +30,7 @@ export async function handleAuth(ctx: RouteContext): Promise<Response | null> {
   if (ctx.method === 'POST' && action === 'logout') return logout(ctx);
   if (ctx.method === 'POST' && action === 'refresh') return refresh(ctx);
   if (ctx.method === 'GET' && action === 'me') return me(ctx);
+  if (ctx.method === 'POST' && action === 'change-password') return changePassword(ctx);
   if (ctx.method === 'POST' && action === 'register') return register(ctx);
   if (ctx.method === 'GET' && action === 'register-options') return registerOptions(ctx);
   if (ctx.method === 'POST' && action === 'password-reset' && sub === 'request') {
@@ -186,6 +187,36 @@ async function me(ctx: RouteContext) {
   const user = await User.findById(session.sub).lean();
   if (!user) throw new ApiError('User not found', 404);
   return json({ user: sanitizeUser(user) });
+}
+
+async function changePassword(ctx: RouteContext) {
+  const session = await getCurrentUser(ctx.req);
+  if (!session) throw new ApiError('Authentication required', 401);
+  const body = await ctx.body();
+  const currentPassword = requireString(body.currentPassword, 'Current password');
+  const newPassword = requireString(body.newPassword || body.password, 'New password');
+  if (newPassword.length < 8) {
+    throw new ApiError('New password must be at least 8 characters', 422);
+  }
+  const user = await User.findById(session.sub).select('+passwordHash');
+  if (!user) throw new ApiError('User not found', 404);
+  if (user.cannotChangePassword) {
+    throw new ApiError('Password changes are disabled for this account. Contact an administrator.', 403);
+  }
+  const valid = await verifyPassword(user.passwordHash, currentPassword);
+  if (!valid) throw new ApiError('Your current password is incorrect', 401);
+  if (currentPassword === newPassword) {
+    throw new ApiError('Your new password must be different from the current one', 422);
+  }
+  user.passwordHash = await hashPassword(newPassword);
+  await user.save();
+  await audit('password_changed', {
+    user: session as any,
+    entityType: 'User',
+    entityId: user._id.toString(),
+    ...clientMeta(ctx.req),
+  });
+  return json({ success: true, message: 'Your password has been updated' });
 }
 
 async function registerOptions(_ctx: RouteContext) {

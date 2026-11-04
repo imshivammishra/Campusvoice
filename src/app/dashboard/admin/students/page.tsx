@@ -20,7 +20,7 @@ import {
   Textarea,
 } from '@/components/ui';
 
-type Parsed = { fullName: string; studentId?: string; email?: string };
+type Parsed = { fullName: string; studentId?: string; email?: string; password?: string };
 type Result = {
   ok: boolean;
   fullName?: string;
@@ -38,13 +38,14 @@ function parseRows(text: string): Parsed[] {
     .filter(Boolean)
     .filter((line) => !/^full\s*name/i.test(line))
     .map((line) => {
-      const [fullName, studentId, email] = line
+      const [fullName, studentId, email, password] = line
         .split(',')
         .map((p) => p.trim());
       return {
         fullName,
         studentId: studentId || undefined,
         email: email || undefined,
+        password: password || undefined,
       };
     })
     .filter((r) => r.fullName);
@@ -55,6 +56,7 @@ export default function AdminStudentsPage() {
   const [className, setClassName] = useState('');
   const [section, setSection] = useState('');
   const [course, setCourse] = useState('');
+  const [password, setPassword] = useState('');
   const [saving, setSaving] = useState(false);
   const [results, setResults] = useState<Result[] | null>(null);
 
@@ -63,6 +65,10 @@ export default function AdminStudentsPage() {
   const submit = async () => {
     if (parsed.length === 0) {
       toast.error('Add at least one student (one per line).');
+      return;
+    }
+    if (password.trim() && password.trim().length < 8) {
+      toast.error('Custom password must be at least 8 characters.');
       return;
     }
     setSaving(true);
@@ -75,6 +81,7 @@ export default function AdminStudentsPage() {
             className: className || undefined,
             section: section || undefined,
             course: course || undefined,
+            password: password.trim() || undefined,
           },
           students: parsed,
         }),
@@ -160,21 +167,35 @@ export default function AdminStudentsPage() {
           </Field>
         </div>
 
+        <div className="mt-4">
+          <Field
+            label="Password for all students (optional)"
+            hint="Leave blank to auto-generate a unique password for each student. If set, every student in this batch logs in with this password (min 8 characters). You can also override it per student with a 4th column."
+          >
+            <Input
+              type="text"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="e.g. 12345678"
+            />
+          </Field>
+        </div>
+
         <div className="mt-5">
           <Label>Students</Label>
           <p className="mb-2 mt-0.5 text-xs text-muted-foreground">
             One student per line, comma-separated:{' '}
             <code className="rounded bg-secondary px-1">
-              Full Name, Student ID, Email (optional)
+              Full Name, Student ID, Email (optional), Password (optional)
             </code>
-            . Username defaults to the Student ID; a secure password is generated
-            automatically.
+            . Username defaults to the Student ID. If no password is given, a
+            secure one is generated automatically.
           </p>
           <Textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
             className="min-h-[180px] font-mono text-xs"
-            placeholder={`Riya Sharma, CSE2026001\nArjun Mehta, CSE2026002, arjun@college.edu\nPriya Nair, CSE2026003`}
+            placeholder={`Riya Sharma, CSE2026001\nArjun Mehta, CSE2026002, arjun@college.edu\nPriya Nair, CSE2026003, , mypass123`}
           />
         </div>
 

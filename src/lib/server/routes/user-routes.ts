@@ -105,6 +105,11 @@ async function users(ctx: RouteContext, id?: string, action?: string) {
     const body = await ctx.body();
     const students = Array.isArray(body.students) ? body.students : [];
     const defaults = body.defaults || {};
+    const sharedPassword =
+      typeof defaults.password === 'string' ? defaults.password.trim() : '';
+    if (sharedPassword && sharedPassword.length < 8) {
+      throw new ApiError('Custom password must be at least 8 characters', 422);
+    }
     const results: any[] = [];
     let created = 0;
     let failed = 0;
@@ -129,7 +134,21 @@ async function users(ctx: RouteContext, id?: string, action?: string) {
           username = `${base}${suffix}`;
           suffix += 1;
         }
-        const tempPassword = `Cv${Math.random().toString(36).slice(2, 8)}!${index + 1}`;
+        const rowPassword =
+          typeof row.password === 'string' ? row.password.trim() : '';
+        const customPassword = rowPassword || sharedPassword;
+        if (customPassword && customPassword.length < 8) {
+          failed += 1;
+          results.push({
+            ok: false,
+            fullName,
+            studentId: row.studentId,
+            error: 'Password must be at least 8 characters',
+          });
+          continue;
+        }
+        const tempPassword =
+          customPassword || `Cv${Math.random().toString(36).slice(2, 8)}!${index + 1}`;
         const email = row.email
           ? String(row.email).toLowerCase()
           : `${username}@student.campusvoice.local`;

@@ -1,15 +1,20 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import { KeyRound, Lock, ShieldCheck } from 'lucide-react';
+import { apiRequest } from '@/lib/api';
 import { fetchCurrentUser, getStoredUser, type AuthUser } from '@/lib/auth';
 import {
   Avatar,
   Badge,
+  Button,
   Card,
   CardContent,
   CardHeader,
   CardTitle,
+  Field,
+  Input,
   PageHeader,
   Skeleton,
 } from '@/components/ui';
@@ -111,18 +116,99 @@ export default function ProfilePage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <InfoCard
-          icon={Lock}
-          title="Credential restrictions"
-          body="Students cannot change their username or password through the normal profile interface. Contact an authorized authority for account corrections."
-        />
+        <ChangePasswordCard />
         <InfoCard
           icon={ShieldCheck}
           title="Security & audit"
-          body="All credential changes are recorded in the security audit log. Authorized authorities can initiate password resets without accessing your current password."
+          body="All credential changes are recorded in the security audit log. Authorized authorities can also reset your password without accessing your current one."
         />
       </div>
     </div>
+  );
+}
+
+function ChangePasswordCard() {
+  const [current, setCurrent] = useState('');
+  const [next, setNext] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  const submit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (next.length < 8) {
+      toast.error('New password must be at least 8 characters.');
+      return;
+    }
+    if (next !== confirm) {
+      toast.error('New password and confirmation do not match.');
+      return;
+    }
+    setSaving(true);
+    try {
+      await apiRequest('/auth/change-password', {
+        method: 'POST',
+        body: JSON.stringify({ currentPassword: current, newPassword: next }),
+      });
+      toast.success('Your password has been updated.');
+      setCurrent('');
+      setNext('');
+      setConfirm('');
+    } catch (error: any) {
+      toast.error(error?.message || 'Could not update your password');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <KeyRound className="h-4 w-4 text-[#0071e3]" />
+          Change password
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={submit} className="space-y-3">
+          <Field label="Current password">
+            <Input
+              type="password"
+              value={current}
+              onChange={(e) => setCurrent(e.target.value)}
+              placeholder="Enter your current password"
+              autoComplete="current-password"
+              required
+            />
+          </Field>
+          <Field label="New password" hint="At least 8 characters.">
+            <Input
+              type="password"
+              value={next}
+              onChange={(e) => setNext(e.target.value)}
+              placeholder="Enter a new password"
+              autoComplete="new-password"
+              required
+            />
+          </Field>
+          <Field label="Confirm new password">
+            <Input
+              type="password"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              placeholder="Re-enter the new password"
+              autoComplete="new-password"
+              required
+            />
+          </Field>
+          <div className="pt-1">
+            <Button type="submit" loading={saving}>
+              <Lock className="h-4 w-4" />
+              Update password
+            </Button>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
   );
 }
 
